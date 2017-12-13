@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  webapp: 
+    build: ./webapp
+    container_name: webapp
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongo
+  mongo:
+    image: 'mongo:3.4'
+    ports:
+      - "27017:27017"
