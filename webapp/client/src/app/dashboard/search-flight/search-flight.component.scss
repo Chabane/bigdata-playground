@@ -1,0 +1,11 @@
+.search-flight-box {
+  width: 100%;
+
+  .mat-card {
+    margin: 16px 0;
+  }
+
+  button:disabled, button[disabled] {
+    color: #ffd740 !important;
+  }
+}
