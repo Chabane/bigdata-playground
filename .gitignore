@@ -1,8 +1,10 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+ ######## webapp ########
+
 # compiled output
-/dist
-/tmp
+/webapp/dist
+/webapp/tmp
 
 # dependencies
 /webapp/node_modules
@@ -10,13 +12,13 @@
 /webapp/server/node_modules
 
 # IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
+/webapp/.idea
+/webapp/.project
+/webapp/.classpath
+/webapp/.c9/
+/webapp/*.launch
+/webapp/.settings/
+/webapp/*.sublime-workspace
 
 # IDE - VSCode
 .vscode/*
@@ -26,18 +28,134 @@
 !.vscode/extensions.json
 
 # misc
-/.sass-cache
-/connect.lock
-/coverage/*
+/webapp/.sass-cache
+/webapp/connect.lock
+/webapp/coverage/*
 /webapp/client/public
 /webapp/server/public
 /webapp/server/dist
-/libpeerconnection.log
-npm-debug.log
-testem.log
-/typings
-*.log
+/webapp/libpeerconnection.log
+/webapp/npm-debug.log
+/webapp/testem.log
+/webapp/typings
+/webapp.*.log
 
 #System Files
 .DS_Store
 Thumbs.db
+*.log
+
+######## batch ########
+/batch/.metadata
+/batch/bin/
+/batch/tmp/
+/batch/target/
+
+/batch/.classpath
+/batch/.project
+/batch/*.tmp
+/batch/*.bak
+/batch/*.swp
+/batch/*~.nib
+/batch/local.properties
+/batch/.settings/
+/batch/.loadpath
+/batch/.recommenders
+
+# External tool builders
+/batch/.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+/batch/*.launch
+
+# PyDev specific (Python IDE for Eclipse)
+/batch/*.pydevproject
+
+# CDT-specific (C/C++ Development Tooling)
+/batch/.cproject
+
+# Java annotation processor (APT)
+/batch/.factorypath
+
+# PDT-specific (PHP Development Tools)
+/batch/.buildpath
+
+# sbteclipse plugin
+/batch/.target
+/batch/project/project
+/batch/project/target
+
+# Tern plugin
+/batch/.tern-project
+
+# TeXlipse plugin
+/batch/.texlipse
+
+# STS (Spring Tool Suite)
+/batch/.springBeans
+
+# Code Recommenders
+/batch/.recommenders/
+
+# Scala IDE specific (Scala & Java development for Eclipse)
+/batch/.cache-main
+/batch/.scala_dependencies
+/batch/.worksheet
+
+######## streaming ########
+/streaming/.metadata
+/streaming/bin/
+/streaming/tmp/
+/streaming/target/
+
+/streaming/.classpath
+/streaming/.project
+/streaming/*.tmp
+/streaming/*.bak
+/streaming/*.swp
+/streaming/*~.nib
+/streaming/local.properties
+/streaming/.settings/
+/streaming/.loadpath
+/streaming/.recommenders
+
+# External tool builders
+/streaming/.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+/streaming/*.launch
+
+# PyDev specific (Python IDE for Eclipse)
+/streaming/*.pydevproject
+
+# CDT-specific (C/C++ Development Tooling)
+/streaming/.cproject
+
+# Java annotation processor (APT)
+/streaming/.factorypath
+
+# PDT-specific (PHP Development Tools)
+/streaming/.buildpath
+
+# sbteclipse plugin
+/streaming/.target
+/streaming/project/project
+/streaming/project/target
+
+# Tern plugin
+/streaming/.tern-project
+
+# TeXlipse plugin
+/streaming/.texlipse
+
+# STS (Spring Tool Suite)
+/streaming/.springBeans
+
+# Code Recommenders
+/streaming/.recommenders/
+
+# Scala IDE specific (Scala & Java development for Eclipse)
+/streaming/.cache-main
+/streaming/.scala_dependencies
+/streaming/.worksheet
+
