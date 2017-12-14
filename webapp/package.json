@@ -1,5 +1,5 @@
 {
-  "name": "search-flight-webapp-server",
+  "name": "search-flight-webapp",
   "version": "0.1.0",
   "description": "flight Patch Test",
   "main": "index.js",
