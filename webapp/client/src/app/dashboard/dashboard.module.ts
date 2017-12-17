@@ -11,7 +11,7 @@ import { SearchFlightService } from './search-flight/search-flight.service';
 import { MaterialModule } from '../shared/material.module';
 
 @NgModule({
-  imports: [    
+  imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
