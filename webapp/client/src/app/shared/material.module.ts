@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+
 import { CdkTableModule } from '@angular/cdk/table';
 import {
   MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatPaginatorModule,
@@ -8,12 +10,14 @@ import {
   MatListModule, MatMenuModule, MatProgressBarModule, MatProgressSpinnerModule,
   MatRadioModule, MatSelectModule, MatSidenavModule, MatSliderModule, MatSortModule,
   MatSlideToggleModule, MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule,
-  MatTooltipModule, MatFormFieldModule, MatExpansionModule, MatStepperModule
+  MatTooltipModule, MatFormFieldModule, MatExpansionModule, MatStepperModule, MatNativeDateModule
 } from '@angular/material';
 
 @NgModule({
   exports: [
     CdkTableModule,
+    MatNativeDateModule,
+    MatMomentDateModule,
     MatAutocompleteModule,
     MatButtonModule,
     MatButtonToggleModule,
@@ -46,4 +50,4 @@ import {
     MatTableModule
   ]
 })
-export class MaterialModule {}
+export class MaterialModule { }

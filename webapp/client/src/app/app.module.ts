@@ -26,7 +26,7 @@ import { appRoutes } from './app.routes';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { 
+export class AppModule {
 
   constructor(
     apollo: Apollo,
@@ -38,3 +38,12 @@ export class AppModule {
     });
   }
 }
+
+
+
+
+
+
+
+
+

@@ -2,7 +2,68 @@
   <mat-card>
     <mat-card-title>Purchase a ticket</mat-card-title>
     <mat-card-content>
-      
+
+      <form class="search-flight-form" [formGroup]="searchFlightForm">
+
+        <mat-radio-button value="tripTypeOptions[0]">Round trip</mat-radio-button>
+        <mat-radio-button value="tripTypeOptions[2]">One way</mat-radio-button>
+
+        <br/>
+
+        <mat-form-field class="search-flight-full-width">
+          <input type="text" placeholder="Departing from" aria-label="Departing from" matInput formControlName="departingFrom" [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayDepartingFrom">
+            <mat-option *ngFor="let option of departingFromOptions | async" [value]="option">
+              {{ option.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <br/>
+
+        <mat-form-field class="search-flight-full-width">
+          <input type="text" placeholder="Arriving at" aria-label="Arriving at" matInput formControlName="arrivingAt" [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayArrivingAtOptions">
+            <mat-option *ngFor="let option of arrivingAtOptions | async" [value]="option">
+              {{ option.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <br/>
+
+        <mat-form-field class="search-flight-full-width">
+          <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="departureDatePicker" placeholder="Departure date" formControlName="departureDate">
+          <mat-datepicker-toggle matSuffix [for]="departureDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #departureDatePicker></mat-datepicker>
+        </mat-form-field>
+
+        <br/>
+
+        <mat-form-field class="search-flight-full-width">
+          <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="arrivalDatePicker" placeholder="Arrival date" formControlName="arrivalDate">
+          <mat-datepicker-toggle matSuffix [for]="arrivalDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #arrivalDatePicker></mat-datepicker>
+        </mat-form-field>
+
+        <br/>
+
+        <mat-form-field>
+          <mat-select placeholder="Passenger" formControlName="passengerNumber">
+            <mat-option *ngFor="let passengerNumber of passengersNumberOptions" [value]="number">{{ passengerNumber }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-select placeholder="Cabin class" formControlName="cabinClass">
+            <mat-option *ngFor="let cabinClass of cabinsClassOptions" [value]="number">{{ cabinClass }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <br/>
+
+        <button mat-raised-button color="accent" [disabled]="!searchFlightForm.valid">Search</button>
+      </form>
     </mat-card-content>
   </mat-card>
 </div>

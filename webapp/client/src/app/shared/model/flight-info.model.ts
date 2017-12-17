@@ -1,10 +1,10 @@
 import { PointOfOrigin } from './point-of-origin.model';
 
-enum TripType {
+export enum TripType {
   ONE_WAY, ROUND_TRIP
 }
 
-enum CabinClass {
+export enum CabinClass {
   ECONOMY, PRENIUM, BUSINESS
 }
 
