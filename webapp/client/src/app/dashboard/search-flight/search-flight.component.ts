@@ -17,8 +17,8 @@ export class SearchFlightComponent implements OnInit {
 
   flightInfo: FlightInfo = new FlightInfo();
   passengersNumberOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  cabinsClassOptions = Object.keys(CabinClass).filter(k => typeof CabinClass[k as any] === "number");
-  tripTypeOptions = Object.keys(TripType).filter(k => typeof TripType[k as any] === "number");
+  cabinsClassOptions = Object.keys(CabinClass).filter(k => typeof CabinClass[k as any] === 'number');
+  tripTypeOptions = Object.keys(TripType).filter(k => typeof TripType[k as any] === 'number');
 
   minDate = new Date();
   maxDate = new Date(2020, 0, 1);
