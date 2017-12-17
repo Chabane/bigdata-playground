@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SearchFlightComponent } from './search-flight/search-flight.component';
 import { DashboardComponent } from './dashboard.component';
@@ -14,6 +14,7 @@ import { MaterialModule } from '../shared/material.module';
   imports: [    
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forChild(dashboardRoutes),
     MaterialModule
   ],
