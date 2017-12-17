@@ -4,7 +4,7 @@
   "license": "ISC",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng lint && ng serve",
     "build": "ng build",
     "build:prod": "ng build --prod",
     "test": "ng test",
