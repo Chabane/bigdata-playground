@@ -8,6 +8,7 @@ import * as bodyParser from 'body-parser';
 import * as winston from 'winston';
 import { serveStatic } from 'serve-static';
 import { execute, subscribe } from 'graphql';
+import { KafkaProducer } from './kafka';
 
 import * as db from './db';
 import { typeDefs, resolvers } from './schema';
@@ -50,5 +51,8 @@ export class Server {
     this.app.get('/*', function (req, res) {
       res.sendFile(path.join(__dirname, '../public/index.html'));
     });
+
+    let producer = new KafkaProducer();
+    producer.initialize();
   }
 }
