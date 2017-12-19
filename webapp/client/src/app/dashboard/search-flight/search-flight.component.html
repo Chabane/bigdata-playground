@@ -50,13 +50,13 @@
 
         <mat-form-field>
           <mat-select placeholder="Passenger" formControlName="passengerNumber">
-            <mat-option *ngFor="let passengerNumber of passengersNumberOptions" [value]="number">{{ passengerNumber }}</mat-option>
+            <mat-option *ngFor="let passengerNumber of passengersNumberOptions" [value]="passengerNumber">{{ passengerNumber }}</mat-option>
           </mat-select>
         </mat-form-field>
 
         <mat-form-field>
           <mat-select placeholder="Cabin class" formControlName="cabinClass">
-            <mat-option *ngFor="let cabinClass of cabinsClassOptions" [value]="number">{{ cabinClass }}</mat-option>
+            <mat-option *ngFor="let cabinClass of cabinsClassOptions" [value]="cabinClass">{{ cabinClass }}</mat-option>
           </mat-select>
         </mat-form-field>
 
