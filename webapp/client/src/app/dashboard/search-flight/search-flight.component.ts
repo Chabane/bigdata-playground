@@ -27,7 +27,6 @@ export class SearchFlightComponent implements OnInit {
     private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    console.log('--------------', this.cabinsClassOptions);
     this.searchFlightForm = this.formBuilder.group({
       departingFrom: [null, [Validators.required]],
       arrivingAt: [null],
