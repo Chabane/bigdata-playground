@@ -37,7 +37,7 @@ export class SearchFlightComponent implements OnInit {
       departureDate: [null, [Validators.required]],
       arrivalDate: [null, [Validators.required]],
       passengerNumber: [this.passengersNumberOptions[0], [Validators.required]],
-      cabinClass: [this.cabinsClassOptions[0], [Validators.required]],
+      cabinClass: [this.cabinsClassOptions[0], [Validators.required]]
     });
   }
   /**
