@@ -1,11 +1,15 @@
 import { PointOfOrigin } from './point-of-origin.model';
 
 export enum TripType {
-  ONE_WAY, ROUND_TRIP
+  ONE_WAY = 'ONE_WAY',
+  ROUND_TRIP = 'ROUND_TRIP'
 }
 
 export enum CabinClass {
-  ECONOMY, PRENIUM, BUSINESS
+
+  ECONOMY = 'ECONOMY',
+  PRENIUM = 'PRENIUM',
+  BUSINESS = 'BUSINESS'
 }
 
 export class FlightInfo {
