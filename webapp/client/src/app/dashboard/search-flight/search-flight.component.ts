@@ -17,8 +17,8 @@ export class SearchFlightComponent implements OnInit {
   options: FormGroup;
   flightInfo: FlightInfo = new FlightInfo();
   passengersNumberOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  cabinsClassOptions = Object.keys(CabinClass).filter(k => typeof CabinClass[k as any] === 'number');
-  tripTypeOptions = Object.keys(TripType).filter(k => typeof TripType[k as any] === 'number');
+  cabinsClassOptions = Object.keys(CabinClass).filter(k => typeof CabinClass[k as any] === 'string');
+  tripTypeOptions = Object.keys(TripType).filter(k => typeof TripType[k as any] === 'string');
 
   minDate = new Date();
   maxDate = new Date(2020, 0, 1);
@@ -37,7 +37,8 @@ export class SearchFlightComponent implements OnInit {
       departureDate: [null, [Validators.required]],
       arrivalDate: [null, [Validators.required]],
       passengerNumber: [1, [Validators.required]],
-      cabinClass: [this.cabinsClassOptions[0], [Validators.required]]
+      cabinClass: [CabinClass.ECONOMY, [Validators.required]],
+      tripType: [TripType.ROUND_TRIP, [Validators.required]]
     });
   }
   /**
