@@ -3,7 +3,7 @@
     <mat-card-title>Purchase a ticket</mat-card-title>
     <mat-card-content>
 
-      <form class="search-flight-form" [formGroup]="searchFlightForm" (ngSubmit)="onSubmit()">
+      <form class="search-flight-form" [formGroup]="searchFlightForm" (ngSubmit)="searchFlight()">
 
         <mat-radio-group formControlName="tripType">
           <mat-radio-button value="{{tripTypeOptions[1]}}">Round trip</mat-radio-button>
@@ -12,7 +12,7 @@
 
         <br/>
 
-        <mat-form-field class="search-flight-full-width" [hideRequiredMarker]="options.value.hideRequired">
+        <mat-form-field class="search-flight-full-width" [hideRequiredMarker]="searchFlightForm.value.hideRequired">
           <input placeholder="Departing from" aria-label="Departing from" matInput formControlName="departingFrom" [matAutocomplete]="auto"
             required>
           <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayDepartingFrom">
@@ -24,7 +24,7 @@
 
         <br/>
 
-        <mat-form-field class="search-flight-full-width" [hideRequiredMarker]="options.value.hideRequired">
+        <mat-form-field class="search-flight-full-width" [hideRequiredMarker]="searchFlightForm.value.hideRequired">
           <input placeholder="Arriving at" aria-label="Arriving at" matInput formControlName="arrivingAt" [matAutocomplete]="auto"
             required>
           <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayArrivingAtOptions">
@@ -36,7 +36,7 @@
 
         <br/>
 
-        <mat-form-field class="search-flight-full-width" [hideRequiredMarker]="options.value.hideRequired">
+        <mat-form-field class="search-flight-full-width" [hideRequiredMarker]="searchFlightForm.value.hideRequired">
           <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="departureDatePicker" placeholder="Departure date" formControlName="departureDate"
             required>
           <mat-datepicker-toggle matSuffix [for]="departureDatePicker"></mat-datepicker-toggle>
@@ -45,7 +45,7 @@
 
         <br/>
 
-        <mat-form-field class="search-flight-full-width" [hideRequiredMarker]="options.value.hideRequired">
+        <mat-form-field class="search-flight-full-width" [hideRequiredMarker]="searchFlightForm.value.hideRequired">
           <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="arrivalDatePicker" placeholder="Arrival date" formControlName="arrivalDate"
             required>
           <mat-datepicker-toggle matSuffix [for]="arrivalDatePicker"></mat-datepicker-toggle>
@@ -54,13 +54,13 @@
 
         <br/>
 
-        <mat-form-field [hideRequiredMarker]="options.value.hideRequired">
+        <mat-form-field [hideRequiredMarker]="searchFlightForm.value.hideRequired">
           <mat-select placeholder="Passenger" formControlName="passengerNumber" required>
             <mat-option *ngFor="let passengerNumber of passengersNumberOptions" [value]="passengerNumber">{{ passengerNumber }}</mat-option>
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field [hideRequiredMarker]="options.value.hideRequired">
+        <mat-form-field [hideRequiredMarker]="searchFlightForm.value.hideRequired">
           <mat-select placeholder="Cabin class" formControlName="cabinClass" required>
             <mat-option *ngFor="let cabinClass of cabinsClassOptions" [value]="cabinClass">{{ cabinClass }}</mat-option>
           </mat-select>
