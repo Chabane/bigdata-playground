@@ -5,8 +5,10 @@
 
       <form class="search-flight-form" [formGroup]="searchFlightForm" (ngSubmit)="onSubmit()">
 
-        <mat-radio-button value="{{tripTypeOptions[1]}}">Round trip</mat-radio-button>
-        <mat-radio-button value="{{tripTypeOptions[0]}}">One way</mat-radio-button>
+        <mat-radio-group formControlName="tripType">
+          <mat-radio-button value="{{tripTypeOptions[1]}}">Round trip</mat-radio-button>
+          <mat-radio-button value="{{tripTypeOptions[0]}}">One way</mat-radio-button>
+        </mat-radio-group>
 
         <br/>
 
