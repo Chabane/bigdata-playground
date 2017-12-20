@@ -14,7 +14,6 @@ import { FlightInfo, TripType, CabinClass } from '../../shared/model/flight-info
 export class SearchFlightComponent implements OnInit {
 
   searchFlightForm: FormGroup;
-  options: FormGroup;
   flightInfo: FlightInfo = new FlightInfo();
   passengersNumberOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   cabinsClassOptions = Object.keys(CabinClass).filter(k => typeof CabinClass[k as any] === 'string');
@@ -25,13 +24,11 @@ export class SearchFlightComponent implements OnInit {
 
   constructor(private searchFlightService: SearchFlightService,
     private formBuilder: FormBuilder) {
-    this.options = formBuilder.group({
-      hideRequired: false
-    });
   }
 
   ngOnInit() {
     this.searchFlightForm = this.formBuilder.group({
+      hideRequired: false,
       departingFrom: [null, [Validators.required]],
       arrivingAt: [null, [Validators.required]],
       departureDate: [null, [Validators.required]],
@@ -44,7 +41,6 @@ export class SearchFlightComponent implements OnInit {
   /**
    * method called when on submitting the form
    */
-  onSubmit() {
-    console.log('----', this.searchFlightForm.status);
+  searchFlight() {
   }
 }
