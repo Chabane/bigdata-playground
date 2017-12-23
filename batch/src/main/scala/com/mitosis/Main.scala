@@ -3,6 +3,7 @@ package com.mitosis
 import com.mitosis.config.ConfigurationFactory
 import org.apache.log4j.Logger
 import org.apache.spark.sql.SparkSession
+import com.mongodb.spark._
 
 object Main {
 
@@ -14,12 +15,20 @@ object Main {
 
     val sparkSession = SparkSession.builder
       .appName("search-flight-batch")
+      .config("spark.mongodb.output.uri", "mongodb://%s/%s.%s".format(
+        config.batch.db.host,
+        config.batch.db.database,
+        config.batch.db.collection))
       .getOrCreate()
 
     val parquetFileDF = sparkSession.read.parquet(args(0))
 
     parquetFileDF.createOrReplaceTempView("airportParquet")
     val airportDF = sparkSession.sql("SELECT * FROM airportParquet")
-    airportDF.show()
+    airportDF.printSchema()
+
+    MongoSpark.save(airportDF.write.option("collection", "airports").mode("overwrite"))
+
+    sparkSession.stop()
   }
 }
