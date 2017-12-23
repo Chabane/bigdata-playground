@@ -12,7 +12,6 @@ RUN cd /usr/local && ln -s $SPARK_VERSION spark
 
 ADD target/scala-2.11/search-flight-batch-assembly-0.1.0.jar build/libs/search-flight-batch.jar
 ADD parquet/ $PARQUET_HOME
-RUN ls $PARQUET_HOME
 RUN sh -c 'touch build/libs/search-flight-batch.jar'
 
 WORKDIR $SPARK_HOME
