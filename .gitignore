@@ -1,5 +1,5 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
-
+/.idea
  ######## webapp ########
 
 # compiled output
@@ -50,6 +50,7 @@ Thumbs.db
 /batch/bin/
 /batch/tmp/
 /batch/target/
+/batch/.idea/
 
 /batch/.classpath
 /batch/.project
