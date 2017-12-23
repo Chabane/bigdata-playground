@@ -1,14 +1,19 @@
 FROM openjdk:8-jre
 VOLUME /tmp
 
-ENV SPARK_VERSION spark-2.2.0-bin-hadoop2.7
-
-RUN curl -s https://d3kbcqa49mib13.cloudfront.net/$SPARK_VERSION.tgz | tar -xz -C /usr/local/
-RUN cd /usr/local && ln -s $SPARK_VERSION spark
+ENV SPARK_VERSION spark-2.2.1-bin-hadoop2.7
 ENV SPARK_HOME /usr/local/spark
+ENV PARQUET_HOME $SPARK_HOME/parquet
 
-ADD target/scala-2.11/search-flight-batch-assembly-0.1.0.jar build/libs/spark.jar
-RUN sh -c 'touch build/libs/spark.jar'
+RUN curl http://apache.mediamirrors.org/spark/spark-2.2.1/$SPARK_VERSION.tgz -o $SPARK_VERSION.tgz; \
+                 tar xzf $SPARK_VERSION.tgz -C /usr/local/;
+
+RUN cd /usr/local && ln -s $SPARK_VERSION spark
+
+ADD target/scala-2.11/search-flight-batch-assembly-0.1.0.jar build/libs/search-flight-batch.jar
+ADD parquet/ $PARQUET_HOME
+RUN ls $PARQUET_HOME
+RUN sh -c 'touch build/libs/search-flight-batch.jar'
 
 WORKDIR $SPARK_HOME
-CMD ["bin/spark-submit", "--class", "com.mitosis.Main", "--master", "local[2]", "/build/libs/spark.jar" ]
+CMD ["bin/spark-submit", "--class", "com.mitosis.Main", "--master", "local[2]", "/build/libs/search-flight-batch.jar", "/usr/local/spark/parquet" ]
