@@ -1,9 +1,8 @@
-import { IPointOfOrigin, IFlightInfo } from '../../db';
+import { IAirport, IFlightInfo } from '../../db';
 import { info } from 'winston';
 
 export const resolvers = {
   Query: {
-    
   }
 };
 

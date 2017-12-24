@@ -1,3 +1,4 @@
+/* tslint:disable */
 export const typeDefs = `
 
 type FlightInfo {
@@ -24,4 +25,4 @@ type Query {
 schema {
   query: Query
 }
-`
+`;
