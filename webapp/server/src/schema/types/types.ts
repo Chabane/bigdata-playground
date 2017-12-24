@@ -1,16 +1,6 @@
 /* tslint:disable */
 export const typeDefs = `
 
-# temporary fixing 
-input FlightInfoInput {
-  departing: String
-  arriving: String
-  tripType: String
-  departingDate: Int
-  arrivingDate: Int
-  passengerNumber: Int
-  cabinClass: String
-}
 
 type FlightInfo {
   departing: String
@@ -30,7 +20,7 @@ type Airport {
 
 # the schema allows the following query:
 type Query {
-    sendFlightInfo(flightInfo: FlightInfoInput): FlightInfo
+    sendFlightInfo(flightInfo: FlightInfo): FlightInfo
 }
 
 schema {

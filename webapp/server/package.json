@@ -6,7 +6,9 @@
   "author": "Chabane REFES",
   "license": "ISC",
   "scripts": {
-    "build": "tsc"
+    "build": "rimraf dist && tsc",
+    "lint": "tslint 'src/**/*.ts'",
+    "test": "echo working on it"
   },
   "engines": {
     "node": ">= 6.9.0",
@@ -21,8 +23,8 @@
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "express-static": "^1.2.5",
-    "graphql": "^0.11.7",
-    "graphql-tools": "^2.9.0",
+    "graphql": "^0.12.3",
+    "graphql-tools": "^2.14.1",
     "kafka-node": "^2.3.0",
     "mongoose": "4.11.1",
     "morgan": "^1.9.0",
@@ -34,7 +36,7 @@
     "@types/chai": "^4.0.1",
     "@types/chai-http": "0.0.30",
     "@types/express": "^4.0.36",
-    "@types/graphql": "^0.10.1",
+    "@types/graphql": "^0.11.7",
     "@types/kafka-node": "^2.0.1",
     "@types/mocha": "^2.2.41",
     "@types/mongoose": "^4.7.18",
