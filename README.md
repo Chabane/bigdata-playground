@@ -8,4 +8,8 @@ A full example of a big data application using : Docker Stack, Apache Spark SQL/
 docker-compose up -d
 
 # dev mode 
+cd batch && sbt clean package assembly
+cd ..
+cd streaming && sbt clean package assembly
+cd ..
 docker-compose -f docker-compose-dev.yml up
