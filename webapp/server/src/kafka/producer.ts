@@ -18,7 +18,7 @@ export class KafkaProducer {
 
     onReady() {
 
-        console.log("Ready to send!");
+        console.log('Ready to send!');
 
         const type = Type.forSchema({
             type: 'record',
@@ -33,10 +33,10 @@ export class KafkaProducer {
             ]
         });
 
-        let buffer = this.toMessageBuffer({}, type, 1);
-        let keyedMessage = new KeyedMessage("event", <any>buffer);
+        const buffer = this.toMessageBuffer({}, type, 1);
+        const keyedMessage = new KeyedMessage('event', <any>buffer);
 
-        let message = 'a message';
+        const message = 'a message';
         this.producer.send([
             { topic: this.topic, partition: 1, messages: [message, keyedMessage] }
         ], function (err, result) {
@@ -61,15 +61,15 @@ export class KafkaProducer {
    *
    */
     toMessageBuffer(val: any, type, schemaId, length?) {
-        var buf = new Buffer(length || 1024);
+        const buf = new Buffer(length || 1024);
         buf[0] = 0; // Magic byte.
         buf.writeInt32BE(schemaId, 1);
 
-        var pos = type.encode(val, buf, 5);
-        //if (pos < 0) {
+        const pos = type.encode(val, buf, 5);
+        // if (pos < 0) {
         // The buffer was too short, we need to resize.
         //  return getMessageBuffer(type, val, schemaId, length - pos);
-        //}
+        // }
         return buf.slice(0, pos);
     }
 }

@@ -1,4 +1,4 @@
-import * as express from "express";
+import * as express from 'express';
 import { createServer } from 'http';
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
 import { makeExecutableSchema } from 'graphql-tools';
@@ -52,7 +52,7 @@ export class Server {
       res.sendFile(path.join(__dirname, '../public/index.html'));
     });
 
-    let producer = new KafkaProducer();
+    const producer = new KafkaProducer();
     producer.initialize();
   }
 }
