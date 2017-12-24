@@ -2,14 +2,13 @@ import { mongoose } from '../config/database';
 import { Schema, Document, Model } from 'mongoose';
 import * as winston from 'winston';
 
-export interface IPointOfOrigin extends Document {
+export interface IAirport extends Document {
   city: string;
   airport: string;
   code: string;
 }
 
-export interface IpointOfOriginModel extends Model<IPointOfOrigin> {
-  
+export interface IAirportModel extends Model<IAirport> {
 }
 
 // create a schema
@@ -19,5 +18,5 @@ const schema = new Schema({
   code: String
 });
 
-export const PointOfOrigin = mongoose.model<IPointOfOrigin>('pointOfOrigin', schema) as IpointOfOriginModel;
+export const Airport = mongoose.model<IAirport>('Airport', schema) as IAirportModel;
 
