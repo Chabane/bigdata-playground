@@ -11,18 +11,18 @@ type FlightInfo {
   cabinClass: String
 }
 
-type PointOfOrigin {
+type Airport {
    city: String
    airport: String
    code: String
 }
 
 # the schema allows the following query:
-type Query {
- 
+type Mutation {
+    sendFlightInfo(flightInfo: FlightInfo): FlightInfo
 }
 
 schema {
-  query: Query
+  mutation: Mutation
 }
 `;

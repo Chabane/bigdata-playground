@@ -1,9 +1,13 @@
-import { IAirport, IFlightInfo } from '../../db';
-import { info } from 'winston';
+import { IFlightInfo } from '../../db';
+import { KafkaProducer } from '../../kafka';
+
+const producer = new KafkaProducer();
 
 export const resolvers = {
-  Query: {
+  Mutation: {
+      sendFlightInfo: async (_, { fightInfo }) => {
+        producer.sendFlightInfo(fightInfo as IFlightInfo);
+        return fightInfo;
+      }
   }
 };
-
-export default resolvers;

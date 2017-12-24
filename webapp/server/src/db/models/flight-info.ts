@@ -1,5 +1,5 @@
 
-export interface IFlightInfo extends Document {
+export interface IFlightInfo {
   departing: string;
   arriving: string;
   tripType: string;

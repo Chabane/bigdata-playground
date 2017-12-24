@@ -11,7 +11,7 @@ export class KafkaProducer {
         this.producer = new Producer(client, { requireAcks: 1 });
     }
 
-    initialize() {
+    sendFlightInfo(flightInfo) {
         console.log('Initializing');
         this.producer.on('ready', () => {
 
@@ -30,20 +30,12 @@ export class KafkaProducer {
 
             // const buffer = toMessageBuffer({}, schemaType, 1);
             // const keyedMessage = new KeyedMessage('event', <any>buffer);
-            const buffer = schemaType.toBuffer(<any>{
-                departing: 'now',
-                arriving: 'bidule',
-                tripType: 'ONE_WAY',
-                departingDate: 1514125874,
-                arrivingDate: 1514125874,
-                passengerNumber: 3,
-                cabinClass: 'ECONOMY'
-            });
+            const buffer = schemaType.toBuffer(<any>flightInfo);
 
             const keyedMessage = new KeyedMessage('event', buffer);
 
             this.producer.send([
-                { topic: this.topic, partition: 1, messages: [keyedMessage] }
+                { topic: this.topic, partition: 0, messages: [keyedMessage] }
             ], function (err, result) {
                 console.log(err || result);
                 process.exit();
@@ -54,30 +46,5 @@ export class KafkaProducer {
 
     private onError(err) {
         console.log('error', err);
-    }
-
-
-    /**
-     * Encode an Avro value into a message, as expected by Confluent's Kafka Avro
-     * deserializer.
-     *
-     * @param val {...} The Avro value to encode.
-     * @param type {Type} Your value's Avro type.
-     * @param schemaId {Integer} Your schema's ID (inside the registry).
-     * @param length {Integer} Optional initial buffer length. Set it high enough
-     * to avoid having to resize. Defaults to 1024.
-     *
-     */
-    private toMessageBuffer(val: any, type, schemaId, length?): any {
-        const buf = new Buffer(length || 1024);
-        buf[0] = 0; // Magic byte.
-        buf.writeInt32BE(schemaId, 1);
-
-        const pos = type.encode(val, buf, 5);
-        // if (pos < 0) {
-        // The buffer was too short, we need to resize.
-        //  return getMessageBuffer(type, val, schemaId, length - pos);
-        // }
-        return buf.slice(0, pos);
     }
 }
