@@ -1,6 +1,5 @@
 import * as express from 'express';
-import { createServer } from 'http';
-import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
+import { graphqlExpress } from 'apollo-server-express';
 import { makeExecutableSchema } from 'graphql-tools';
 import * as path from 'path';
 import * as morgan from 'morgan';
