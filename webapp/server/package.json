@@ -6,7 +6,7 @@
   "author": "Chabane REFES",
   "license": "ISC",
   "scripts": {
-    "build": "tsc"
+    "build": "rimraf dist && tsc"
   },
   "engines": {
     "node": ">= 6.9.0",
