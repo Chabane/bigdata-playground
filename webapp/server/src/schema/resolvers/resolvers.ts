@@ -4,7 +4,7 @@ import { KafkaProducer } from '../../kafka';
 const producer = new KafkaProducer();
 
 export const resolvers = {
-  Mutation: {
+    Query: {
       sendFlightInfo: async (_, { fightInfo }) => {
         producer.sendFlightInfo(fightInfo as IFlightInfo);
         return fightInfo;

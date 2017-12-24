@@ -18,11 +18,11 @@ type Airport {
 }
 
 # the schema allows the following query:
-type Mutation {
+type Query {
     sendFlightInfo(flightInfo: FlightInfo): FlightInfo
 }
 
 schema {
-  mutation: Mutation
+  query: Query
 }
 `;
