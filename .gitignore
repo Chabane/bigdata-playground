@@ -110,6 +110,7 @@ Thumbs.db
 /streaming/bin/
 /streaming/tmp/
 /streaming/target/
+/streaming/.idea/
 
 /streaming/.classpath
 /streaming/.project
