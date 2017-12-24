@@ -38,7 +38,7 @@ services:
       - "16201:16201"
       - "16301:16301"
   zookeeper:
-    image: wurstmeister/zookeeper:3.4.6
+    image: zookeeper:3.5
     ports:
       - "2181:2181"
   kafka:
