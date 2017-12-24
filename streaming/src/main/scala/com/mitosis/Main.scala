@@ -8,7 +8,6 @@ import com.mitosis.config.ConfigurationFactory
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.log4j.Logger
-import org.apache.spark.rdd.RDD
 import org.apache.spark.streaming.kafka010.ConsumerStrategies.Subscribe
 import org.apache.spark.streaming.kafka010.KafkaUtils
 import org.apache.spark.streaming.kafka010.LocationStrategies.PreferConsistent
@@ -24,7 +23,6 @@ object Main {
   def main(args: Array[String]): Unit = {
     val sparkSession = SparkSession.builder
         .appName("search-flight-streaming")
-        .master("local[2]")
         .getOrCreate()
     
     val streamingContext = new StreamingContext(sparkSession.sparkContext, Seconds(config.streaming.window))
