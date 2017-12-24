@@ -18,5 +18,5 @@ const schema = new Schema({
   code: String
 });
 
-export const Airport = mongoose.model<IAirport>('Airport', schema) as IAirportModel;
+export const AIRPORT = mongoose.model<IAirport>('Airport', schema) as IAirportModel;
 
