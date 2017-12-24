@@ -12,6 +12,8 @@
 /webapp/server/node_modules
 
 # IDEs and editors
+/webapp/client/.idea
+/webapp/server/.idea
 /webapp/.idea
 /webapp/.project
 /webapp/.classpath
