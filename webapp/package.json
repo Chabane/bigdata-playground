@@ -33,5 +33,8 @@
     "copy": "^0.3.0",
     "copyfiles": "^1.2.0",
     "rimraf": "^2.6.1"
+  },
+  "dependencies": {
+    "nodemon": "^1.14.3"
   }
 }
