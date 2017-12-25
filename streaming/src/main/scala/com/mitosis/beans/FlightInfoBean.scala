@@ -17,7 +17,7 @@ class FlightInfoBean {
   var arriving: String = _
   
   @BeanProperty
-  var tripType: TripType = _
+  var tripType: String = _
   
   @BeanProperty
   var departingDate: Long = _
@@ -29,5 +29,5 @@ class FlightInfoBean {
   var passengerNumber: Short = _
   
   @BeanProperty
-  var cabinClass: CabinClass = _
+  var cabinClass: String = _
 }
