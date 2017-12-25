@@ -43,10 +43,14 @@ services:
       - "16301:16301"
   zookeeper:
     image: zookeeper:3.5
+    deploy:
+      replicas: 1
     ports:
       - "2181:2181"
   kafka:
     image: wurstmeister/kafka:0.10.2.1
+    deploy:
+      replicas: 1
     ports:
       - "9092:9092"
     environment:
