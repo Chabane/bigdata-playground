@@ -3,7 +3,9 @@ import Keys._
 
 resolvers ++= Seq(
   "apache-snapshots" at "http://repository.apache.org/snapshots/",
-  "Spark Packages Repo" at "https://dl.bintray.com/spark-packages/maven"
+  "Spark Packages Repo" at "https://dl.bintray.com/spark-packages/maven",
+  "confluent" at "http://packages.confluent.io/maven/",
+  Resolver.sonatypeRepo("public")
 )
 
 name := "search-flight-streaming"
@@ -17,6 +19,7 @@ val typesafeVersion = "1.3.0"
 val log4jVersion = "1.2.14"
 val avroVersion = "4.0.0"
 val hbaseVersion = "2.0.0-alpha4"
+val kafkaAvroSerializerVersion = "4.0.0"
 
 libraryDependencies ++= Seq(
     "log4j" % "log4j" % log4jVersion,
@@ -35,7 +38,8 @@ libraryDependencies ++= Seq(
       exclude("org.apache.spark", "spark-core_2.11"),
 
     "com.typesafe" % "config" % typesafeVersion,
-    "com.databricks" %% "spark-avro" % avroVersion
+    "com.databricks" %% "spark-avro" % avroVersion,
+    "io.confluent" % "kafka-avro-serializer" % kafkaAvroSerializerVersion,
     // "org.apache.hbase" %% "hbase-spark" % hbaseVersion
 )
 
