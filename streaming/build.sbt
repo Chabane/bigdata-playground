@@ -15,11 +15,12 @@ version := "0.1.0"
 scalaVersion := "2.11.11"
 
 val sparkVersion = "2.2.1"
+val jacksonVersion = "2.6.5"
 val typesafeVersion = "1.3.0"
 val log4jVersion = "1.2.14"
 val avroVersion = "4.0.0"
-val hbaseVersion = "2.0.0-alpha4"
 val kafkaAvroSerializerVersion = "4.0.0"
+val hbaseVersion = "1.4.0"
 
 libraryDependencies ++= Seq(
     "log4j" % "log4j" % log4jVersion,
@@ -39,8 +40,9 @@ libraryDependencies ++= Seq(
 
     "com.typesafe" % "config" % typesafeVersion,
     "com.databricks" %% "spark-avro" % avroVersion,
-    "io.confluent" % "kafka-avro-serializer" % kafkaAvroSerializerVersion,
-    // "org.apache.hbase" %% "hbase-spark" % hbaseVersion
+    "com.fasterxml.jackson.core" % "jackson-databind" % jacksonVersion,
+    "com.fasterxml.jackson.core" % "jackson-core" % jacksonVersion,
+
 )
 
 assemblyMergeStrategy in assembly := {
