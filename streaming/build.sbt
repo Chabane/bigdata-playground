@@ -43,9 +43,11 @@ libraryDependencies ++= Seq(
     "com.fasterxml.jackson.core" % "jackson-databind" % jacksonVersion,
     "com.fasterxml.jackson.core" % "jackson-core" % jacksonVersion,
 
+  "it.nerdammer.bigdata" % "spark-hbase-connector_2.10" % "1.0.3"
+
 )
 
 assemblyMergeStrategy in assembly := {
-  case PathList("org", "apache", "spark", "unused", "UnusedStubClass.class") => MergeStrategy.first
-  case x => (assemblyMergeStrategy in assembly).value(x)
+  case PathList("META-INF", xs @ _*) => MergeStrategy.discard
+  case x => MergeStrategy.first
 }
