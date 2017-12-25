@@ -1,20 +1,22 @@
 package com.mitosis
 
+import java.io.IOException
+
+import com.mitosis.beans.FlightInfoBean
+import com.mitosis.utils.JsonUtils
 import com.mitosis.config.ConfigurationFactory
 import org.apache.spark.streaming.kafka010.ConsumerStrategies.Subscribe
 import org.apache.spark.streaming.kafka010.KafkaUtils
 import org.apache.spark.streaming.kafka010.LocationStrategies.PreferConsistent
 import org.apache.spark.sql.SparkSession
-import org.apache.kafka.common.serialization.{StringDeserializer, ByteArrayDeserializer}
+import org.apache.kafka.common.serialization.{ByteArrayDeserializer, StringDeserializer}
 import org.apache.avro.io.DatumReader
 import org.apache.avro.io.Decoder
 import org.apache.avro.specific.SpecificDatumReader
 import org.apache.avro.generic.GenericRecord
 import org.apache.avro.io.DecoderFactory
-
-import org.apache.log4j.{Logger}
+import org.apache.log4j.Logger
 import org.apache.spark.streaming.{Seconds, StreamingContext}
-
 import org.apache.avro.SchemaBuilder
 
 object Main {
@@ -22,6 +24,22 @@ object Main {
   private[this] lazy val logger = Logger.getLogger(getClass)
 
   private[this] val config = ConfigurationFactory.load()
+
+  /**
+    * Json decode UDF function
+    *
+    * @param text the encoded JSON string
+    * @return Returns record bean
+    */
+  def jsonDecode(text: String): FlightInfoBean = {
+    try {
+      JsonUtils.deserialize(text, classOf[FlightInfoBean])
+    } catch {
+      case e: IOException =>
+        logger.error(e.getMessage, e)
+        null
+    }
+  }
 
   val flightInfoSchema = SchemaBuilder
     .record("flightInfo")
@@ -63,17 +81,12 @@ object Main {
         )
 
         stream.foreachRDD(rdd => {
-          if (!rdd.isEmpty()) {
             rdd.foreach(record => {
               val reader: DatumReader[GenericRecord] = new SpecificDatumReader[GenericRecord](flightInfoSchema)
               val decoder: Decoder = DecoderFactory.get().binaryDecoder(record.value, null)
-              val userData: GenericRecord = reader.read(null, decoder)
-              println(userData)
+              val flightInfoJson: GenericRecord = reader.read(null, decoder)
+              val flightInfo = jsonDecode(flightInfoJson.toString)
             })
-            println("Records to save")
-          } else {
-            println("No records to save")
-          }
         })
 
     // create streaming context and submit streaming jobs
