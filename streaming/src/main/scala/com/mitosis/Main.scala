@@ -56,6 +56,7 @@ object Main {
     .endRecord
 
   def main(args: Array[String]): Unit = {
+
     val sparkSession = SparkSession.builder
         .appName("search-flight-streaming")
         .config("spark.hbase.host", config.streaming.db.host)
@@ -82,7 +83,6 @@ object Main {
           PreferConsistent,
           Subscribe[String, Array[Byte]](topics, kafkaParams)
         )
-
 
         implicit def resultWriter: FieldWriter[FlightInfoBean] = new FieldWriter[FlightInfoBean]
         {
@@ -113,15 +113,18 @@ object Main {
     stream.foreachRDD(rdd => {
           import it.nerdammer.spark.hbase._
 
-          rdd.map(record => {
+          val newRdd = rdd.map(record => {
               val reader: DatumReader[GenericRecord] = new SpecificDatumReader[GenericRecord](flightInfoSchema)
               val decoder: Decoder = DecoderFactory.get().binaryDecoder(record.value, null)
               val flightInfoJson: GenericRecord = reader.read(null, decoder)
               val flightInfo = jsonDecode(flightInfoJson.toString)
+              println(flightInfo)
               flightInfo
-            }).toHBaseTable("flightInfo")
-            .inColumnFamily("flightInfoCF")
+            })
+            val result = newRdd.toHBaseTable(config.streaming.db.table)
+            .inColumnFamily(config.streaming.db.columnFamily)
             .save()
+            println(result)
         })
 
     // create streaming context and submit streaming jobs
