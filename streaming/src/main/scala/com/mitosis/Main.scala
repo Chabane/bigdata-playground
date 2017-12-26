@@ -118,13 +118,11 @@ object Main {
               val decoder: Decoder = DecoderFactory.get().binaryDecoder(record.value, null)
               val flightInfoJson: GenericRecord = reader.read(null, decoder)
               val flightInfo = jsonDecode(flightInfoJson.toString)
-              println(flightInfo)
               flightInfo
             })
             val result = newRdd.toHBaseTable(config.streaming.db.table)
             .inColumnFamily(config.streaming.db.columnFamily)
             .save()
-            println(result)
         })
 
     // create streaming context and submit streaming jobs
