@@ -34,7 +34,7 @@ services:
       dockerfile: Dockerfile-dev   
     container_name: ml-dev
     ports:
-      - 7078:7077
+      - 7079:7077
     depends_on:
       - hbase
   mongo:
