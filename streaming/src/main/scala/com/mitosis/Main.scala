@@ -5,6 +5,9 @@ import java.io.IOException
 import com.mitosis.beans.FlightInfoBean
 import com.mitosis.utils.JsonUtils
 import com.mitosis.config.ConfigurationFactory
+import it.nerdammer.spark.hbase._
+import it.nerdammer.spark.hbase.conversion.FieldWriter
+import org.apache.hadoop.hbase.util.Bytes
 import org.apache.spark.streaming.kafka010.ConsumerStrategies.Subscribe
 import org.apache.spark.streaming.kafka010.KafkaUtils
 import org.apache.spark.streaming.kafka010.LocationStrategies.PreferConsistent
@@ -56,6 +59,7 @@ object Main {
   def main(args: Array[String]): Unit = {
     val sparkSession = SparkSession.builder
         .appName("search-flight-streaming")
+        .config("spark.hbase.host", config.streaming.db.host)
         .getOrCreate()
 
     val streamingContext = new StreamingContext(sparkSession.sparkContext, Seconds(config.streaming.window))
@@ -80,13 +84,47 @@ object Main {
           Subscribe[String, Array[Byte]](topics, kafkaParams)
         )
 
-        stream.foreachRDD(rdd => {
-            rdd.foreach(record => {
+
+        implicit def resultWriter: FieldWriter[FlightInfoBean] = new FieldWriter[FlightInfoBean]
+        {
+          override def map(flightInfo: FlightInfoBean): HBaseData =
+            Seq(
+              // here when you insert to HBase table you need to pass 1 extra argument, as compare to HBase table reading mapping.
+              Some(Bytes.toBytes(flightInfo.tripType)),
+              Some(Bytes.toBytes(flightInfo.arriving)),
+              Some(Bytes.toBytes(flightInfo.departing)),
+              Some(Bytes.toBytes(flightInfo.departingDate)),
+              Some(Bytes.toBytes(flightInfo.arrivingDate)),
+              Some(Bytes.toBytes(flightInfo.passengerNumber)),
+              Some(Bytes.toBytes(flightInfo.cabinClass))
+            )
+          override def columns = Seq(
+            "tripType",
+            "arriving",
+            "departing",
+            "departingDate",
+            "arrivingDate",
+            "cabinClass",
+            "passengerNumber"
+          )
+        }
+
+    stream.foreachRDD(rdd => {
+
+          val newRdd = rdd.map(record => {
               val reader: DatumReader[GenericRecord] = new SpecificDatumReader[GenericRecord](flightInfoSchema)
               val decoder: Decoder = DecoderFactory.get().binaryDecoder(record.value, null)
               val flightInfoJson: GenericRecord = reader.read(null, decoder)
               val flightInfo = jsonDecode(flightInfoJson.toString)
+              flightInfo
             })
+
+          // using spark implicits implementation
+          import it.nerdammer.spark.hbase._
+          newRdd.toHBaseTable("flightInfo")
+            .toColumns("departing", "arriving", "tripType", "departingDate", "arrivingDate", "passengerNumber", "cabinClass")
+            .inColumnFamily("flightInfoCF")
+            .save()
         })
 
     // create streaming context and submit streaming jobs
