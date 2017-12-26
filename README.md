@@ -13,4 +13,4 @@ cd streaming && sbt clean package assembly
 cd ..
 docker-compose -f docker-compose-dev.yml up
 ```
-<img src='https://image.ibb.co/cgzCUm/search_flight.png'/>
+<img src='https://image.ibb.co/jsJcLR/search_flight_v2.png'/>
