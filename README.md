@@ -7,7 +7,8 @@ A full example of a big data application using : Kubernetes, Apache Spark SQL/St
 docker-compose up -d
 ```
 # dev mode 
-```cd batch && sbt clean package assembly
+```
+cd batch && sbt clean package assembly
 cd ..
 cd streaming && sbt clean package assembly
 cd ..
