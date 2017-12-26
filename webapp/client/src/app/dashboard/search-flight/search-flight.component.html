@@ -3,15 +3,18 @@
     <mat-card-title>Purchase a ticket</mat-card-title>
     <mat-card-content>
 
-      <form class="search-flight-form" [formGroup]="searchFlightForm">
+      <form class="search-flight-form" [formGroup]="searchFlightForm" (ngSubmit)="searchFlight()">
 
-        <mat-radio-button value="tripTypeOptions[0]">Round trip</mat-radio-button>
-        <mat-radio-button value="tripTypeOptions[2]">One way</mat-radio-button>
+        <mat-radio-group formControlName="tripType">
+          <mat-radio-button value="{{tripTypeOptions[1]}}">Round trip</mat-radio-button>
+          <mat-radio-button value="{{tripTypeOptions[0]}}">One way</mat-radio-button>
+        </mat-radio-group>
 
         <br/>
 
-        <mat-form-field class="search-flight-full-width">
-          <input type="text" placeholder="Departing from" aria-label="Departing from" matInput formControlName="departingFrom" [matAutocomplete]="auto">
+        <mat-form-field class="search-flight-full-width" [hideRequiredMarker]="searchFlightForm.value.hideRequired">
+          <input placeholder="Departing from" aria-label="Departing from" matInput formControlName="departingFrom" [matAutocomplete]="auto"
+            required>
           <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayDepartingFrom">
             <mat-option *ngFor="let option of departingFromOptions | async" [value]="option">
               {{ option.name }}
@@ -21,8 +24,9 @@
 
         <br/>
 
-        <mat-form-field class="search-flight-full-width">
-          <input type="text" placeholder="Arriving at" aria-label="Arriving at" matInput formControlName="arrivingAt" [matAutocomplete]="auto">
+        <mat-form-field class="search-flight-full-width" [hideRequiredMarker]="searchFlightForm.value.hideRequired">
+          <input placeholder="Arriving at" aria-label="Arriving at" matInput formControlName="arrivingAt" [matAutocomplete]="auto"
+            required>
           <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayArrivingAtOptions">
             <mat-option *ngFor="let option of arrivingAtOptions | async" [value]="option">
               {{ option.name }}
@@ -32,31 +36,33 @@
 
         <br/>
 
-        <mat-form-field class="search-flight-full-width">
-          <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="departureDatePicker" placeholder="Departure date" formControlName="departureDate">
+        <mat-form-field class="search-flight-full-width" [hideRequiredMarker]="searchFlightForm.value.hideRequired">
+          <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="departureDatePicker" placeholder="Departure date" formControlName="departureDate"
+            required>
           <mat-datepicker-toggle matSuffix [for]="departureDatePicker"></mat-datepicker-toggle>
           <mat-datepicker #departureDatePicker></mat-datepicker>
         </mat-form-field>
 
         <br/>
 
-        <mat-form-field class="search-flight-full-width">
-          <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="arrivalDatePicker" placeholder="Arrival date" formControlName="arrivalDate">
+        <mat-form-field class="search-flight-full-width" [hideRequiredMarker]="searchFlightForm.value.hideRequired">
+          <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="arrivalDatePicker" placeholder="Arrival date" formControlName="arrivalDate"
+            required>
           <mat-datepicker-toggle matSuffix [for]="arrivalDatePicker"></mat-datepicker-toggle>
           <mat-datepicker #arrivalDatePicker></mat-datepicker>
         </mat-form-field>
 
         <br/>
 
-        <mat-form-field>
-          <mat-select placeholder="Passenger" formControlName="passengerNumber">
-            <mat-option *ngFor="let passengerNumber of passengersNumberOptions" [value]="number">{{ passengerNumber }}</mat-option>
+        <mat-form-field [hideRequiredMarker]="searchFlightForm.value.hideRequired">
+          <mat-select placeholder="Passenger" formControlName="passengerNumber" required>
+            <mat-option *ngFor="let passengerNumber of passengersNumberOptions" [value]="passengerNumber">{{ passengerNumber }}</mat-option>
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field>
-          <mat-select placeholder="Cabin class" formControlName="cabinClass">
-            <mat-option *ngFor="let cabinClass of cabinsClassOptions" [value]="number">{{ cabinClass }}</mat-option>
+        <mat-form-field [hideRequiredMarker]="searchFlightForm.value.hideRequired">
+          <mat-select placeholder="Cabin class" formControlName="cabinClass" required>
+            <mat-option *ngFor="let cabinClass of cabinsClassOptions" [value]="cabinClass">{{ cabinClass }}</mat-option>
           </mat-select>
         </mat-form-field>
 

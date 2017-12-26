@@ -1,4 +1,6 @@
+/* tslint:disable */
 export const typeDefs = `
+
 
 type FlightInfo {
   departing: String
@@ -10,7 +12,7 @@ type FlightInfo {
   cabinClass: String
 }
 
-type PointOfOrigin {
+type Airport {
    city: String
    airport: String
    code: String
@@ -18,10 +20,10 @@ type PointOfOrigin {
 
 # the schema allows the following query:
 type Query {
- 
+    sendFlightInfo(flightInfo: FlightInfo): FlightInfo
 }
 
 schema {
   query: Query
 }
-`
+`;

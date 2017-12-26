@@ -1,5 +1,5 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
-
+/.idea
  ######## webapp ########
 
 # compiled output
@@ -12,6 +12,8 @@
 /webapp/server/node_modules
 
 # IDEs and editors
+/webapp/client/.idea
+/webapp/server/.idea
 /webapp/.idea
 /webapp/.project
 /webapp/.classpath
@@ -50,6 +52,7 @@ Thumbs.db
 /batch/bin/
 /batch/tmp/
 /batch/target/
+/batch/.idea/
 
 /batch/.classpath
 /batch/.project
@@ -107,6 +110,7 @@ Thumbs.db
 /streaming/bin/
 /streaming/tmp/
 /streaming/target/
+/streaming/.idea/
 
 /streaming/.classpath
 /streaming/.project

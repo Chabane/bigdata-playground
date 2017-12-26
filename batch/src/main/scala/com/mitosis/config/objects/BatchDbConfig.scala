@@ -14,6 +14,9 @@ class BatchDbConfig {
   var port: Int = _
 
   @BeanProperty
+  var database: String = _
+
+  @BeanProperty
   var collection: String = _
 
 }

@@ -3,7 +3,9 @@ import Keys._
 
 resolvers ++= Seq(
   "apache-snapshots" at "http://repository.apache.org/snapshots/",
-  "Spark Packages Repo" at "https://dl.bintray.com/spark-packages/maven"
+  "Spark Packages Repo" at "https://dl.bintray.com/spark-packages/maven",
+  "confluent" at "http://packages.confluent.io/maven/",
+  Resolver.sonatypeRepo("public")
 )
 
 name := "search-flight-streaming"
@@ -12,11 +14,13 @@ version := "0.1.0"
 
 scalaVersion := "2.11.11"
 
-val sparkVersion = "2.2.0"
+val sparkVersion = "2.2.1"
+val jacksonVersion = "2.6.5"
 val typesafeVersion = "1.3.0"
 val log4jVersion = "1.2.14"
 val avroVersion = "4.0.0"
-val hbaseVersion = "2.0.0-alpha4"
+val kafkaAvroSerializerVersion = "4.0.0"
+val hbaseVersion = "1.4.0"
 
 libraryDependencies ++= Seq(
     "log4j" % "log4j" % log4jVersion,
@@ -35,11 +39,15 @@ libraryDependencies ++= Seq(
       exclude("org.apache.spark", "spark-core_2.11"),
 
     "com.typesafe" % "config" % typesafeVersion,
-    "com.databricks" %% "spark-avro" % avroVersion
-    // "org.apache.hbase" %% "hbase-spark" % hbaseVersion
+    "com.databricks" %% "spark-avro" % avroVersion,
+    "com.fasterxml.jackson.core" % "jackson-databind" % jacksonVersion,
+    "com.fasterxml.jackson.core" % "jackson-core" % jacksonVersion,
+
+  "it.nerdammer.bigdata" % "spark-hbase-connector_2.10" % "1.0.3"
+
 )
 
 assemblyMergeStrategy in assembly := {
-  case PathList("org", "apache", "spark", "unused", "UnusedStubClass.class") => MergeStrategy.first
-  case x => (assemblyMergeStrategy in assembly).value(x)
+  case PathList("META-INF", xs @ _*) => MergeStrategy.discard
+  case x => MergeStrategy.first
 }
