@@ -5,7 +5,6 @@ import java.io.IOException
 import com.mitosis.beans.FlightInfoBean
 import com.mitosis.utils.JsonUtils
 import com.mitosis.config.ConfigurationFactory
-import it.nerdammer.spark.hbase._
 import it.nerdammer.spark.hbase.conversion.FieldWriter
 import org.apache.hadoop.hbase.util.Bytes
 import org.apache.spark.streaming.kafka010.ConsumerStrategies.Subscribe
@@ -87,9 +86,11 @@ object Main {
 
         implicit def resultWriter: FieldWriter[FlightInfoBean] = new FieldWriter[FlightInfoBean]
         {
+          val random = scala.util.Random
           override def map(flightInfo: FlightInfoBean): HBaseData =
             Seq(
               // here when you insert to HBase table you need to pass 1 extra argument, as compare to HBase table reading mapping.
+              Some(Bytes.toBytes(s"${random.nextLong}")),
               Some(Bytes.toBytes(flightInfo.tripType)),
               Some(Bytes.toBytes(flightInfo.arriving)),
               Some(Bytes.toBytes(flightInfo.departing)),
@@ -104,25 +105,21 @@ object Main {
             "departing",
             "departingDate",
             "arrivingDate",
-            "cabinClass",
-            "passengerNumber"
+            "passengerNumber",
+            "cabinClass"
           )
         }
 
     stream.foreachRDD(rdd => {
+          import it.nerdammer.spark.hbase._
 
-          val newRdd = rdd.map(record => {
+          rdd.map(record => {
               val reader: DatumReader[GenericRecord] = new SpecificDatumReader[GenericRecord](flightInfoSchema)
               val decoder: Decoder = DecoderFactory.get().binaryDecoder(record.value, null)
               val flightInfoJson: GenericRecord = reader.read(null, decoder)
               val flightInfo = jsonDecode(flightInfoJson.toString)
               flightInfo
-            })
-
-          // using spark implicits implementation
-          import it.nerdammer.spark.hbase._
-          newRdd.toHBaseTable("flightInfo")
-            .toColumns("departing", "arriving", "tripType", "departingDate", "arrivingDate", "passengerNumber", "cabinClass")
+            }).toHBaseTable("flightInfo")
             .inColumnFamily("flightInfoCF")
             .save()
         })
