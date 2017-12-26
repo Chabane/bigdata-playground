@@ -27,7 +27,16 @@ services:
       - 7078:7077
     depends_on:
       - hbase
-      - kafka        
+      - kafka     
+  ml-dev:
+    build: 
+      context: ./ml    
+      dockerfile: Dockerfile-dev   
+    container_name: ml-dev
+    ports:
+      - 7078:7077
+    depends_on:
+      - hbase
   mongo:
     image: 'mongo:3.4'
     ports:
@@ -64,3 +73,5 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock 
     depends_on:
       - zookeeper
+  kylo:
+    image: keven4ever/kylo_docker   
