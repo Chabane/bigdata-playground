@@ -1,3 +1,4 @@
+# FROM uhopper/hadoop:2.7.2
 FROM hseeberger/scala-sbt:8u151-2.12.4-1.0.4
 VOLUME /tmp
 
@@ -22,4 +23,4 @@ RUN sbt package assembly
 
 WORKDIR $SPARK_HOME
 
-CMD ["bin/spark-submit", "--class", "com.mitosis.Main", "--master", "yarn", "--deploy-mode","/usr/local/batch/target/scala-2.11/search-flight-batch-assembly-0.1.0.jar", "/usr/local/batch/parquet" ]
+CMD ["bin/spark-submit", "--class", "com.mitosis.Main", "--master", "local[2]", "/usr/local/batch/target/scala-2.11/search-flight-batch-assembly-0.1.0.jar", "/usr/local/batch/parquet" ]
