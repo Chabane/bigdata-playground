@@ -19,5 +19,9 @@ docker-compose -f docker-compose-dev.yml up
 ## Contributing
 `Pull requests` are welcome;
 
+## Support
+Please raise tickets for issues and improvements at https://github.com/Chabane/bigdata-spark-kafka-full-example/issues
+
 ## License
 This example is released under version 2.0 of the [Apache License](LICENSE).
+
