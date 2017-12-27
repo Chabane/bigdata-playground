@@ -21,4 +21,4 @@ RUN sbt package assembly
 
 WORKDIR $SPARK_HOME
 
-CMD ["bin/spark-submit", "--class", "com.mitosis.Main", "--master", "local[2]", "/usr/local/streaming/target/scala-2.11/search-flight-streaming-assembly-0.1.0.jar" ]
+CMD ["bin/spark-submit", "--class", "com.mitosis.Main", "--master", "yarn", "--deploy-mode", "cluster", "/usr/local/streaming/target/scala-2.11/search-flight-streaming-assembly-0.1.0.jar" ]
