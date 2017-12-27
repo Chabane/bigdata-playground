@@ -32,7 +32,7 @@ services:
     depends_on:
       - hbase
   mongo:
-    image: 'mongo:3.4'
+    image: mongo:3.4
     ports:
       - "27017:27017"
   hbase:

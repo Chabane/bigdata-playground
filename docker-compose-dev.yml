@@ -3,7 +3,7 @@ version: '3.3'
 services:
   webapp-dev: 
     build: ./webapp
-    container_name: webapp
+    container_name: webapp-dev
     ports:
       - 3000:3000
     depends_on:
@@ -38,7 +38,7 @@ services:
     depends_on:
       - hbase
   mongo:
-    image: 'mongo:3.4'
+    image: mongo:3.4
     ports:
       - "27017:27017"
   hbase:

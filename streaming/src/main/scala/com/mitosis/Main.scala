@@ -59,8 +59,7 @@ object Main {
 
     val sparkSession = SparkSession.builder
         .appName("search-flight-streaming")
-        .config("spark.hbase.host", config.streaming.db.host+":"+config.streaming.db.port)
-        .config("zookeeper.znode.parent", "/hbase-unsecure")
+        .config("spark.hbase.host", config.streaming.db.host)
         .getOrCreate()
 
     val streamingContext = new StreamingContext(sparkSession.sparkContext, Seconds(config.streaming.window))
@@ -112,8 +111,7 @@ object Main {
         }
 
     stream.foreachRDD(rdd => {
-          import it.nerdammer.spark.hbase._
-
+      import it.nerdammer.spark.hbase._
           val newRdd = rdd.map(record => {
               val reader: DatumReader[GenericRecord] = new SpecificDatumReader[GenericRecord](flightInfoSchema)
               val decoder: Decoder = DecoderFactory.get().binaryDecoder(record.value, null)
