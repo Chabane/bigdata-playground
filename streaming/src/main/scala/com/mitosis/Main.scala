@@ -59,7 +59,8 @@ object Main {
 
     val sparkSession = SparkSession.builder
         .appName("search-flight-streaming")
-        .config("spark.hbase.host", config.streaming.db.host)
+        .config("spark.hbase.host", config.streaming.db.host+":"+config.streaming.db.port)
+        .config("zookeeper.znode.parent", "/hbase-unsecure")
         .getOrCreate()
 
     val streamingContext = new StreamingContext(sparkSession.sparkContext, Seconds(config.streaming.window))
