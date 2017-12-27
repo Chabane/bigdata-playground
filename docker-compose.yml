@@ -35,15 +35,13 @@ services:
     image: mongo:3.4
     ports:
       - "27017:27017"
-  hbase:
-    image: harisekhon/hbase:1.3
+  hbase:    
+    image: nerdammer/hbase:1.1.2
     ports:
-      - "18080:8080"
-      - "19090:9090"
-      - "16000:16000"
-      - "16010:16010"
-      - "16201:16201"
-      - "16301:16301"
+      - "60000:60000"
+      - "60010:60010"
+      - "60020:60020"
+      - "60030:60030"
   zookeeper:
     image: zookeeper:3.5
     deploy:
