@@ -15,3 +15,9 @@ cd ..
 docker-compose -f docker-compose-dev.yml up
 ```
 <img src='https://image.ibb.co/jsJcLR/search_flight_v2.png'/>
+
+## Contributing
+`Pull requests` are welcome;
+
+## License
+This example is released under version 2.0 of the [Apache License](LICENSE).
