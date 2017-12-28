@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property>
+        <name>hbase.zookeeper.quorum</name>
+        <value>hbase</value>
+    </property>
+    <property >
+        <name>hbase.master.port</name>
+        <value>60000</value>
+    </property>
+    <property>
+        <name>hbase.client.retries.number</name>
+        <value>5</value>
+    </property>
+    <property>
+        <name>zookeeper.znode.parent</name>
+        <value>/hbase</value>
+    </property>
+    <property>
+        <name>hbase.zookeeper.property.clientPort</name>
+        <value>2182</value>
+    </property>
+    <property>
+        <name>hbase.cluster.distributed</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>hbase.rest.ssl.enabled</name>
+        <value>false</value>
+    </property>
+</configuration>
