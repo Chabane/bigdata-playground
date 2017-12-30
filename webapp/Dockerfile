@@ -21,5 +21,7 @@ ADD package.json package.json
 
 RUN yarn
 
+RUN npm run build:prod
+
 EXPOSE 4000
 CMD [ "npm", "run", "start:prod" ]
