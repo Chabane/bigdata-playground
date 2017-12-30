@@ -15,9 +15,11 @@
         <mat-form-field class="search-flight-full-width" [hideRequiredMarker]="searchFlightForm.value.hideRequired">
           <input placeholder="Departing from" aria-label="Departing from" matInput formControlName="departingFrom" [matAutocomplete]="auto"
             required>
-          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayDepartingFrom">
-            <mat-option *ngFor="let option of departingFromOptions | async" [value]="option">
-              {{ option.name }}
+            <!-- [displayWith]="displayDepartingFrom"-->
+          <mat-autocomplete #auto="matAutocomplete" >
+            <!-- *ngFor="let option of departingFromOptions | async" [value]="option" -->
+            <mat-option>
+              <!--{{ option.name }}-->
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
@@ -27,9 +29,11 @@
         <mat-form-field class="search-flight-full-width" [hideRequiredMarker]="searchFlightForm.value.hideRequired">
           <input placeholder="Arriving at" aria-label="Arriving at" matInput formControlName="arrivingAt" [matAutocomplete]="auto"
             required>
-          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayArrivingAtOptions">
-            <mat-option *ngFor="let option of arrivingAtOptions | async" [value]="option">
-              {{ option.name }}
+          <!-- [displayWith]="displayArrivingAtOptions"-->
+          <mat-autocomplete #auto="matAutocomplete">
+            <!-- *ngFor="let option of arrivingAtOptions | async" [value]="option" -->
+            <mat-option >
+              <!--{{ option.name }}-->
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
