@@ -66,14 +66,14 @@ object Main {
                 |"tripType":{"cf":"searchFlightInfo", "col":"tripType", "type":"string"},
                 |"departingDate":{"cf":"searchFlightInfo", "col":"departingDate", "type":"bigint"},
                 |"arrivingDate":{"cf":"searchFlightInfo", "col":"arrivingDate", "type":"bigint"},
-                |"passengerNumber":{"cf":"searchFlightInfo", "col":"passengerNumber", "type":"smallint"},
+                |"passengerNumber":{"cf":"searchFlightInfo", "col":"passengerNumber", "type":"integer"},
                 |"cabinClass":{"cf":"searchFlightInfo", "col":"cabinClass", "type":"string"}
                 |}
                 |}""".stripMargin
 
 
   val flightInfoDfSchema = new StructType()
-    .add(StructField("key", LongType, true))
+    .add(StructField("key", StringType, true))
     .add(StructField("departing", StringType, true))
     .add(StructField("arriving", StringType, true))
     .add(StructField("tripType", StringType, true))
