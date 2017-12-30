@@ -1,0 +1,19 @@
+version: "3.3"
+services:
+
+  zookeeper-1:
+    container_name: zookeeper-1    
+    networks: ["vnet"]
+    hostname: zookeeper-1.vnet
+    image: smizy/zookeeper:3.4-alpine
+    environment:
+      - SERVICE_2181_NAME=zookeeper
+      - SERVICE_2888_IGNORE=true
+      - SERVICE_3888_IGNORE=true
+      
+    command: -server 1 1 vnet
+
+networks:
+  vnet:
+    external:
+      name: vnet 
