@@ -60,14 +60,14 @@ object Main {
                 |"table":{"namespace":"default", "name":"flightInfo", "tableCoder":"PrimitiveType"},
                 |"rowkey":"key",
                 |"columns":{
-                |"col0":{"cf":"rowkey", "col":"key", "type":"string"},
-                |"col1":{"cf":"searchFlightInfo", "col":"departing", "type":"string"},
-                |"col2":{"cf":"searchFlightInfo", "col":"arriving", "type":"string"},
-                |"col3":{"cf":"searchFlightInfo", "col":"tripType", "type":"string"},
-                |"col4":{"cf":"searchFlightInfo", "col":"departingDate", "type":"bigint"},
-                |"col5":{"cf":"searchFlightInfo", "col":"arrivingDate", "type":"bigint"},
-                |"col6":{"cf":"searchFlightInfo", "col":"passengerNumber", "type":"smallint"},
-                |"col7":{"cf":"searchFlightInfo", "col":"cabinClass", "type":"string"}
+                |"key":{"cf":"rowkey", "col":"key", "type":"string"},
+                |"departing":{"cf":"searchFlightInfo", "col":"departing", "type":"string"},
+                |"arriving":{"cf":"searchFlightInfo", "col":"arriving", "type":"string"},
+                |"tripType":{"cf":"searchFlightInfo", "col":"tripType", "type":"string"},
+                |"departingDate":{"cf":"searchFlightInfo", "col":"departingDate", "type":"bigint"},
+                |"arrivingDate":{"cf":"searchFlightInfo", "col":"arrivingDate", "type":"bigint"},
+                |"passengerNumber":{"cf":"searchFlightInfo", "col":"passengerNumber", "type":"smallint"},
+                |"cabinClass":{"cf":"searchFlightInfo", "col":"cabinClass", "type":"string"}
                 |}
                 |}""".stripMargin
 
@@ -88,11 +88,6 @@ object Main {
         .appName("search-flight-streaming")
         .config("spark.hbase.host", config.streaming.db.host)
         .getOrCreate()
-
-    val sc = sparkSession.sparkContext
-    val sqlContext = sparkSession.sqlContext
-
-    import sqlContext.implicits._
 
     val streamingContext = new StreamingContext(sparkSession.sparkContext, Seconds(config.streaming.window))
 
@@ -118,13 +113,16 @@ object Main {
 
     stream.foreachRDD(rdd => {
         val flightInfoRdd = rdd.map(record => {
+              println(record.value())
+
               val reader: DatumReader[GenericRecord] = new SpecificDatumReader[GenericRecord](flightInfoAvroSchema)
               val decoder: Decoder = DecoderFactory.get().binaryDecoder(record.value, null)
               val flightInfoJson: GenericRecord = reader.read(null, decoder)
+              println(flightInfoJson.toString)
               val flightInfo = jsonDecode(flightInfoJson.toString)
               val random = scala.util.Random
               Row(
-                random.nextLong(),
+                s"${random.nextLong()}",
                 flightInfo.departing,
                 flightInfo.arriving,
                 flightInfo.tripType,
@@ -136,6 +134,12 @@ object Main {
         })
 
         val flightInfoDF = sparkSession.createDataFrame(flightInfoRdd, flightInfoDfSchema)
+        flightInfoDF.show()
+
+        val sc = sparkSession.sparkContext
+        val sqlContext = sparkSession.sqlContext
+
+        import sqlContext.implicits._
 
         flightInfoDF.write.options(
             Map(HBaseTableCatalog.tableCatalog -> flightInfoHbaseSchema, HBaseTableCatalog.newTable -> "5"))
