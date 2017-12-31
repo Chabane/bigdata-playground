@@ -4,16 +4,26 @@ A full example of a big data application using : Kubernetes, Apache Spark SQL/St
 
 ## prod mode
 ```
+cd docker
+docker-compose -f mongo.yml zookeeper.yml kafka.yml hadoop-hbase.yml up -d
 docker-compose up -d
 ```
 ## dev mode 
 ```
+cd docker
 cd batch && sbt clean package assembly
 cd ..
 cd streaming && sbt clean package assembly
 cd ..
-docker-compose -f docker-compose-dev.yml up
+cd ml && sbt clean package assembly
+cd ..
+docker-compose -f mongo.yml zookeeper.yml kafka.yml hadoop-hbase.yml up -d
+docker-compose -f dev/webapp.yml up -d
+docker-compose -f dev/batch.yml up -d
+docker-compose -f dev/streaming.yml up -d
+docker-compose -f dev/ml.yml up -d
 ```
+
 <img src='https://image.ibb.co/jsJcLR/search_flight_v2.png'/>
 
 ## Contributing

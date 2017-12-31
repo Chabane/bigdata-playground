@@ -1,0 +1,15 @@
+version: '3.3'
+
+services:
+  streaming-dev: 
+    build:
+      context: ../../streaming
+      dockerfile: Dockerfile-dev
+    container_name: streaming-dev
+    networks: ["vnet"]
+    hostname: streaming-dev.vnet
+
+networks:
+  vnet:
+    external:
+      name: vnet 

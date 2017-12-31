@@ -1,0 +1,30 @@
+version: '3.3'
+
+services:
+  webapp: 
+    build: ../webapp
+    container_name: webapp
+    ports:
+      - 3000:3000
+    depends_on:
+      - batch
+      - mongo
+
+  batch: 
+    build: ../batch
+    container_name: batch
+    depends_on:
+      - mongo    
+
+  streaming: 
+    build: ../streaming
+    container_name: streaming
+    depends_on:
+      - regionserver-1
+      - kafka   
+          
+  ml:
+    build: ../ml
+    container_name: ml
+    depends_on:
+      - regionserver-1

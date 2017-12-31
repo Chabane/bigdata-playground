@@ -2,11 +2,11 @@ package com.mitosis
 
 import java.io.IOException
 
+import org.apache.spark.sql.{DataFrame, SparkSession, Row}
+import org.apache.spark.sql.types.{StructField, StructType, IntegerType, LongType, StringType}
 import com.mitosis.beans.FlightInfoBean
 import com.mitosis.utils.JsonUtils
 import com.mitosis.config.ConfigurationFactory
-import it.nerdammer.spark.hbase.conversion.FieldWriter
-import org.apache.hadoop.hbase.util.Bytes
 import org.apache.spark.streaming.kafka010.ConsumerStrategies.Subscribe
 import org.apache.spark.streaming.kafka010.KafkaUtils
 import org.apache.spark.streaming.kafka010.LocationStrategies.PreferConsistent
@@ -20,6 +20,7 @@ import org.apache.avro.io.DecoderFactory
 import org.apache.log4j.Logger
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.avro.SchemaBuilder
+import org.apache.spark.sql.execution.datasources.hbase.HBaseTableCatalog
 
 object Main {
 
@@ -43,7 +44,7 @@ object Main {
     }
   }
 
-  val flightInfoSchema = SchemaBuilder
+  val flightInfoAvroSchema = SchemaBuilder
     .record("flightInfo")
     .fields
     .name("departing").`type`().stringType().noDefault()
@@ -54,6 +55,32 @@ object Main {
     .name("passengerNumber").`type`().intType().noDefault()
     .name("cabinClass").`type`().enumeration("CabinClass").symbols("ECONOMY", "PRENIUM", "BUSINESS").noDefault()
     .endRecord
+
+  val flightInfoHbaseSchema = s"""{
+                |"table":{"namespace":"default", "name":"flightInfo", "tableCoder":"PrimitiveType"},
+                |"rowkey":"key",
+                |"columns":{
+                |"key":{"cf":"rowkey", "col":"key", "type":"string"},
+                |"departing":{"cf":"searchFlightInfo", "col":"departing", "type":"string"},
+                |"arriving":{"cf":"searchFlightInfo", "col":"arriving", "type":"string"},
+                |"tripType":{"cf":"searchFlightInfo", "col":"tripType", "type":"string"},
+                |"departingDate":{"cf":"searchFlightInfo", "col":"departingDate", "type":"bigint"},
+                |"arrivingDate":{"cf":"searchFlightInfo", "col":"arrivingDate", "type":"bigint"},
+                |"passengerNumber":{"cf":"searchFlightInfo", "col":"passengerNumber", "type":"integer"},
+                |"cabinClass":{"cf":"searchFlightInfo", "col":"cabinClass", "type":"string"}
+                |}
+                |}""".stripMargin
+
+
+  val flightInfoDfSchema = new StructType()
+    .add(StructField("key", StringType, true))
+    .add(StructField("departing", StringType, true))
+    .add(StructField("arriving", StringType, true))
+    .add(StructField("tripType", StringType, true))
+    .add(StructField("departingDate", LongType, true))
+    .add(StructField("arrivingDate", LongType, true))
+    .add(StructField("passengerNumber", IntegerType, true))
+    .add(StructField("cabinClass", StringType, true))
 
   def main(args: Array[String]): Unit = {
 
@@ -84,45 +111,41 @@ object Main {
           Subscribe[String, Array[Byte]](topics, kafkaParams)
         )
 
-        implicit def resultWriter: FieldWriter[FlightInfoBean] = new FieldWriter[FlightInfoBean]
-        {
-          val random = scala.util.Random
-          override def map(flightInfo: FlightInfoBean): HBaseData =
-            Seq(
-              // here when you insert to HBase table you need to pass 1 extra argument, as compare to HBase table reading mapping.
-              Some(Bytes.toBytes(s"${random.nextLong}")),
-              Some(Bytes.toBytes(flightInfo.tripType)),
-              Some(Bytes.toBytes(flightInfo.arriving)),
-              Some(Bytes.toBytes(flightInfo.departing)),
-              Some(Bytes.toBytes(flightInfo.departingDate)),
-              Some(Bytes.toBytes(flightInfo.arrivingDate)),
-              Some(Bytes.toBytes(flightInfo.passengerNumber)),
-              Some(Bytes.toBytes(flightInfo.cabinClass))
-            )
-          override def columns = Seq(
-            "tripType",
-            "arriving",
-            "departing",
-            "departingDate",
-            "arrivingDate",
-            "passengerNumber",
-            "cabinClass"
-          )
-        }
-
     stream.foreachRDD(rdd => {
-      import it.nerdammer.spark.hbase._
-          val newRdd = rdd.map(record => {
-              val reader: DatumReader[GenericRecord] = new SpecificDatumReader[GenericRecord](flightInfoSchema)
+        val flightInfoRdd = rdd.map(record => {
+              println(record.value())
+
+              val reader: DatumReader[GenericRecord] = new SpecificDatumReader[GenericRecord](flightInfoAvroSchema)
               val decoder: Decoder = DecoderFactory.get().binaryDecoder(record.value, null)
               val flightInfoJson: GenericRecord = reader.read(null, decoder)
+              println(flightInfoJson.toString)
               val flightInfo = jsonDecode(flightInfoJson.toString)
-              flightInfo
-            })
-            val result = newRdd.toHBaseTable(config.streaming.db.table)
-            .inColumnFamily(config.streaming.db.columnFamily)
-            .save()
+              val random = scala.util.Random
+              Row(
+                s"${random.nextLong()}",
+                flightInfo.departing,
+                flightInfo.arriving,
+                flightInfo.tripType,
+                flightInfo.departingDate,
+                flightInfo.arrivingDate,
+                flightInfo.passengerNumber,
+                flightInfo.cabinClass
+              )
         })
+
+        val flightInfoDF = sparkSession.createDataFrame(flightInfoRdd, flightInfoDfSchema)
+        flightInfoDF.show()
+
+        val sc = sparkSession.sparkContext
+        val sqlContext = sparkSession.sqlContext
+
+        import sqlContext.implicits._
+
+        flightInfoDF.write.options(
+            Map(HBaseTableCatalog.tableCatalog -> flightInfoHbaseSchema, HBaseTableCatalog.newTable -> "5"))
+            .format("org.apache.spark.sql.execution.datasources.hbase")
+            .save()
+    })
 
     // create streaming context and submit streaming jobs
     streamingContext.start()

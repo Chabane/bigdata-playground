@@ -16,4 +16,4 @@ RUN sh -c 'touch $SPARK_HOME/libs/search-flight-streaming.jar'
 
 WORKDIR $SPARK_HOME
 
-CMD ["bin/spark-submit", "--class", "com.mitosis.HBaseSource", "--master", "local[*]", "--files", "/usr/local/spark/conf/hbase-site.xml", "/usr/local/spark/libs/search-flight-streaming.jar"]
+CMD ["bin/spark-submit", "--class", "com.mitosis.Main", "--master", "local[*]", "--files", "/usr/local/spark/conf/hbase-site.xml", "/usr/local/spark/libs/search-flight-streaming.jar"]
