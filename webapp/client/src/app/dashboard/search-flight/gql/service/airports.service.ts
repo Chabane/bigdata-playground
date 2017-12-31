@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
+import gql from 'graphql-tag';
+
 import { AIRPORTS_QUERY } from '../query/airports.queries';
 
-import gql from 'graphql-tag';
 
 @Injectable()
 export class AirportsService {
