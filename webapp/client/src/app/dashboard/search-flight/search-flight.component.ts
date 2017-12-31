@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/Observable';
 
 import { SearchFlightService } from './search-flight.service';
 import { FlightInfo, TripType, CabinClass } from '../../shared/model/flight-info.model';
+import { Airport } from '../../shared/model/airport.model';
+import { AirportsService } from './gql/service/airports.service';
 
 @Component({
   moduleId: module.id,
@@ -22,11 +24,15 @@ export class SearchFlightComponent implements OnInit {
   minDate = new Date();
   maxDate = new Date(2020, 0, 1);
 
+  private airports: Array<Airport> = new Array<Airport>();
+
   constructor(private searchFlightService: SearchFlightService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private airportsService: AirportsService) {
   }
 
   ngOnInit() {
+    this.getAirports();
     this.searchFlightForm = this.formBuilder.group({
       hideRequired: false,
       departingFrom: [null, [Validators.required]],
@@ -42,5 +48,22 @@ export class SearchFlightComponent implements OnInit {
    * method called when on submitting the form
    */
   searchFlight() {
+  }
+  /**
+   * retrieve the list of airports
+   */
+  getAirports() {
+    this.airportsService.getAirports().subscribe(response => {
+      const airportsData = (<any>response.data).fetchAirports;
+      airportsData.forEach(airportData => {
+        const airport = new Airport();
+        airport.AirportID = airportData.AirportID;
+        airport.City = airportData.City;
+        airport.Country = airportData.Country;
+        airport.destinations = airportData.destinations;
+        airport.Name = airportData.Name;
+        this.airports.push(airport);
+      });
+    });
   }
 }
