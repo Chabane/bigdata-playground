@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/Observable';
 
 import { SearchFlightService } from './search-flight.service';
 import { FlightInfo, TripType, CabinClass } from '../../shared/model/flight-info.model';
+import { PointOfOrigin } from '../../shared/model/point-of-origin.model';
+import { AirportsService } from './gql/service/airports.service';
 
 @Component({
   moduleId: module.id,
@@ -22,11 +24,15 @@ export class SearchFlightComponent implements OnInit {
   minDate = new Date();
   maxDate = new Date(2020, 0, 1);
 
+  private airportsList: Array<PointOfOrigin> = new Array<PointOfOrigin>();
+
   constructor(private searchFlightService: SearchFlightService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private airportsService: AirportsService) {
   }
 
   ngOnInit() {
+    this.getAirportsList();
     this.searchFlightForm = this.formBuilder.group({
       hideRequired: false,
       departingFrom: [null, [Validators.required]],
@@ -42,5 +48,22 @@ export class SearchFlightComponent implements OnInit {
    * method called when on submitting the form
    */
   searchFlight() {
+  }
+  /**
+   * retrieve the list of airports
+   */
+  getAirportsList() {
+    this.airportsService.getAirports().subscribe(response => {
+      let airportsData = (<any>response.data).fetchAirports;
+      airportsData.forEach(airportData => {
+        let pointOfOrigin = new PointOfOrigin();
+        pointOfOrigin.AirportID = airportData.AirportID;
+        pointOfOrigin.City = airportData.City;
+        pointOfOrigin.Country = airportData.Country;
+        pointOfOrigin.destinations = airportData.destinations;
+        pointOfOrigin.Name = airportData.Name;
+        this.airportsList.push(pointOfOrigin);
+      });
+    });
   }
 }
