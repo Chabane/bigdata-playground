@@ -10,13 +10,13 @@ docker-compose up -d
 ```
 ## dev mode 
 ```
-cd docker
 cd batch && sbt clean package assembly
 cd ..
 cd streaming && sbt clean package assembly
 cd ..
 cd ml && sbt clean package assembly
 cd ..
+cd docker
 docker-compose -f mongo.yml zookeeper.yml kafka.yml hadoop-hbase.yml up -d
 docker-compose -f dev/webapp.yml up -d
 docker-compose -f dev/batch.yml up -d
