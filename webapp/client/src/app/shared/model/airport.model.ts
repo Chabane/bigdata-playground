@@ -1,4 +1,4 @@
-export class PointOfOrigin {
+export class Airport {
   AirportID: string;
   City: string;
   Country: string;
