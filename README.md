@@ -2,13 +2,13 @@
 
 A full example of a big data application using : Kubernetes, Apache Spark SQL/Streaming/MLib, Scala, Apache Kafka, Apache Hbase, Apache Parquet, Apache Avro, Apache NiFi, Kylo (datalake), MongoDB, NodeJS (graphql, kafka-node, mongoose, avsc) Angular, Apollo-GraphQL
 
-## prod mode
+## Prod mode
 ```
 cd docker
 docker-compose -f mongo.yml zookeeper.yml kafka.yml hadoop-hbase.yml up -d
 docker-compose up -d
 ```
-## dev mode 
+## Dev mode 
 ```
 cd batch && sbt clean package assembly
 cd ..
@@ -24,6 +24,7 @@ docker-compose -f dev/streaming.yml up -d
 docker-compose -f dev/ml.yml up -d
 ```
 
+## Motivation
 <img src='https://image.ibb.co/jsJcLR/search_flight_v2.png'/>
 
 ## Contributing
