@@ -1,5 +1,7 @@
 export class PointOfOrigin {
-  city: string;
-  airport: string;
-  code: string;
+  AirportID: string;
+  City: string;
+  Country: string;
+  Name: string;
+  destinations: Array<string>;
 }
