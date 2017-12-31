@@ -54,9 +54,9 @@ export class SearchFlightComponent implements OnInit {
    */
   getAirports() {
     this.airportsService.getAirports().subscribe(response => {
-      let airportsData = (<any>response.data).fetchAirports;
+      const airportsData = (<any>response.data).fetchAirports;
       airportsData.forEach(airportData => {
-        let airport = new Airport();
+        const airport = new Airport();
         airport.AirportID = airportData.AirportID;
         airport.City = airportData.City;
         airport.Country = airportData.Country;
