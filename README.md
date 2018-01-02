@@ -1,6 +1,7 @@
-# BigData Spark Kafka full example
+# Motivation
+The aim is to create a disposable Hadoop/HBase/Spark/ML stack where you can test your jobs locally or to submit them to the Yarn resource manager. We are using Docker to build the environment and Docker-Compose to provision it with the required components (Next step using K8S). Along with the infrastructure, We are check that it works with 4 projects that just probes everything is working as expected. We are basing on sample search flight web application.
 
-A full example of a big data application using : Kubernetes, Apache Spark SQL/Streaming/MLib, Scala, Apache Kafka, Apache Hbase, Apache Parquet, Apache Avro, Apache NiFi, Kylo (datalake), MongoDB, NodeJS (graphql, kafka-node, mongoose, avsc) Angular, Apollo-GraphQL
+Keywords : Docker, Kubernetes, Apache Spark SQL/Streaming/MLib, Scala, Python, Apache Kafka, Apache Hbase, Apache Avro, Apache NiFi, Kylo (datalake), MongoDB, NodeJS (graphql, kafka-node, mongoose, avsc) Angular, Apollo-GraphQL
 
 ## Prod mode
 ```
@@ -24,7 +25,7 @@ docker-compose -f dev/streaming.yml up -d
 docker-compose -f dev/ml.yml up -d
 ```
 
-## Motivation
+## Interactions
 <img src='https://image.ibb.co/jsJcLR/search_flight_v2.png'/>
 
 ## Contributing
