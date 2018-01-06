@@ -5,14 +5,14 @@ Keywords : Docker, Kubernetes, Apache Spark SQL/Streaming/MLib, Scala, Python, A
 
 ## Prod mode
 ```
-docker network create -d overlay vn.net
+docker network create -d overlay vnet
 cd docker
 docker-compose -f mongo.yml -f zookeeper.yml -f kafka.yml -f hadoop-hbase.yml up -d
 docker-compose up -d
 ```
 ## Dev mode 
 ```
-docker network create -d overlay vn.net
+docker network create -d overlay vnet
 cd batch && sbt clean package assembly
 cd ..
 cd streaming && sbt clean package assembly
