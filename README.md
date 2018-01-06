@@ -34,7 +34,7 @@ docker-compose -f dev/ml.yml up -d
 `Pull requests` are welcome.
 
 ## Support
-Please raise tickets for issues and improvements at https://github.com/Chabane/bigdata-spark-kafka-full-example/issues
+Please raise tickets for issues and improvements at https://github.com/Chabane/bigdata-boilerplate/issues
 
 ## License
 This example is released under version 2.0 of the [Apache License](LICENSE).
