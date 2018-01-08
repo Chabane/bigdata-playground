@@ -11,15 +11,14 @@
         </mat-radio-group>
 
         <br/>
-
         <mat-form-field class="search-flight-full-width" [hideRequiredMarker]="searchFlightForm.value.hideRequired">
-          <input placeholder="Departing from" aria-label="Departing from" matInput formControlName="departingFrom" [matAutocomplete]="auto"
+          <input placeholder="Departing from" aria-label="Departing from" matInput [matAutocomplete]="autoDepartingFrom" formControlName="departingFrom"
             required>
-            <!-- [displayWith]="displayDepartingFrom"-->
-          <mat-autocomplete #auto="matAutocomplete" >
+          <!-- [displayWith]="displayDepartingFrom"-->
+          <mat-autocomplete #autoDepartingFrom="matAutocomplete">
             <!-- *ngFor="let option of departingFromOptions | async" [value]="option" -->
-            <mat-option>
-              <!--{{ option.name }}-->
+            <mat-option *ngFor="let airport of filteredAirports.data.fetchAirports | async" [value]="airport.Name">
+              {{ airport.Name }} {{ airport.Country }} {{ airport.City }}
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
@@ -27,13 +26,13 @@
         <br/>
 
         <mat-form-field class="search-flight-full-width" [hideRequiredMarker]="searchFlightForm.value.hideRequired">
-          <input placeholder="Arriving at" aria-label="Arriving at" matInput formControlName="arrivingAt" [matAutocomplete]="auto"
+          <input placeholder="Arriving at" aria-label="Arriving at" matInput formControlName="arrivingAt" [matAutocomplete]="autoArrivingAt"
             required>
           <!-- [displayWith]="displayArrivingAtOptions"-->
-          <mat-autocomplete #auto="matAutocomplete">
-            <!-- *ngFor="let option of arrivingAtOptions | async" [value]="option" -->
-            <mat-option >
-              <!--{{ option.name }}-->
+          <mat-autocomplete #autoArrivingAt="matAutocomplete">
+            <!-- *ngFor="let option of departingFromOptions | async" [value]="option" -->
+            <mat-option *ngFor="let airport of filteredAirports | async" [value]="airport">
+              {{ airport.Name }}
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
