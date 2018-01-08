@@ -10,7 +10,12 @@ export class AirportsService {
     constructor(private apollo: Apollo) {
     }
 
-    getAirports() {
-        return this.apollo.query({ query: gql`${AIRPORTS_QUERY}` });
+    getAirports(departingFrom: string) {
+        return this.apollo.query({
+            query: gql`${AIRPORTS_QUERY}`,
+            variables: {
+                departingFrom: departingFrom
+            }
+        });
     }
 }
