@@ -1,6 +1,6 @@
 export const AIRPORTS_QUERY =
-    `query airports {
-    fetchAirports {
+    `query airports($departingFrom:String) {
+    fetchAirports(departingFrom:$departingFrom) {
         AirportID
         City
         Country
