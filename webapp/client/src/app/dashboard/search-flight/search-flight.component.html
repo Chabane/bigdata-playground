@@ -17,7 +17,7 @@
           <!-- [displayWith]="displayDepartingFrom"-->
           <mat-autocomplete #autoDepartingFrom="matAutocomplete">
             <!-- *ngFor="let option of departingFromOptions | async" [value]="option" -->
-            <mat-option *ngFor="let airport of filteredAirports.data.fetchAirports | async" [value]="airport.Name">
+            <mat-option *ngFor="let airport of filteredAirports | async" [value]="airport.Name">
               {{ airport.Name }} {{ airport.Country }} {{ airport.City }}
             </mat-option>
           </mat-autocomplete>
