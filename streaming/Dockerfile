@@ -9,6 +9,8 @@ RUN curl http://apache.mediamirrors.org/spark/spark-2.2.1/$SPARK_VERSION.tgz -o 
                  tar xzf $SPARK_VERSION.tgz -C /usr/local/;
 RUN cd /usr/local && ln -s $SPARK_VERSION spark
 
+ADD hbase-site.xml $SPARK_HOME/conf
+
 ENV STREAMING_HOME /usr/local/streaming
 
 ADD src $STREAMING_HOME/src
