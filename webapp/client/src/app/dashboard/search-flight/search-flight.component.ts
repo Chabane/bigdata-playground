@@ -4,6 +4,7 @@ import { Observable } from 'apollo-client/util/Observable';
 import { map } from 'rxjs/operators/map';
 import { switchMap } from 'rxjs/operators/switchMap';
 import { debounceTime } from 'rxjs/operators/debounceTime';
+import { startWith } from 'rxjs/operators/startWith';
 import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
 import { filter } from 'graphql-anywhere/lib/utilities';
 
@@ -27,8 +28,12 @@ export class SearchFlightComponent implements OnInit {
   tripTypeOptions = Object.keys(TripType).filter(k => typeof TripType[k as any] === 'string');
   minDate = new Date();
   maxDate = new Date(2020, 0, 1);
-
+  minDateTo = new Date();
+  maxDateTo = new Date(2020, 0, 1);
   filteredAirports: Observable<Array<Airport>>;
+  filteredDestinationAirports: Observable<Array<Airport>>;
+
+  private departureAirport: Airport;
 
   constructor(private searchFlightService: SearchFlightService,
     private formBuilder: FormBuilder,
@@ -36,7 +41,6 @@ export class SearchFlightComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.getAirports();
     this.searchFlightForm = this.formBuilder.group({
       hideRequired: false,
       departingFrom: [null, [Validators.required]],
@@ -48,11 +52,24 @@ export class SearchFlightComponent implements OnInit {
       tripType: [TripType.ROUND_TRIP, [Validators.required]]
     });
 
+    // load departure airports
     this.filteredAirports = <any>this.searchFlightForm.get('departingFrom').valueChanges.pipe(
       distinctUntilChanged(),
       debounceTime(300),
       switchMap(departingFrom => this.loadAirports(departingFrom))
     );
+
+    // load destinations airports
+    this.filteredDestinationAirports = <any>this.searchFlightForm.get('arrivingAt').valueChanges.pipe(
+      distinctUntilChanged(),
+      debounceTime(300),
+      switchMap(arrivingAt => this.loadDestinationAirports(this.departureAirport, arrivingAt))
+    );
+
+    // arrivalDate must be greater than the departureDate
+    this.searchFlightForm.get('departureDate').valueChanges.subscribe(response => {
+      this.minDateTo = response === null ? new Date() : response;
+    });
   }
 
   /**
@@ -60,35 +77,16 @@ export class SearchFlightComponent implements OnInit {
    */
   searchFlight() {
   }
-  /**
-   * retrieve the list of airports
-   */
-  /* getAirports() {
-      this.airportsService.getAirports().subscribe(response => {
-        console.log('*********', response);
-        const airportsData = (<any>response.data).fetchAirports;
-        airportsData.forEach(airportData => {
-          const airport = new Airport();
-          airport.AirportID = airportData.AirportID;
-          airport.City = airportData.City;
-          airport.Country = airportData.Country;
-          airport.destinations = airportData.destinations;
-          airport.Name = airportData.Name;
-          this.airports.push(airport);
-        });
-      });
-}*/
 
-  /*filterAirpots(airport): Observable<Array<Airport>> {
-    console.log('filterAirpots ---', airport);
-    if (airport === '') {
-      return Observable.of(this.airports.slice(0, 250));
-    }
-    return Observable.of(this.airports.slice().filter((item) => {
-      const searchStr = (item.Name + item.Country).toLowerCase();
-      return searchStr.indexOf(airport.toLowerCase()) > -1;
-    }).slice(0, 250));
-  }*/
+  /**
+   *
+   * @param airport put the departingAirport in a variablem to use it
+   *  for loading the destination airports
+   */
+  setDepartureAirport(airport: Airport) {
+    console.log('*-*-*-*-**-airport', airport);
+    this.departureAirport = airport;
+  }
 
   loadAirports(departingFrom: string) {
     return this.airportsService.getAirports(departingFrom).pipe(
@@ -106,6 +104,27 @@ export class SearchFlightComponent implements OnInit {
         });
         console.log('---------', departingAirport);
         return departingAirport;
+      }));
+  }
+
+  private loadDestinationAirports(departingfrom: Airport, arrivingAt: string) {
+    console.log('---------------loadDestinationAirports -- 1', departingfrom.AirportID);
+    console.log('---------------loadDestinationAirports -- 2', arrivingAt);
+    return this.airportsService.getDestinationAirports(departingfrom.AirportID, arrivingAt).pipe(
+      map(response => {
+        const airportsData = (<any>response.data).fetchDestinationAirports;
+        const destinationAirport: Array<Airport> = new Array<Airport>();
+        airportsData.forEach(airportData => {
+          const airport = new Airport();
+          airport.AirportID = airportData.AirportID;
+          airport.City = airportData.City;
+          airport.Country = airportData.Country;
+          airport.destinations = airportData.destinations;
+          airport.Name = airportData.Name;
+          destinationAirport.push(airport);
+        });
+        console.log('---------', destinationAirport);
+        return destinationAirport;
       }));
   }
 }
