@@ -1,5 +1,9 @@
-FROM hseeberger/scala-sbt:8u151-2.12.4-1.0.4
-VOLUME /tmp
+FROM python:2.7-alpine
+
+RUN apk add --no-cache curl bash alpine-sdk openjdk8
+
+ENV JAVA8_HOME /usr/lib/jvm/default-jvm
+ENV JAVA_HOME $JAVA8_HOME
 
 ENV SPARK_VERSION spark-2.2.1-bin-hadoop2.7
 ENV SPARK_HOME /usr/local/spark
@@ -8,17 +12,7 @@ RUN curl http://apache.mediamirrors.org/spark/spark-2.2.1/$SPARK_VERSION.tgz -o 
                  tar xzf $SPARK_VERSION.tgz -C /usr/local/;
 RUN cd /usr/local && ln -s $SPARK_VERSION spark
 
-ENV ML_HOME /usr/local/ml
-
-ADD src $ML_HOME/src
-ADD build.sbt $ML_HOME/
-ADD project/build.properties $ML_HOME/project/
-ADD project/plugins.sbt $ML_HOME/project/
-
-WORKDIR $ML_HOME
-
-RUN sbt package assembly
+ADD mlApp.py $SPARK_HOME/libs/mlApp.py
 
 WORKDIR $SPARK_HOME
-
-CMD ["bin/spark-submit", "--class", "com.mitosis.Main", "--master", "local[2]", "/usr/local/ml/target/scala-2.11/search-flight-ml-assembly-0.1.0.jar" ]
+CMD ["bin/spark-submit", "--master", "local[*]", "libs/mlApp.py"]
