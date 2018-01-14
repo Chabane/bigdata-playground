@@ -9,3 +9,16 @@ export const AIRPORTS_QUERY =
     }
   }
 `;
+
+export const DESTINATION_AIRPORTS_QUERY =
+    `query destinationAirports($departingAirportId:String, $arrivingAt:String) {
+    fetchDestinationAirports(departingAirportId:$departingAirportId, arrivingAt:$arrivingAt) {
+        AirportID
+        City
+        Country
+        Name
+        destinations
+    }
+  }
+`;
+
