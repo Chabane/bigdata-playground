@@ -17,8 +17,8 @@
           <!-- [displayWith]="displayDepartingFrom"-->
           <mat-autocomplete #autoDepartingFrom="matAutocomplete">
             <!-- *ngFor="let option of departingFromOptions | async" [value]="option" -->
-            <mat-option *ngFor="let airport of filteredAirports | async" [value]="airport">
-              {{ airport.Name }} {{ airport.Country }} {{ airport.City }}
+            <mat-option *ngFor="let airport of filteredAirports | async" [value]="airport.Name" (onSelectionChange)="setDepartureAirport(airport)">
+              <span>{{ airport.Name }}, {{ airport.City }}, {{ airport.Country }}</span>
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
@@ -31,8 +31,8 @@
           <!-- [displayWith]="displayArrivingAtOptions"-->
           <mat-autocomplete #autoArrivingAt="matAutocomplete">
             <!-- *ngFor="let option of departingFromOptions | async" [value]="option" -->
-            <mat-option *ngFor="let airport of filteredDestinationAirports | async" [value]="airport">
-              {{ airport.Name }} {{ airport.Country }} {{ airport.City }}
+            <mat-option *ngFor="let airport of filteredDestinationAirports | async" [value]="airport.Name">
+              <span>{{ airport.Name }}, {{ airport.City }}, {{ airport.Country }}</span>
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
