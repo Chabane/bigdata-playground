@@ -163,3 +163,5 @@ Thumbs.db
 /streaming/.scala_dependencies
 /streaming/.worksheet
 
+######## ml ########
+/ml/.idea/
