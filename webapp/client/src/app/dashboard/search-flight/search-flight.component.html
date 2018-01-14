@@ -17,7 +17,7 @@
           <!-- [displayWith]="displayDepartingFrom"-->
           <mat-autocomplete #autoDepartingFrom="matAutocomplete">
             <!-- *ngFor="let option of departingFromOptions | async" [value]="option" -->
-            <mat-option *ngFor="let airport of filteredAirports | async" [value]="airport.Name">
+            <mat-option *ngFor="let airport of filteredAirports | async" [value]="airport">
               {{ airport.Name }} {{ airport.Country }} {{ airport.City }}
             </mat-option>
           </mat-autocomplete>
@@ -31,8 +31,8 @@
           <!-- [displayWith]="displayArrivingAtOptions"-->
           <mat-autocomplete #autoArrivingAt="matAutocomplete">
             <!-- *ngFor="let option of departingFromOptions | async" [value]="option" -->
-            <mat-option *ngFor="let airport of filteredAirports | async" [value]="airport">
-              {{ airport.Name }}
+            <mat-option *ngFor="let airport of filteredDestinationAirports | async" [value]="airport">
+              {{ airport.Name }} {{ airport.Country }} {{ airport.City }}
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
@@ -49,7 +49,7 @@
         <br/>
 
         <mat-form-field class="search-flight-full-width" [hideRequiredMarker]="searchFlightForm.value.hideRequired">
-          <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="arrivalDatePicker" placeholder="Arrival date" formControlName="arrivalDate"
+          <input matInput [min]="minDateTo" [max]="maxDateTo" [matDatepicker]="arrivalDatePicker" placeholder="Arrival date" formControlName="arrivalDate"
             required>
           <mat-datepicker-toggle matSuffix [for]="arrivalDatePicker"></mat-datepicker-toggle>
           <mat-datepicker #arrivalDatePicker></mat-datepicker>
