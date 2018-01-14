@@ -13,6 +13,7 @@ export interface IAirport extends Document {
 
 export interface IAirportModel extends Model<IAirport> {
   findAirports(departingFrom: string): Promise<IAirport>;
+  findDestinationAirports(departingAirportId: string, arrivingAt: string): Promise<IAirport>;
 }
 
 // create a schema
@@ -34,13 +35,25 @@ schema.index(
 
 // retrieve list of airports
 schema.static('findAirports', (departingFrom) => {
-  console.log('------------', '\/' + departingFrom + '\/');
   return Airport
     .find()
     .or([
-      { 'Name': new RegExp(departingFrom + '$', 'i') },
-      { 'Country': new RegExp(departingFrom + '$', 'i') },
-      { 'City': new RegExp(departingFrom + '$', 'i') }])
+      { 'Name': new RegExp(departingFrom, 'i') },
+      { 'Country': new RegExp(departingFrom, 'i') },
+      { 'City': new RegExp(departingFrom, 'i') }])
+    .limit(10)
+    .exec();
+});
+
+// retrieve list of destination airports
+schema.static('findDestinationAirports', (departingAirportId, arrivingAt) => {
+  return Airport
+    .find()
+    .where('destinations', departingAirportId)
+    .or([
+      { 'Name': new RegExp(arrivingAt, 'i') },
+      { 'Country': new RegExp(arrivingAt, 'i') },
+      { 'City': new RegExp(arrivingAt, 'i') }])
     .limit(10)
     .exec();
 });
