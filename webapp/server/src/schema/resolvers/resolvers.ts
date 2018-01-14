@@ -13,6 +13,10 @@ export const resolvers = {
     fetchAirports: async (_, { departingFrom }) => {
       const airports = await Airport.findAirports(departingFrom);
       return airports;
+    },
+    fetchDestinationAirports: async (_, { departingAirportId, arrivingAt }) => {
+      const airports = await Airport.findDestinationAirports(departingAirportId, arrivingAt);
+      return airports;
     }
   }
 };
