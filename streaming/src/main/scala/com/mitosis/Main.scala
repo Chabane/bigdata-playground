@@ -113,12 +113,10 @@ object Main {
 
     stream.foreachRDD(rdd => {
         val flightInfoRdd = rdd.map(record => {
-              println(record.value())
 
               val reader: DatumReader[GenericRecord] = new SpecificDatumReader[GenericRecord](flightInfoAvroSchema)
               val decoder: Decoder = DecoderFactory.get().binaryDecoder(record.value, null)
               val flightInfoJson: GenericRecord = reader.read(null, decoder)
-              println(flightInfoJson.toString)
               val flightInfo = jsonDecode(flightInfoJson.toString)
               val random = scala.util.Random
               Row(
