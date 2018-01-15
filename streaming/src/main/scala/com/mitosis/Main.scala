@@ -132,7 +132,6 @@ object Main {
         })
 
         val flightInfoDF = sparkSession.createDataFrame(flightInfoRdd, flightInfoDfSchema)
-        flightInfoDF.show()
 
         val sc = sparkSession.sparkContext
         val sqlContext = sparkSession.sqlContext
