@@ -10,12 +10,8 @@ export const resolvers = {
       producer.sendFlightInfo(fightInfo as IFlightInfo);
       return fightInfo;
     },
-    fetchAirports: async (_, { departingFrom }) => {
-      const airports = await Airport.findAirports(departingFrom);
-      return airports;
-    },
-    fetchDestinationAirports: async (_, { departingAirportId, arrivingAt }) => {
-      const airports = await Airport.findDestinationAirports(departingAirportId, arrivingAt);
+    fetchAirports: async (_, { airportToSearch, airportId }) => {
+      const airports = await Airport.findAirports(airportToSearch, airportId);
       return airports;
     }
   }
