@@ -118,44 +118,24 @@ export class SearchFlightComponent implements OnInit {
   }
 
   private loadAirports(airportToSearch: string, airportToFilterBy: Airport) {
+    const airportId = airportToFilterBy === null ? null : airportToFilterBy.AirportID;
     console.log('---------------loadDestinationAirports -- 2', airportToSearch);
-    if (airportToFilterBy === null) {
-      return this.airportsService.getAirports(airportToSearch).pipe(
-        map(response => {
-          const airportsData = (<any>response.data).fetchAirports;
-          const destinationAirport: Array<Airport> = new Array<Airport>();
-          airportsData.forEach(airportData => {
-            const airport = new Airport();
-            airport.AirportID = airportData.AirportID;
-            airport.City = airportData.City;
-            airport.Country = airportData.Country;
-            airport.destinations = airportData.destinations;
-            airport.Name = airportData.Name;
-            destinationAirport.push(airport);
-          });
-          console.log('---------', destinationAirport);
-          return destinationAirport;
-        }));
-    } else {
-
-      console.log('---------------loadDestinationAirports -- departureAirport', airportToFilterBy);
-      return this.airportsService.getAirports(airportToSearch, airportToFilterBy.AirportID).pipe(
-        map(response => {
-          const airportsData = (<any>response.data).fetchAirports;
-          const destinationAirport: Array<Airport> = new Array<Airport>();
-          airportsData.forEach(airportData => {
-            const airport = new Airport();
-            airport.AirportID = airportData.AirportID;
-            airport.City = airportData.City;
-            airport.Country = airportData.Country;
-            airport.destinations = airportData.destinations;
-            airport.Name = airportData.Name;
-            destinationAirport.push(airport);
-          });
-          console.log('---------', destinationAirport);
-          return destinationAirport;
-        }));
-    }
-
+    console.log('---------------loadDestinationAirports -- departureAirport', airportToFilterBy);
+    return this.airportsService.getAirports(airportToSearch, airportId).pipe(
+      map(response => {
+        const airportsData = (<any>response.data).fetchAirports;
+        const destinationAirport: Array<Airport> = new Array<Airport>();
+        airportsData.forEach(airportData => {
+          const airport = new Airport();
+          airport.AirportID = airportData.AirportID;
+          airport.City = airportData.City;
+          airport.Country = airportData.Country;
+          airport.destinations = airportData.destinations;
+          airport.Name = airportData.Name;
+          destinationAirport.push(airport);
+        });
+        console.log('---------', destinationAirport);
+        return destinationAirport;
+      }));
   }
 }
