@@ -20,7 +20,7 @@ import { AirportsService } from './gql/service/airports.service';
 })
 export class SearchFlightComponent implements OnInit {
 
-  @ViewChild('filter') filter: ElementRef;
+  @ViewChild('departureAirportInput') departureAirportInput: ElementRef;
   @ViewChild('arrivalAirportInput') arrivalAirportInput: ElementRef;
   searchFlightForm: FormGroup;
   flightInfo: FlightInfo = new FlightInfo();
@@ -73,22 +73,22 @@ export class SearchFlightComponent implements OnInit {
       this.minDateTo = response === null ? new Date() : response;
     });
 
-    Observable.fromEvent(this.filter.nativeElement, 'keyup')
+    Observable.fromEvent(this.departureAirportInput.nativeElement, 'keyup')
       .debounceTime(150)
       .distinctUntilChanged()
       .subscribe((res) => {
-        this.departureAirport = this.filter.nativeElement.value === '' ? null : this.departureAirport;
+        this.departureAirport = this.departureAirportInput.nativeElement.value === '' ? null : this.departureAirport;
         console.log('keyuppppppppppppppppppppp', this.departureAirport);
-        console.log('keyupppppppppppppppppppp------p', this.filter.nativeElement.value);
+        console.log('keyupppppppppppppppppppp------p', this.departureAirportInput.nativeElement.value);
       });
 
     Observable.fromEvent(this.arrivalAirportInput.nativeElement, 'keyup')
       .debounceTime(150)
       .distinctUntilChanged()
       .subscribe((res) => {
-        this.arrivalAirport = this.filter.nativeElement.value === '' ? null : this.arrivalAirport;
+        this.arrivalAirport = this.arrivalAirportInput.nativeElement.value === '' ? null : this.arrivalAirport;
         console.log('keyuppppppppppppppppppppp', this.arrivalAirport);
-        console.log('keyupppppppppppppppppppp------p', this.filter.nativeElement.value);
+        console.log('keyupppppppppppppppppppp------p', this.arrivalAirportInput.nativeElement.value);
       });
   }
 
