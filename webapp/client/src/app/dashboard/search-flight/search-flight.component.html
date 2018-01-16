@@ -12,7 +12,7 @@
 
         <br/>
         <mat-form-field class="search-flight-full-width" [hideRequiredMarker]="searchFlightForm.value.hideRequired">
-          <input placeholder="Departing from" aria-label="Departing from" matInput [matAutocomplete]="autoDepartingFrom" formControlName="departingFrom"
+          <input placeholder="Departing from" aria-label="Departing from" #departureAirportInput matInput [matAutocomplete]="autoDepartingFrom" formControlName="departingFrom"
             required>
           <!-- [displayWith]="displayDepartingFrom"-->
           <mat-autocomplete #autoDepartingFrom="matAutocomplete">
@@ -26,12 +26,12 @@
         <br/>
 
         <mat-form-field class="search-flight-full-width" [hideRequiredMarker]="searchFlightForm.value.hideRequired">
-          <input placeholder="Arriving at" aria-label="Arriving at" matInput formControlName="arrivingAt" [matAutocomplete]="autoArrivingAt"
+          <input placeholder="Arriving at" aria-label="Arriving at" #arrivalAirportInput matInput formControlName="arrivingAt" [matAutocomplete]="autoArrivingAt"
             required>
           <!-- [displayWith]="displayArrivingAtOptions"-->
           <mat-autocomplete #autoArrivingAt="matAutocomplete">
             <!-- *ngFor="let option of departingFromOptions | async" [value]="option" -->
-            <mat-option *ngFor="let airport of filteredDestinationAirports | async" [value]="airport.Name">
+            <mat-option *ngFor="let airport of filteredDestinationAirports | async" [value]="airport.Name" (onSelectionChange)="setArrivalAirport(airport)">
               <span>{{ airport.Name }}, {{ airport.City }}, {{ airport.Country }}</span>
             </mat-option>
           </mat-autocomplete>
