@@ -34,8 +34,8 @@ export class SearchFlightComponent implements OnInit {
   filteredAirports: Observable<Array<Airport>>;
   filteredDestinationAirports: Observable<Array<Airport>>;
 
-  private departureAirport: Airport = null;
-  private arrivalAirport: Airport = null;
+  private departureAirport: Airport;
+  private arrivalAirport: Airport;
 
   constructor(private searchFlightService: SearchFlightService,
     private formBuilder: FormBuilder,
@@ -77,7 +77,7 @@ export class SearchFlightComponent implements OnInit {
       .debounceTime(150)
       .distinctUntilChanged()
       .subscribe((res) => {
-        this.departureAirport = this.departureAirportInput.nativeElement.value === '' ? null : this.departureAirport;
+        this.departureAirport = this.departureAirportInput.nativeElement.value === '' ? undefined : this.departureAirport;
         console.log('keyuppppppppppppppppppppp', this.departureAirport);
         console.log('keyupppppppppppppppppppp------p', this.departureAirportInput.nativeElement.value);
       });
@@ -86,7 +86,7 @@ export class SearchFlightComponent implements OnInit {
       .debounceTime(150)
       .distinctUntilChanged()
       .subscribe((res) => {
-        this.arrivalAirport = this.arrivalAirportInput.nativeElement.value === '' ? null : this.arrivalAirport;
+        this.arrivalAirport = this.arrivalAirportInput.nativeElement.value === '' ? undefined : this.arrivalAirport;
         console.log('keyuppppppppppppppppppppp', this.arrivalAirport);
         console.log('keyupppppppppppppppppppp------p', this.arrivalAirportInput.nativeElement.value);
       });
@@ -118,7 +118,7 @@ export class SearchFlightComponent implements OnInit {
   }
 
   private loadAirports(airportToSearch: string, airportToFilterBy: Airport) {
-    const airportId = airportToFilterBy === null ? null : airportToFilterBy.AirportID;
+    const airportId = airportToFilterBy === undefined ? undefined : airportToFilterBy.AirportID;
     console.log('---------------loadDestinationAirports -- 2', airportToSearch);
     console.log('---------------loadDestinationAirports -- departureAirport', airportToFilterBy);
     return this.airportsService.getAirports(airportToSearch, airportId).pipe(
