@@ -73,7 +73,14 @@ export class SearchFlightComponent implements OnInit {
       this.minDateTo = response === null ? new Date() : response;
     });
 
-    Observable.fromEvent(this.departureAirportInput.nativeElement, 'keyup')
+    this.checkDepartureAirportInputChanges();
+    this.checkArrivalAirportInputChanges();
+  }
+  /**
+   * track departure airtport input for changes
+   */
+  private checkDepartureAirportInputChanges() {
+    return Observable.fromEvent(this.departureAirportInput.nativeElement, 'keyup')
       .debounceTime(150)
       .distinctUntilChanged()
       .subscribe((res) => {
@@ -81,8 +88,13 @@ export class SearchFlightComponent implements OnInit {
         console.log('keyuppppppppppppppppppppp', this.departureAirport);
         console.log('keyupppppppppppppppppppp------p', this.departureAirportInput.nativeElement.value);
       });
+  }
 
-    Observable.fromEvent(this.arrivalAirportInput.nativeElement, 'keyup')
+  /**
+   * track arrival airtport input for changes
+   */
+  private checkArrivalAirportInputChanges() {
+    return Observable.fromEvent(this.arrivalAirportInput.nativeElement, 'keyup')
       .debounceTime(150)
       .distinctUntilChanged()
       .subscribe((res) => {
@@ -91,7 +103,6 @@ export class SearchFlightComponent implements OnInit {
         console.log('keyupppppppppppppppppppp------p', this.arrivalAirportInput.nativeElement.value);
       });
   }
-
   /**
    * method called when on submitting the form
    */
