@@ -12,8 +12,7 @@ export interface IAirport extends Document {
 }
 
 export interface IAirportModel extends Model<IAirport> {
-  findAirports(departingFrom: string): Promise<IAirport>;
-  findDestinationAirports(departingAirportId: string, arrivingAt: string): Promise<IAirport>;
+  findAirports(airportToSearch: string, airportId?: string): Promise<IAirport>;
 }
 
 // create a schema
@@ -34,28 +33,34 @@ schema.index(
 );
 
 // retrieve list of airports
-schema.static('findAirports', (departingFrom) => {
-  return Airport
-    .find()
-    .or([
-      { 'Name': new RegExp(departingFrom, 'i') },
-      { 'Country': new RegExp(departingFrom, 'i') },
-      { 'City': new RegExp(departingFrom, 'i') }])
-    .limit(10)
-    .exec();
-});
+schema.static('findAirports', (airportToSearch, airportId) => {
+  console.log('-------arrivingAt' + airportToSearch + '-------airportId' + airportId);
 
-// retrieve list of destination airports
-schema.static('findDestinationAirports', (departingAirportId, arrivingAt) => {
-  return Airport
-    .find()
-    .where('destinations', departingAirportId)
-    .or([
-      { 'Name': new RegExp(arrivingAt, 'i') },
-      { 'Country': new RegExp(arrivingAt, 'i') },
-      { 'City': new RegExp(arrivingAt, 'i') }])
-    .limit(10)
-    .exec();
+  if (airportId === undefined) {
+
+    console.log('-------airportId === undefined');
+    return Airport
+      .find()
+      .or([
+        { 'Name': new RegExp(airportToSearch, 'i') },
+        { 'Country': new RegExp(airportToSearch, 'i') },
+        { 'City': new RegExp(airportToSearch, 'i') }])
+      .limit(10)
+      .exec();
+  } else {
+
+    console.log('-------airportId ===', airportId);
+    return Airport
+      .find()
+      .where('destinations', airportId)
+      .or([
+        { 'Name': new RegExp(airportToSearch, 'i') },
+        { 'Country': new RegExp(airportToSearch, 'i') },
+        { 'City': new RegExp(airportToSearch, 'i') }])
+      .limit(10)
+      .exec();
+  }
+
 });
 export const Airport = mongoose.model<IAirport>('Airport', schema) as IAirportModel;
 
