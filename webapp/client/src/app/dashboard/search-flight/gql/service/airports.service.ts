@@ -15,7 +15,7 @@ export class AirportsService {
             query: gql`${AIRPORTS_QUERY}`,
             variables: {
                 airportId: airportId,
-                arrivingAt: airportToSearch
+                airportToSearch: airportToSearch
             },
             fetchPolicy: 'network-only'
         });
