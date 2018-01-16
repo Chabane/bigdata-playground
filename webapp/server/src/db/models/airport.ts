@@ -36,7 +36,7 @@ schema.index(
 schema.static('findAirports', (airportToSearch, airportId) => {
   console.log('-------arrivingAt' + airportToSearch + '-------airportId' + airportId);
 
-  if (airportId === null) {
+  if (airportId === undefined) {
 
     console.log('-------airportId ===', airportId);
     return Airport
