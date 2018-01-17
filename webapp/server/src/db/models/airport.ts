@@ -34,11 +34,8 @@ schema.index(
 
 // retrieve list of airports
 schema.static('findAirports', (airportToSearch, airportId) => {
-  console.log('-------arrivingAt' + airportToSearch + '-------airportId' + airportId);
 
   if (airportId === undefined) {
-
-    console.log('-------airportId ===', airportId);
     return Airport
       .find()
       .or([
@@ -48,8 +45,6 @@ schema.static('findAirports', (airportToSearch, airportId) => {
       .limit(10)
       .exec();
   } else {
-
-    console.log('-------airportId ===', airportId);
     return Airport
       .find()
       .where('destinations', airportId)

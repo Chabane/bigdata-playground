@@ -86,8 +86,6 @@ export class SearchFlightComponent implements OnInit {
       .distinctUntilChanged()
       .subscribe((res) => {
         this.departureAirport = this.departureAirportInput.nativeElement.value === '' ? undefined : this.departureAirport;
-        console.log('keyuppppppppppppppppppppp', this.departureAirport);
-        console.log('keyupppppppppppppppppppp------p', this.departureAirportInput.nativeElement.value);
       });
   }
 
@@ -100,8 +98,6 @@ export class SearchFlightComponent implements OnInit {
       .distinctUntilChanged()
       .subscribe((res) => {
         this.arrivalAirport = this.arrivalAirportInput.nativeElement.value === '' ? undefined : this.arrivalAirport;
-        console.log('keyuppppppppppppppppppppp', this.arrivalAirport);
-        console.log('keyupppppppppppppppppppp------p', this.arrivalAirportInput.nativeElement.value);
       });
   }
   /**
@@ -116,7 +112,6 @@ export class SearchFlightComponent implements OnInit {
    *  for loading the destination airports
    */
   setDepartureAirport(airport: Airport) {
-    console.log('*-*-*-*-**-departure airport', airport);
     this.departureAirport = airport;
   }
   /**
@@ -125,14 +120,11 @@ export class SearchFlightComponent implements OnInit {
    *  for loading the departure airports
    */
   setArrivalAirport(airport: Airport) {
-    console.log('*-*-*-*-**-arrival airport', airport);
     this.arrivalAirport = airport;
   }
 
   private loadAirports(airportToSearch: string, airportToFilterBy: Airport) {
     const airportId = airportToFilterBy === undefined ? undefined : airportToFilterBy.AirportID;
-    console.log('---------------loadDestinationAirports -- 2', airportToSearch);
-    console.log('---------------loadDestinationAirports -- departureAirport', airportToFilterBy);
     return this.airportsService.getAirports(airportToSearch, airportId).pipe(
       map(response => {
         const airportsData = (<any>response.data).fetchAirports;
