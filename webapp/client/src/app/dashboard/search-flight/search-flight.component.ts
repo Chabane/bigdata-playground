@@ -4,13 +4,14 @@ import { Observable } from 'rxjs/rx';
 import { map } from 'rxjs/operators/map';
 import { switchMap } from 'rxjs/operators/switchMap';
 import { debounceTime } from 'rxjs/operators/debounceTime';
-import { startWith } from 'rxjs/operators/startWith';
 import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
 
 import { SearchFlightService } from './search-flight.service';
 import { FlightInfo, TripType, CabinClass } from '../../shared/model/flight-info.model';
 import { Airport } from '../../shared/model/airport.model';
 import { AirportsService } from './gql/service/airports.service';
+import { AirportDtoMapper, AirportMapper } from './util/';
+
 
 @Component({
   moduleId: module.id,
@@ -135,18 +136,8 @@ export class SearchFlightComponent implements OnInit {
     return this.airportsService.getAirports(airportToSearch, airportId).pipe(
       map(response => {
         const airportsData = (<any>response.data).fetchAirports;
-        const destinationAirport: Array<Airport> = new Array<Airport>();
-        airportsData.forEach(airportData => {
-          const airport = new Airport();
-          airport.AirportID = airportData.AirportID;
-          airport.City = airportData.City;
-          airport.Country = airportData.Country;
-          airport.destinations = airportData.destinations;
-          airport.Name = airportData.Name;
-          destinationAirport.push(airport);
-        });
-        console.log('---------', destinationAirport);
-        return destinationAirport;
+        const airportsDtoList = AirportDtoMapper.toAirportsDto(airportsData);
+        return AirportMapper.toAirports(airportsDtoList);
       }));
   }
 }
