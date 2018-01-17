@@ -30,7 +30,7 @@ docker-compose -f dev/ml.yml up -d
 ```
 
 ## Interactions
-<img src='https://image.ibb.co/jsJcLR/search_flight_v2.png'/>
+<img src='https://image.ibb.co/jg2GU6/search_flight_simple_v1.png'/>
 
 ## Contributing
 `Pull requests` are welcome.
