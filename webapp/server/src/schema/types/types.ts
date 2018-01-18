@@ -22,7 +22,7 @@ type Airport {
 # the schema allows the following query:
 type Query {
   sendFlightInfo(flightInfo: FlightInfo): FlightInfo
-    fetchAirports: [Airport]
+  fetchAirports(airportToSearch: String, airportId: String): [Airport]
 }
 
 schema {
