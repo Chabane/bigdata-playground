@@ -19,8 +19,6 @@ cd batch && sbt clean package assembly
 cd ..
 cd streaming && sbt clean package assembly
 cd ..
-cd ml && sbt clean package assembly
-cd ..
 cd docker
 docker-compose -f mongo.yml -f zookeeper.yml -f kafka.yml -f hadoop-hbase.yml up -d
 docker-compose -f dev/webapp.yml up -d
