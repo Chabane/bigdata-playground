@@ -13,11 +13,11 @@ export enum CabinClass {
 }
 
 export class FlightInfo {
-  departing: Airport;
-  arriving: Airport;
+  departingId: string;
+  arrivingId: string;
   tripType: TripType;
-  departingDate: Date;
-  arrivingDate: Date;
+  departureDate: Date;
+  arrivalDate: Date;
   passengerNumber: number;
   cabinClass: CabinClass;
 }
