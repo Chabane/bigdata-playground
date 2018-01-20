@@ -24,7 +24,6 @@ export class SearchFlightComponent implements OnInit {
   @ViewChild('departureAirportInput') departureAirportInput: ElementRef;
   @ViewChild('arrivalAirportInput') arrivalAirportInput: ElementRef;
   searchFlightForm: FormGroup;
-  flightInfo: FlightInfo = new FlightInfo();
   passengersNumberOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   cabinsClassOptions = Object.keys(CabinClass).filter(k => typeof CabinClass[k as any] === 'string');
   tripTypeOptions = Object.keys(TripType).filter(k => typeof TripType[k as any] === 'string');
@@ -104,6 +103,16 @@ export class SearchFlightComponent implements OnInit {
    * method called when on submitting the form
    */
   searchFlight() {
+    const flightInfo: FlightInfo = new FlightInfo();
+    flightInfo.departingId = this.departureAirport.AirportID;
+    flightInfo.arrivingId = this.arrivalAirport.AirportID;
+    flightInfo.departureDate = this.searchFlightForm.get('departureDate').value;
+    flightInfo.arrivalDate = this.searchFlightForm.get('arrivalDate').value;
+    flightInfo.passengerNumber = this.searchFlightForm.get('passengerNumber').value;
+    flightInfo.cabinClass = this.searchFlightForm.get('cabinClass').value;
+    flightInfo.tripType = this.searchFlightForm.get('tripType').value;
+    this.airportsService.sendFlightInfo(flightInfo).subscribe(res => {
+    });
   }
 
   /**
