@@ -10,7 +10,14 @@ export class AirportsService {
     constructor(private apollo: Apollo) {
     }
 
-    getAirports() {
-        return this.apollo.query({ query: gql`${AIRPORTS_QUERY}` });
+    getAirports(airportToSearch: string, airportId?: string) {
+        return this.apollo.query({
+            query: gql`${AIRPORTS_QUERY}`,
+            variables: {
+                airportId: airportId,
+                airportToSearch: airportToSearch
+            },
+            fetchPolicy: 'network-only'
+        });
     }
 }

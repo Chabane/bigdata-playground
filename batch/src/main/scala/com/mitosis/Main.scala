@@ -25,7 +25,6 @@ object Main {
 
     parquetFileDF.createOrReplaceTempView("airportParquet")
     val airportDF = sparkSession.sql("SELECT * FROM airportParquet")
-    airportDF.printSchema()
 
     MongoSpark.save(airportDF.write.option("collection", "airports").mode("overwrite"))
 

@@ -1,6 +1,6 @@
 export const AIRPORTS_QUERY =
-    `query airports {
-    fetchAirports {
+    `query airports($airportToSearch:String, $airportId:String) {
+        fetchAirports(airportToSearch:$airportToSearch, airportId:$airportId) {
         AirportID
         City
         Country
@@ -9,3 +9,4 @@ export const AIRPORTS_QUERY =
     }
   }
 `;
+

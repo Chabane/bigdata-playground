@@ -1,5 +1,5 @@
 import { Producer, KeyedMessage, Client } from 'kafka-node';
-import { parse, Type as AvroType} from 'avsc/lib';
+import { parse, Type as AvroType } from 'avsc/lib';
 import * as winston from 'winston';
 
 export class KafkaProducer {
@@ -21,16 +21,16 @@ export class KafkaProducer {
                 fields: [
                     { name: 'departing', type: 'string' },
                     { name: 'arriving', type: 'string' },
-                    { name: 'tripType', type: { type: 'enum', name:'TripType', symbols: ['ONE_WAY', 'ROUND_TRIP'] } },
-                    { name: 'departingDate', type: {type: 'long', logicalType: 'timestamp-millis'} },
-                    { name: 'arrivingDate', type: {type: 'long', logicalType: 'timestamp-millis'} },
+                    { name: 'tripType', type: { type: 'enum', name: 'TripType', symbols: ['ONE_WAY', 'ROUND_TRIP'] } },
+                    { name: 'departingDate', type: { type: 'long', logicalType: 'timestamp-millis' } },
+                    { name: 'arrivingDate', type: { type: 'long', logicalType: 'timestamp-millis' } },
                     { name: 'passengerNumber', type: 'int' },
-                    { name: 'cabinClass', type: { type: 'enum', name:'CabinClass', symbols: ['ECONOMY', 'PRENIUM', 'BUSINESS'] } }
+                    { name: 'cabinClass', type: { type: 'enum', name: 'CabinClass', symbols: ['ECONOMY', 'PRENIUM', 'BUSINESS'] } }
                 ]
             });
 
             const buffer = new KeyedMessage('event', <any>flightInfo);
-            const keyedMessage = new KeyedMessage('key', buffer);
+            const keyedMessage = new KeyedMessage('key', <any>buffer);
 
             this.producer.send([
                 { topic: this.topic, partition: 0, messages: keyedMessage }
