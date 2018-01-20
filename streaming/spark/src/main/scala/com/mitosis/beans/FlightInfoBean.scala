@@ -1,12 +1,6 @@
 package com.mitosis.beans
 
-import CabinClass._
-import TripType._
-
-import scala.beans.{BeanProperty, BooleanBeanProperty}
-
-//remove if not needed
-import scala.collection.JavaConversions._
+import scala.beans.{BeanProperty}
 
 class FlightInfoBean {
 
@@ -26,7 +20,7 @@ class FlightInfoBean {
   var arrivingDate: Long = _
   
   @BeanProperty
-  var passengerNumber: Short = _
+  var passengerNumber: Int = _
   
   @BeanProperty
   var cabinClass: String = _

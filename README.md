@@ -1,17 +1,41 @@
-# Search flight Big data app
+# Bigdata Boilerplate
 
-A full example of a big data application using : Kubernetes, Apache Spark SQL/Streaming/MLib, Scala, Apache Kafka, Apache Hbase, Apache Parquet, Apache Avro, MongoDB, NodeJS (graphql, kafka-node, mongoose, avsc) Angular, Apollo-GraphQL
+## Motivation
+The aim is to create a disposable Hadoop/HBase/Spark/Flink/ML stack where you can test your jobs locally or to submit them to the Yarn resource manager. We are using Docker to build the environment and Docker-Compose to provision it with the required components (Next step using Kubernetes). Along with the infrastructure, We are check that it works with 4 projects that just probes everything is working as expected. The boilerplate is based on a sample search flight web application.
 
-# prod mode
+Keywords : Docker, Kubernetes, Apache Spark SQL/Streaming/MLib, Apache Flink, Scala, Python, Apache Kafka, Apache Hbase, Apache Avro, (Apache NiFi, Kylo next step), MongoDB, NodeJS (graphql, kafka-node, mongoose, avsc) Angular, Apollo-GraphQL
+
+## Prod mode
 ```
+docker network create vnet
+cd docker
+docker-compose -f mongo.yml -f zookeeper.yml -f kafka.yml -f hadoop-hbase.yml up -d
 docker-compose up -d
 ```
-# dev mode 
+## Dev mode 
 ```
+docker network create vnet
 cd batch && sbt clean package assembly
 cd ..
 cd streaming && sbt clean package assembly
 cd ..
-docker-compose -f docker-compose-dev.yml up
+cd docker
+docker-compose -f mongo.yml -f zookeeper.yml -f kafka.yml -f hadoop-hbase.yml up -d
+docker-compose -f dev/webapp.yml up -d
+docker-compose -f dev/batch.yml up -d
+docker-compose -f dev/streaming.yml up -d
+docker-compose -f dev/ml.yml up -d
 ```
-<img src='https://image.ibb.co/cgzCUm/search_flight.png'/>
+
+## Interactions
+<img src='https://image.ibb.co/jg2GU6/search_flight_simple_v1.png'/>
+
+## Contributing
+`Pull requests` are welcome.
+
+## Support
+Please raise tickets for issues and improvements at https://github.com/Chabane/bigdata-boilerplate/issues
+
+## License
+This example is released under version 2.0 of the [Apache License](LICENSE).
+

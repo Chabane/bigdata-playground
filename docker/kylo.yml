@@ -1,0 +1,12 @@
+version: '3.3'
+
+services:
+  kylo:
+    networks: ["vnet"]
+    hostname: kylo.vnet
+    image: keven4ever/kylo_docker   
+    
+networks:
+  vnet:
+    external:
+      name: vnet 

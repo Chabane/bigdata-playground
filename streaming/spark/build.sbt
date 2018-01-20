@@ -5,10 +5,11 @@ resolvers ++= Seq(
   "apache-snapshots" at "http://repository.apache.org/snapshots/",
   "Spark Packages Repo" at "https://dl.bintray.com/spark-packages/maven",
   "confluent" at "http://packages.confluent.io/maven/",
+  "hortonworks" at "http://repo.hortonworks.com/content/repositories/releases/",
   Resolver.sonatypeRepo("public")
 )
 
-name := "search-flight-streaming"
+name := "search-flight-spark-streaming"
 organization := "com.mitosis"
 version := "0.1.0"
 
@@ -19,8 +20,7 @@ val jacksonVersion = "2.6.5"
 val typesafeVersion = "1.3.0"
 val log4jVersion = "1.2.14"
 val avroVersion = "4.0.0"
-val kafkaAvroSerializerVersion = "4.0.0"
-val hbaseVersion = "1.4.0"
+val hbaseConnectorVersion = "1.1.1-2.1-s_2.11"
 
 libraryDependencies ++= Seq(
     "log4j" % "log4j" % log4jVersion,
@@ -42,9 +42,7 @@ libraryDependencies ++= Seq(
     "com.databricks" %% "spark-avro" % avroVersion,
     "com.fasterxml.jackson.core" % "jackson-databind" % jacksonVersion,
     "com.fasterxml.jackson.core" % "jackson-core" % jacksonVersion,
-
-  "it.nerdammer.bigdata" % "spark-hbase-connector_2.10" % "1.0.3"
-
+    "com.hortonworks" % "shc-core" % hbaseConnectorVersion,
 )
 
 assemblyMergeStrategy in assembly := {

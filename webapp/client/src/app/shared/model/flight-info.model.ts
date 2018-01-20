@@ -1,4 +1,4 @@
-import { PointOfOrigin } from './point-of-origin.model';
+import { Airport } from './airport.model';
 
 export enum TripType {
   ONE_WAY = 'ONE_WAY',
@@ -13,8 +13,8 @@ export enum CabinClass {
 }
 
 export class FlightInfo {
-  departing: PointOfOrigin;
-  arriving: PointOfOrigin;
+  departing: Airport;
+  arriving: Airport;
   tripType: TripType;
   departingDate: Date;
   arrivingDate: Date;

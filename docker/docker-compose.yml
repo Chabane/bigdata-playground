@@ -1,0 +1,20 @@
+version: '3.3'
+
+services:
+  webapp: 
+    build: ../webapp
+    container_name: webapp
+    ports:
+      - 3000:3000
+
+  batch-spark: 
+    build: ../batch
+    container_name: batch_spark 
+
+  streaming-spark: 
+    build: ../streaming/spark
+    container_name: streaming_spark
+          
+  ml:
+    build: ../ml
+    container_name: ml

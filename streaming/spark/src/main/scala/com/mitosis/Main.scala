@@ -2,6 +2,8 @@ package com.mitosis
 
 import java.io.IOException
 
+import org.apache.spark.sql.{DataFrame, SparkSession, Row}
+import org.apache.spark.sql.types.{StructField, StructType, IntegerType, LongType, StringType}
 import com.mitosis.beans.FlightInfoBean
 import com.mitosis.utils.JsonUtils
 import com.mitosis.config.ConfigurationFactory
@@ -18,6 +20,7 @@ import org.apache.avro.io.DecoderFactory
 import org.apache.log4j.Logger
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.avro.SchemaBuilder
+import org.apache.spark.sql.execution.datasources.hbase.HBaseTableCatalog
 
 object Main {
 
@@ -41,7 +44,7 @@ object Main {
     }
   }
 
-  val flightInfoSchema = SchemaBuilder
+  val flightInfoAvroSchema = SchemaBuilder
     .record("flightInfo")
     .fields
     .name("departing").`type`().stringType().noDefault()
@@ -53,9 +56,37 @@ object Main {
     .name("cabinClass").`type`().enumeration("CabinClass").symbols("ECONOMY", "PRENIUM", "BUSINESS").noDefault()
     .endRecord
 
+  val flightInfoHbaseSchema = s"""{
+                |"table":{"namespace":"default", "name":"flightInfo", "tableCoder":"PrimitiveType"},
+                |"rowkey":"key",
+                |"columns":{
+                |"key":{"cf":"rowkey", "col":"key", "type":"string"},
+                |"departing":{"cf":"searchFlightInfo", "col":"departing", "type":"string"},
+                |"arriving":{"cf":"searchFlightInfo", "col":"arriving", "type":"string"},
+                |"tripType":{"cf":"searchFlightInfo", "col":"tripType", "type":"string"},
+                |"departingDate":{"cf":"searchFlightInfo", "col":"departingDate", "type":"bigint"},
+                |"arrivingDate":{"cf":"searchFlightInfo", "col":"arrivingDate", "type":"bigint"},
+                |"passengerNumber":{"cf":"searchFlightInfo", "col":"passengerNumber", "type":"integer"},
+                |"cabinClass":{"cf":"searchFlightInfo", "col":"cabinClass", "type":"string"}
+                |}
+                |}""".stripMargin
+
+
+  val flightInfoDfSchema = new StructType()
+    .add(StructField("key", StringType, true))
+    .add(StructField("departing", StringType, true))
+    .add(StructField("arriving", StringType, true))
+    .add(StructField("tripType", StringType, true))
+    .add(StructField("departingDate", LongType, true))
+    .add(StructField("arrivingDate", LongType, true))
+    .add(StructField("passengerNumber", IntegerType, true))
+    .add(StructField("cabinClass", StringType, true))
+
   def main(args: Array[String]): Unit = {
+
     val sparkSession = SparkSession.builder
         .appName("search-flight-streaming")
+        .config("spark.hbase.host", config.streaming.db.host)
         .getOrCreate()
 
     val streamingContext = new StreamingContext(sparkSession.sparkContext, Seconds(config.streaming.window))
@@ -80,14 +111,38 @@ object Main {
           Subscribe[String, Array[Byte]](topics, kafkaParams)
         )
 
-        stream.foreachRDD(rdd => {
-            rdd.foreach(record => {
-              val reader: DatumReader[GenericRecord] = new SpecificDatumReader[GenericRecord](flightInfoSchema)
+    stream.foreachRDD(rdd => {
+        val flightInfoRdd = rdd.map(record => {
+
+              val reader: DatumReader[GenericRecord] = new SpecificDatumReader[GenericRecord](flightInfoAvroSchema)
               val decoder: Decoder = DecoderFactory.get().binaryDecoder(record.value, null)
               val flightInfoJson: GenericRecord = reader.read(null, decoder)
               val flightInfo = jsonDecode(flightInfoJson.toString)
-            })
+              val random = scala.util.Random
+              Row(
+                s"${random.nextLong()}",
+                flightInfo.departing,
+                flightInfo.arriving,
+                flightInfo.tripType,
+                flightInfo.departingDate,
+                flightInfo.arrivingDate,
+                flightInfo.passengerNumber,
+                flightInfo.cabinClass
+              )
         })
+
+        val flightInfoDF = sparkSession.createDataFrame(flightInfoRdd, flightInfoDfSchema)
+
+        val sc = sparkSession.sparkContext
+        val sqlContext = sparkSession.sqlContext
+
+        import sqlContext.implicits._
+
+        flightInfoDF.write.options(
+            Map(HBaseTableCatalog.tableCatalog -> flightInfoHbaseSchema, HBaseTableCatalog.newTable -> "5"))
+            .format("org.apache.spark.sql.execution.datasources.hbase")
+            .save()
+    })
 
     // create streaming context and submit streaming jobs
     streamingContext.start()

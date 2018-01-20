@@ -7,6 +7,7 @@ import { SearchFlightComponent } from './search-flight/search-flight.component';
 import { DashboardComponent } from './dashboard.component';
 import { dashboardRoutes } from './dashboard.routes';
 import { SearchFlightService } from './search-flight/search-flight.service';
+import { AirportsService } from './search-flight/gql/service/airports.service';
 
 import { MaterialModule } from '../shared/material.module';
 
@@ -19,7 +20,8 @@ import { MaterialModule } from '../shared/material.module';
     MaterialModule
   ],
   declarations: [SearchFlightComponent, DashboardComponent],
-  providers: [SearchFlightService]
+  providers: [SearchFlightService,
+    AirportsService]
 })
 export class DashboardModule { }
 

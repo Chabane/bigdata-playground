@@ -13,4 +13,9 @@ class StreamingDbConfig {
   @BeanProperty
   var port: Int = _
 
+  @BeanProperty
+  var table: String = _
+
+  @BeanProperty
+  var columnFamily: String = _
 }

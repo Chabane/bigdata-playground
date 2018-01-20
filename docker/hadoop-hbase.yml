@@ -1,0 +1,74 @@
+version: "3.3"
+services:
+
+  namenode-1:
+    container_name: namenode-1
+    networks: ["vnet"]
+    hostname: namenode-1.vnet
+    image: smizy/hadoop-base:2.8.3-alpine 
+    expose: ["8020"]
+    ports:  ["50070"]
+    environment:
+      - SERVICE_8020_NAME=namenode
+      - SERVICE_50070_IGNORE=true
+      - HADOOP_ZOOKEEPER_QUORUM=zookeeper-1.vnet:2181 
+      - HADOOP_HEAPSIZE=1000
+      - HADOOP_NAMENODE_HA=
+    volumes:
+      - namenode:/usr/local/hadoop-2.8.3    
+    entrypoint: entrypoint.sh
+    command: namenode-1
+
+  datanode-1:
+    container_name: datanode-1
+    networks: ["vnet"]
+    hostname: datanode-1.vnet
+    image: smizy/hadoop-base:2.8.3-alpine
+    expose: ["50010", "50020", "50075"]
+    environment:
+      - SERVICE_50010_NAME=datanode
+      - SERVICE_50020_IGNORE=true
+      - SERVICE_50075_IGNORE=true
+      - HADOOP_ZOOKEEPER_QUORUM=zookeeper-1.vnet:2181 
+      - HADOOP_HEAPSIZE=1000
+      - HADOOP_NAMENODE_HA=
+      
+    entrypoint: entrypoint.sh
+    command: datanode
+
+  hmaster-1:
+    container_name: hmaster-1
+    networks: ["vnet"]
+    hostname: hmaster-1.vnet
+    image: smizy/hbase:1.4.0-alpine
+    expose: [16000]
+    ports:  [16010]
+    depends_on: ["zookeeper-1"]
+    environment:
+      - SERVICE_16000_NAME=hmaster
+      - SERVICE_16010_IGNORE=true
+      - HBASE_ZOOKEEPER_QUORUM=zookeeper-1.vnet:2181 
+    command: hmaster-1
+    volumes:
+      - namenode:/usr/local/hadoop-2.8.3
+
+  regionserver-1:
+    container_name: regionserver-1
+    networks: ["vnet"]
+    hostname: regionserver-1.vnet
+    image: smizy/hbase:1.4.0-alpine
+    expose: [16020, 16030]
+    depends_on: ["zookeeper-1"]
+    environment:
+      - SERVICE_16020_NAME=regionserver
+      - SERVICE_16030_IGNORE=true
+      - HBASE_ZOOKEEPER_QUORUM=zookeeper-1.vnet:2181 
+    command: regionserver
+
+networks:
+  vnet:
+    external:
+      name: vnet 
+
+volumes:
+  namenode:
