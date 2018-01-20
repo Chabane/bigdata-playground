@@ -1,12 +1,24 @@
 /* tslint:disable */
 export const typeDefs = `
 
-type FlightInfo {
-  departing: String
-  arriving: String
+scalar Date
+
+type FlightInfoType {
+  departingId: String
+  arrivingId: String
   tripType: String
-  departingDate: Int
-  arrivingDate: Int
+  departureDate: Date
+  arrivalDate: Date
+  passengerNumber: Int
+  cabinClass: String
+}
+
+input FlightInfoInput {
+  departingId: String
+  arrivingId: String
+  tripType: String
+  departureDate: Date
+  arrivalDate: Date
   passengerNumber: Int
   cabinClass: String
 }
@@ -21,11 +33,14 @@ type Airport {
 
 # the schema allows the following query:
 type Query {
-  sendFlightInfo(flightInfo: FlightInfo): FlightInfo
   fetchAirports(airportToSearch: String, airportId: String): [Airport]
+}
+type Mutation {
+  sendFlightInfo(flightInfo: FlightInfoInput): FlightInfoType
 }
 
 schema {
-  query: Query
+  query: Query,
+  mutation : Mutation
 }
 `;
