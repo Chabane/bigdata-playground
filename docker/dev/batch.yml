@@ -1,13 +1,13 @@
 version: '3.3'
 
 services:
-  batch-dev: 
+  batch-spark-dev: 
     build: 
       context: ../../batch
       dockerfile: Dockerfile-dev
-    container_name: batch-dev
+    container_name: batch_spark_dev
     networks: ["vnet"]
-    hostname: batch-dev.vnet
+    hostname: batch-spark-dev.vnet
 
 networks:
   vnet:

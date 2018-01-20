@@ -9,7 +9,7 @@ resolvers ++= Seq(
   Resolver.sonatypeRepo("public")
 )
 
-name := "search-flight-streaming"
+name := "search-flight-spark-streaming"
 organization := "com.mitosis"
 version := "0.1.0"
 

@@ -1,7 +1,7 @@
 import sbt._
 import Keys._
 
-name := "search-flight-batch"
+name := "search-flight-batch-spark"
 organization := "com.mitosis"
 version := "0.1.0"
 

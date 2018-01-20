@@ -11,17 +11,17 @@ RUN cd /usr/local && ln -s $SPARK_VERSION spark
 
 ADD hbase-site.xml $SPARK_HOME/conf
 
-ENV STREAMING_HOME /usr/local/streaming
+ENV PROJECT_HOME /usr/local/project
 
-ADD src $STREAMING_HOME/src
-ADD build.sbt $STREAMING_HOME/
-ADD project/build.properties $STREAMING_HOME/project/
-ADD project/plugins.sbt $STREAMING_HOME/project/
+ADD src $PROJECT_HOME/src
+ADD build.sbt $PROJECT_HOME/
+ADD project/build.properties $PROJECT_HOME/project/
+ADD project/plugins.sbt $PROJECT_HOME/project/
 
-WORKDIR $STREAMING_HOME
+WORKDIR $PROJECT_HOME
 
 RUN sbt package assembly
 
 WORKDIR $SPARK_HOME
 
-CMD ["bin/spark-submit", "--class", "com.mitosis.Main", "--master", "yarn", "--deploy-mode", "cluster", "/usr/local/streaming/target/scala-2.11/search-flight-streaming-assembly-0.1.0.jar" ]
+CMD ["bin/spark-submit", "--class", "com.mitosis.Main", "--master", "yarn", "--deploy-mode", "cluster", "/usr/local/project/target/scala-2.11/search-flight-streaming-spark-assembly-0.1.0.jar" ]

@@ -106,62 +106,62 @@ Thumbs.db
 /batch/.worksheet
 
 ######## streaming ########
-/streaming/.metadata
-/streaming/bin/
-/streaming/tmp/
-/streaming/target/
-/streaming/.idea/
+/streaming/spark/.metadata
+/streaming/spark/bin/
+/streaming/spark/tmp/
+/streaming/spark/target/
+/streaming/spark/.idea/
 
-/streaming/.classpath
-/streaming/.project
-/streaming/*.tmp
-/streaming/*.bak
-/streaming/*.swp
-/streaming/*~.nib
-/streaming/local.properties
-/streaming/.settings/
-/streaming/.loadpath
-/streaming/.recommenders
+/streaming/spark/.classpath
+/streaming/spark/.project
+/streaming/spark/*.tmp
+/streaming/spark/*.bak
+/streaming/spark/*.swp
+/streaming/spark/*~.nib
+/streaming/spark/local.properties
+/streaming/spark/.settings/
+/streaming/spark/.loadpath
+/streaming/spark/.recommenders
 
 # External tool builders
-/streaming/.externalToolBuilders/
+/streaming/spark/.externalToolBuilders/
 
 # Locally stored "Eclipse launch configurations"
-/streaming/*.launch
+/streaming/spark/*.launch
 
 # PyDev specific (Python IDE for Eclipse)
-/streaming/*.pydevproject
+/streaming/spark/*.pydevproject
 
 # CDT-specific (C/C++ Development Tooling)
-/streaming/.cproject
+/streaming/spark/.cproject
 
 # Java annotation processor (APT)
-/streaming/.factorypath
+/streaming/spark/.factorypath
 
 # PDT-specific (PHP Development Tools)
-/streaming/.buildpath
+/streaming/spark/.buildpath
 
 # sbteclipse plugin
-/streaming/.target
-/streaming/project/project
-/streaming/project/target
+/streaming/spark/.target
+/streaming/spark/project/project
+/streaming/spark/project/target
 
 # Tern plugin
-/streaming/.tern-project
+/streaming/spark/.tern-project
 
 # TeXlipse plugin
-/streaming/.texlipse
+/streaming/spark/.texlipse
 
 # STS (Spring Tool Suite)
-/streaming/.springBeans
+/streaming/spark/.springBeans
 
 # Code Recommenders
-/streaming/.recommenders/
+/streaming/spark/.recommenders/
 
 # Scala IDE specific (Scala & Java development for Eclipse)
-/streaming/.cache-main
-/streaming/.scala_dependencies
-/streaming/.worksheet
+/streaming/spark/.cache-main
+/streaming/spark/.scala_dependencies
+/streaming/spark/.worksheet
 
 ######## ml ########
 /ml/.idea/

@@ -7,13 +7,13 @@ services:
     ports:
       - 3000:3000
 
-  batch: 
+  batch-spark: 
     build: ../batch
-    container_name: batch 
+    container_name: batch_spark 
 
-  streaming: 
-    build: ../streaming
-    container_name: streaming
+  streaming-spark: 
+    build: ../streaming/spark
+    container_name: streaming_spark
           
   ml:
     build: ../ml
