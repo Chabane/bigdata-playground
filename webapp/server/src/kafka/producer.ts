@@ -19,17 +19,17 @@ export class KafkaProducer {
                 type: 'record',
                 name: 'flightInfo',
                 fields: [
-                    { name: 'departing', type: 'string' },
-                    { name: 'arriving', type: 'string' },
+                    { name: 'departingId', type: 'string' },
+                    { name: 'arrivingId', type: 'string' },
                     { name: 'tripType', type: { type: 'enum', name: 'TripType', symbols: ['ONE_WAY', 'ROUND_TRIP'] } },
-                    { name: 'departingDate', type: { type: 'long', logicalType: 'timestamp-millis' } },
-                    { name: 'arrivingDate', type: { type: 'long', logicalType: 'timestamp-millis' } },
+                    { name: 'departureDate', type: { type: 'long', logicalType: 'timestamp-millis' } },
+                    { name: 'arrivalDate', type: { type: 'long', logicalType: 'timestamp-millis' } },
                     { name: 'passengerNumber', type: 'int' },
                     { name: 'cabinClass', type: { type: 'enum', name: 'CabinClass', symbols: ['ECONOMY', 'PRENIUM', 'BUSINESS'] } }
                 ]
             });
 
-            const buffer = new KeyedMessage('event', <any>flightInfo);
+            const buffer = schemaType.toBuffer(flightInfo); // Encoded buffer.
             const keyedMessage = new KeyedMessage('key', <any>buffer);
 
             this.producer.send([

@@ -47,11 +47,11 @@ object Main {
   val flightInfoAvroSchema = SchemaBuilder
     .record("flightInfo")
     .fields
-    .name("departing").`type`().stringType().noDefault()
-    .name("arriving").`type`().stringType().noDefault()
+    .name("departingId").`type`().stringType().noDefault()
+    .name("arrivingId").`type`().stringType().noDefault()
     .name("tripType").`type`().enumeration("TripType").symbols("ONE_WAY", "ROUND_TRIP").noDefault()
-    .name("departingDate").`type`().longType().noDefault()
-    .name("arrivingDate").`type`().longType().noDefault()
+    .name("departureDate").`type`().longType().noDefault()
+    .name("arrivalDate").`type`().longType().noDefault()
     .name("passengerNumber").`type`().intType().noDefault()
     .name("cabinClass").`type`().enumeration("CabinClass").symbols("ECONOMY", "PRENIUM", "BUSINESS").noDefault()
     .endRecord
@@ -61,11 +61,11 @@ object Main {
                 |"rowkey":"key",
                 |"columns":{
                 |"key":{"cf":"rowkey", "col":"key", "type":"string"},
-                |"departing":{"cf":"searchFlightInfo", "col":"departing", "type":"string"},
-                |"arriving":{"cf":"searchFlightInfo", "col":"arriving", "type":"string"},
+                |"departingId":{"cf":"searchFlightInfo", "col":"departingId", "type":"string"},
+                |"arrivingId":{"cf":"searchFlightInfo", "col":"arrivingId", "type":"string"},
                 |"tripType":{"cf":"searchFlightInfo", "col":"tripType", "type":"string"},
-                |"departingDate":{"cf":"searchFlightInfo", "col":"departingDate", "type":"bigint"},
-                |"arrivingDate":{"cf":"searchFlightInfo", "col":"arrivingDate", "type":"bigint"},
+                |"departureDate":{"cf":"searchFlightInfo", "col":"departureDate", "type":"bigint"},
+                |"arrivalDate":{"cf":"searchFlightInfo", "col":"arrivalDate", "type":"bigint"},
                 |"passengerNumber":{"cf":"searchFlightInfo", "col":"passengerNumber", "type":"integer"},
                 |"cabinClass":{"cf":"searchFlightInfo", "col":"cabinClass", "type":"string"}
                 |}
@@ -74,11 +74,11 @@ object Main {
 
   val flightInfoDfSchema = new StructType()
     .add(StructField("key", StringType, true))
-    .add(StructField("departing", StringType, true))
-    .add(StructField("arriving", StringType, true))
+    .add(StructField("departingId", StringType, true))
+    .add(StructField("arrivingId", StringType, true))
     .add(StructField("tripType", StringType, true))
-    .add(StructField("departingDate", LongType, true))
-    .add(StructField("arrivingDate", LongType, true))
+    .add(StructField("departureDate", LongType, true))
+    .add(StructField("arrivalDate", LongType, true))
     .add(StructField("passengerNumber", IntegerType, true))
     .add(StructField("cabinClass", StringType, true))
 
@@ -121,11 +121,11 @@ object Main {
               val random = scala.util.Random
               Row(
                 s"${random.nextLong()}",
-                flightInfo.departing,
-                flightInfo.arriving,
+                flightInfo.departingId,
+                flightInfo.arrivingId,
                 flightInfo.tripType,
-                flightInfo.departingDate,
-                flightInfo.arrivingDate,
+                flightInfo.departureDate,
+                flightInfo.arrivalDate,
                 flightInfo.passengerNumber,
                 flightInfo.cabinClass
               )
