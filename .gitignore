@@ -105,7 +105,7 @@ Thumbs.db
 /batch/.scala_dependencies
 /batch/.worksheet
 
-######## streaming ########
+######## streaming - spark ########
 /streaming/spark/.metadata
 /streaming/spark/bin/
 /streaming/spark/tmp/
@@ -162,6 +162,64 @@ Thumbs.db
 /streaming/spark/.cache-main
 /streaming/spark/.scala_dependencies
 /streaming/spark/.worksheet
+
+######## streaming - flink ########
+/streaming/flink/.metadata
+/streaming/flink/bin/
+/streaming/flink/tmp/
+/streaming/flink/target/
+/streaming/flink/.idea/
+
+/streaming/flink/.classpath
+/streaming/flink/.project
+/streaming/flink/*.tmp
+/streaming/flink/*.bak
+/streaming/flink/*.swp
+/streaming/flink/*~.nib
+/streaming/flink/local.properties
+/streaming/flink/.settings/
+/streaming/flink/.loadpath
+/streaming/flink/.recommenders
+
+# External tool builders
+/streaming/flink/.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+/streaming/flink/*.launch
+
+# PyDev specific (Python IDE for Eclipse)
+/streaming/flink/*.pydevproject
+
+# CDT-specific (C/C++ Development Tooling)
+/streaming/flink/.cproject
+
+# Java annotation processor (APT)
+/streaming/flink/.factorypath
+
+# PDT-specific (PHP Development Tools)
+/streaming/flink/.buildpath
+
+# sbteclipse plugin
+/streaming/flink/.target
+/streaming/flink/project/project
+/streaming/flink/project/target
+
+# Tern plugin
+/streaming/flink/.tern-project
+
+# TeXlipse plugin
+/streaming/flink/.texlipse
+
+# STS (Spring Tool Suite)
+/streaming/flink/.springBeans
+
+# Code Recommenders
+/streaming/flink/.recommenders/
+
+# Scala IDE specific (Scala & Java development for Eclipse)
+/streaming/flink/.cache-main
+/streaming/flink/.scala_dependencies
+/streaming/flink/.worksheet
 
 ######## ml ########
 /ml/.idea/
