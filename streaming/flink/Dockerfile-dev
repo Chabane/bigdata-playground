@@ -8,4 +8,4 @@ RUN sh -c 'touch $FLINK_HOME/libs/search-flight-streaming.jar'
 
 WORKDIR $FLINK_HOME
 
-CMD ["./bin/flink", "run", "-c", "com.mitosis.Main", "/opt/flink/libs/search-flight-streaming.jar", "--port", "9000"]
+CMD ["./bin/flink", "run", "-c", "com.mitosis.Main", "./libs/search-flight-streaming.jar", "--port", "9000"]
