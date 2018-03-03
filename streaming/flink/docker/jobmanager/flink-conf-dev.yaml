@@ -1,0 +1,8 @@
+jobmanager.rpc.address: streaming-flink-jobmanager-dev.vnet
+jobmanager.rpc.port: 6123
+jobmanager.heap.mb: 1024
+taskmanager.heap.mb: 1024
+taskmanager.numberOfTaskSlots: 1
+taskmanager.memory.preallocate: false
+parallelism.default: 1
+web.port: 8081

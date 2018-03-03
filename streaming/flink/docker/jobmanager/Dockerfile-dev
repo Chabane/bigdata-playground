@@ -1,0 +1,6 @@
+FROM flink:1.4.1-hadoop28-alpine
+
+ADD flink-conf-dev.yaml /opt/flink/conf/flink-conf.yaml
+
+WORKDIR $FLINK_HOME
+CMD ["./bin/start-cluster-streaming.sh"]
