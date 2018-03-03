@@ -15,4 +15,4 @@ ADD parquet/ $PARQUET_HOME
 RUN sh -c 'touch $SPARK_HOME/libs/search-flight-batch.jar'
 
 WORKDIR $SPARK_HOME
-CMD ["bin/spark-submit", "--class", "com.mitosis.Main", "--master", "local[2]", "/usr/local/spark/libs/search-flight-batch.jar", "/usr/local/spark/parquet" ]
+CMD ["bin/spark-submit", "--class", "com.mitosis.Main", "--master", "local[2]", "./libs/search-flight-batch.jar", "./parquet" ]
