@@ -85,7 +85,7 @@ object Main {
   def main(args: Array[String]): Unit = {
 
     val sparkSession = SparkSession.builder
-        .appName("search-flight-streaming")
+        .appName("search-flight-spark-streaming")
         .config("spark.hbase.host", config.streaming.db.host)
         .getOrCreate()
 
