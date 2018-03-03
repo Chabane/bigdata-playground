@@ -1,35 +1,14 @@
 version: '3.3'
 
 services:
-   streaming-flink-jobmanager-dev:
-    build:
-      context: ../../streaming/flink/docker/jobmanager
-      dockerfile: Dockerfile-dev
-    container_name: streaming_flink_jobmanager_dev
-    networks: ["vnet"]
-    hostname: streaming-flink-jobmanager-dev.vnet
-    expose:
-      - "6123"
-    ports:
-      - "8081:8081"
-    command: jobmanager
-
-   streaming-flink-taskmanager-dev:
-    build:
-      context: ../../streaming/flink
-      dockerfile: Dockerfile-dev
-    container_name: streaming_flink_taskmanager_dev
-    networks: ["vnet"]
-    hostname: streaming-flink-taskmanager-dev.vnet
-    expose:
-      - "6121"
-      - "6122"
-    depends_on:
-      - streaming-flink-jobmanager-dev
-    links:
-      - "streaming-flink-jobmanager-dev:streaming-flink-jobmanager-dev"
-    # environment:
-    #  - JOB_MANAGER_RPC_ADDRESS=streaming-flink-jobmanager-dev.vnet
+   streaming-flink-dev:
+     build:
+       context: ../../streaming/flink
+       dockerfile: Dockerfile-dev
+     container_name: streaming_flink_dev
+     networks: ["vnet"]
+     hostname: streaming-flink-dev.vnet
+         
 networks:
   vnet:
     external:
