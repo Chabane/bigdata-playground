@@ -23,7 +23,8 @@ cd docker
 docker-compose -f mongo.yml -f zookeeper.yml -f kafka.yml -f hadoop-hbase.yml up -d
 docker-compose -f dev/webapp.yml up -d
 docker-compose -f dev/batch.yml up -d
-docker-compose -f dev/streaming.yml up -d
+docker-compose -f dev/streaming-spark.yml up -d
+docker-compose -f dev/streaming-flink.yml up -d
 docker-compose -f dev/ml.yml up -d
 ```
 
