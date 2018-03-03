@@ -3,7 +3,7 @@
 ## Motivation
 The aim is to create a disposable Hadoop/HBase/Spark/Flink/ML stack where you can test your jobs locally or to submit them to the Yarn resource manager. We are using Docker to build the environment and Docker-Compose to provision it with the required components (Next step using Kubernetes). Along with the infrastructure, We are check that it works with 4 projects that just probes everything is working as expected. The boilerplate is based on a sample search flight web application.
 
-Keywords : Docker, (Kubernetes soon), Apache Spark SQL/Streaming/MLib, (Apache Flink, Kafka Streams soon), Scala, Python, Apache Kafka, Apache Hbase, Apache Avro, (Apache NiFi, Kylo next step), MongoDB, NodeJS (graphql, kafka-node, mongoose, avsc), Angular, Apollo-GraphQL
+Keywords : Docker, (Kubernetes soon), Apache Spark SQL/Streaming(DStream)/MLib, (Apache Flink, Kafka Streams soon), Scala, Python, Apache Kafka, Apache Hbase, Apache Avro, (Apache NiFi, Kylo next step), MongoDB, NodeJS (graphql, kafka-node, mongoose, avsc), Angular, Apollo-GraphQL
 
 ## Prod mode
 ```
