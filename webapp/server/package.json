@@ -7,6 +7,7 @@
   "license": "ISC",
   "scripts": {
     "build": "rimraf dist && tsc",
+    "tsc": "tsc",
     "lint": "tslint 'src/**/*.ts'",
     "test": "echo working on it"
   },
@@ -26,7 +27,7 @@
     "graphql": "^0.12.3",
     "graphql-tools": "^2.14.1",
     "kafka-node": "^2.4.1",
-    "mongoose": "5.0.8",
+    "mongoose": "^5.0.8",
     "morgan": "^1.9.0",
     "path": "^0.12.7",
     "winston": "^2.4.0"
@@ -39,7 +40,7 @@
     "@types/graphql": "^0.11.7",
     "@types/kafka-node": "^2.0.6",
     "@types/mocha": "^2.2.41",
-    "@types/mongoose": "^5.0.5",
+    "@types/mongoose": "^4.7.18",
     "@types/morgan": "^1.7.32",
     "@types/node": "^8.0.7",
     "@types/winston": "^2.3.4",
