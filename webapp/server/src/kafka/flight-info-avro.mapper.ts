@@ -6,7 +6,6 @@ export class FlightInfoAvroMapper {
     public static toFlightInfoAvro(flightInfo: IFlightInfo): FlightInfoAvro {
         let flightInfoAvro: FlightInfoAvro; 
         if(flightInfo) {
-            console.log(flightInfo);
             flightInfoAvro = new FlightInfoAvro();
             flightInfoAvro.arrivalDate = flightInfo.arrivalDate? 
                 new Date(flightInfo.arrivalDate).getTime(): undefined;
