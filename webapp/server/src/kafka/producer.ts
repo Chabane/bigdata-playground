@@ -1,4 +1,4 @@
-import { Producer, KeyedMessage, KafkaClient } from 'kafka-node';
+import { Producer, KeyedMessage, KafkaClient, Client } from 'kafka-node';
 import { parse, Type as AvroType } from 'avsc/lib';
 import * as winston from 'winston';
 import { FlightInfoAvro } from './flight-info-avro';
@@ -7,14 +7,16 @@ import { IFlightInfo } from "../db";
 
 export class KafkaProducer {
 
-    producer: Producer;
+    private producer: Producer;
     private topic = 'flightInfoTopic';
 
     constructor() {
         const client = new KafkaClient({ kafkaHost: 'kafka.vnet:9092' });
+        // const client = new Client('zookeeper-1.vnet:2181');
         client.on('connect', () => {
             winston.info('Connected to Kafka');
         });
+        client.on('error', this.onError);
 
         this.producer = new Producer(client, { requireAcks: 1 });
         this.producer.on('ready', () => {
@@ -41,12 +43,13 @@ export class KafkaProducer {
         const flightInfoAvro: FlightInfoAvro = FlightInfoAvroMapper.toFlightInfoAvro(flightInfo);
         const buffer = schemaType.toBuffer(flightInfoAvro);
         const keyedMessage = new KeyedMessage('key', <any>buffer);
+
+        winston.info('Message sent to consumers');
         this.producer.send([
             { topic: this.topic, partition: 0, messages: keyedMessage }
         ], (err, result) => {
             winston.error(err || result);
         });
-
     }
 
     private onError(err) {
