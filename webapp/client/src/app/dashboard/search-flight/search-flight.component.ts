@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import { map } from 'rxjs/operators/map';
 import { switchMap } from 'rxjs/operators/switchMap';
 import { debounceTime } from 'rxjs/operators/debounceTime';
@@ -58,14 +58,14 @@ export class SearchFlightComponent implements OnInit {
     this.filteredAirports = <any>this.searchFlightForm.get('departingFrom').valueChanges.pipe(
       distinctUntilChanged(),
       debounceTime(300),
-      switchMap(airportToSearch => this.loadAirports(airportToSearch, this.arrivalAirport))
+      switchMap((airportToSearch: any) => this.loadAirports(airportToSearch, this.arrivalAirport))
     );
 
     // load destinations airports
     this.filteredDestinationAirports = <any>this.searchFlightForm.get('arrivingAt').valueChanges.pipe(
       distinctUntilChanged(),
       debounceTime(300),
-      switchMap(airportToSearch => this.loadAirports(airportToSearch, this.departureAirport))
+      switchMap((airportToSearch: any) => this.loadAirports(airportToSearch, this.departureAirport))
     );
 
     // arrivalDate must be greater than the departureDate
@@ -136,7 +136,7 @@ export class SearchFlightComponent implements OnInit {
     const airportId = airportToFilterBy === undefined ? undefined : airportToFilterBy.AirportID;
     return this.airportsService.getAirports(airportToSearch, airportId).pipe(
       map(response => {
-        const airportsData = (<any>response.data).fetchAirports;
+        const airportsData = (<any>response).data.fetchAirports;
         const airportsDtoList = AirportDtoMapper.toAirportsDto(airportsData);
         return AirportMapper.toAirports(airportsDtoList);
       }));
