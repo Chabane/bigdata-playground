@@ -9,7 +9,7 @@ Keywords : Docker, (Kubernetes soon), Apache Spark SQL/Streaming(DStream)/MLib, 
 ```
 docker network create vnet
 cd docker
-docker-compose -f mongo.yml -f zookeeper.yml -f kafka.yml -f hadoop-hbase.yml up -d
+docker-compose -f mongo.yml -f zookeeper.yml -f kafka.yml -f hadoop-hbase.yml flink.yml up -d
 docker-compose up -d
 ```
 ## Dev mode 
