@@ -1,6 +1,9 @@
 import { Producer, KeyedMessage, KafkaClient } from 'kafka-node';
 import { parse, Type as AvroType } from 'avsc/lib';
 import * as winston from 'winston';
+import { FlightInfoAvro } from './flight-info-avro';
+import { FlightInfoAvroMapper } from './flight-info-avro.mapper';
+import { IFlightInfo } from "../db";
 
 export class KafkaProducer {
 
@@ -20,7 +23,7 @@ export class KafkaProducer {
         this.producer.on('error', this.onError);
     }
 
-    sendFlightInfo(flightInfo) {
+    sendFlightInfo(flightInfo: IFlightInfo) {
         const schemaType = AvroType.forSchema({
             type: 'record',
             name: 'flightInfo',
@@ -35,20 +38,18 @@ export class KafkaProducer {
             ]
         });
 
-        const buffer = schemaType.toBuffer(flightInfo); // Encoded buffer.
+        const flightInfoAvro: FlightInfoAvro = FlightInfoAvroMapper.toFlightInfoAvro(flightInfo);
+        const buffer = schemaType.toBuffer(flightInfoAvro);
         const keyedMessage = new KeyedMessage('key', <any>buffer);
-
         this.producer.send([
             { topic: this.topic, partition: 0, messages: keyedMessage }
         ], (err, result) => {
             winston.error(err || result);
-            process.exit();
         });
 
     }
 
     private onError(err) {
-        console.log("jy", err);
         winston.error('error', err);
     }
 }
