@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   kafka:
-    image: wurstmeister/kafka:0.10.2.1
+    image: wurstmeister/kafka:1.0.0
     networks: ["vnet"]
     hostname: kafka.vnet
     ports:
