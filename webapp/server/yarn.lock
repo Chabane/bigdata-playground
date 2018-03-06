@@ -70,9 +70,9 @@
     "@types/events" "*"
     "@types/node" "*"
 
-"@types/mongoose@^5.0.5":
-  version "5.0.5"
-  resolved "https://registry.yarnpkg.com/@types/mongoose/-/mongoose-5.0.5.tgz#080af4bee4da06ac55619fbe690646681dabea15"
+"@types/mongoose@^4.7.18":
+  version "4.7.35"
+  resolved "https://registry.yarnpkg.com/@types/mongoose/-/mongoose-4.7.35.tgz#17e3b2bbe208d9632f095414ad619fb4697cc1bf"
   dependencies:
     "@types/events" "*"
     "@types/mongodb" "*"
@@ -1712,32 +1712,32 @@ mocha@^3.2.0, mocha@^3.4.2:
     mkdirp "0.5.1"
     supports-color "3.1.2"
 
-mongodb-core@3.0.3:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/mongodb-core/-/mongodb-core-3.0.3.tgz#496d7dd0052dc3a2e213edf9ddcddc78b47a712c"
+mongodb-core@3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/mongodb-core/-/mongodb-core-3.0.4.tgz#a3fdf466e697a2f1df87e458e5e2df1c26cc654b"
   dependencies:
     bson "~1.0.4"
     require_optional "^1.0.1"
 
-mongodb@3.0.3:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-3.0.3.tgz#83b33e01f26b4a2e1f8a2b3427cabbaee31df017"
+mongodb@3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-3.0.4.tgz#ee0c0f7bc565edc5f40ee2d23170e522a8ad2286"
   dependencies:
-    mongodb-core "3.0.3"
+    mongodb-core "3.0.4"
 
 mongoose-legacy-pluralize@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/mongoose-legacy-pluralize/-/mongoose-legacy-pluralize-1.0.2.tgz#3ba9f91fa507b5186d399fb40854bff18fb563e4"
 
-mongoose@5.0.8:
-  version "5.0.8"
-  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.0.8.tgz#0bec202dfa7529b0592a55c880e3cf0949656852"
+mongoose@^5.0.8:
+  version "5.0.9"
+  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.0.9.tgz#8eca121059d921f444d801534d0b94d2771b04dd"
   dependencies:
     async "2.1.4"
     bson "~1.0.4"
     kareem "2.0.5"
     lodash.get "4.4.2"
-    mongodb "3.0.3"
+    mongodb "3.0.4"
     mongoose-legacy-pluralize "1.0.2"
     mpath "0.3.0"
     mquery "3.0.0"
