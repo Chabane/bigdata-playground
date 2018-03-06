@@ -7,20 +7,21 @@ import { IFlightInfo } from "../db";
 
 export class KafkaProducer {
 
+    private client: KafkaClient;
     private producer: Producer;
     private topic = 'flightInfoTopic';
 
     constructor() {
-        const client = new KafkaClient({ kafkaHost: 'kafka.vnet:9092' });
+        this.client = new KafkaClient({ kafkaHost: 'kafka.vnet:9092' });
         // const client = new Client('zookeeper-1.vnet:2181');
-        client.on('connect', () => {
+        this.client.on('connect', () => {
             winston.info('Connected to Kafka');
         });
-        client.on('error', (error) => {
+        this.client.on('error', (error) => {
             winston.error("Kafka Client error >", error);
         });
 
-        this.producer = new Producer(client, { requireAcks: 1 });
+        this.producer = new Producer(this.client, { requireAcks: 1 });
         this.producer.on('error', (error) => {
             winston.error("Kafka Producer error >", error);
         });
@@ -49,8 +50,15 @@ export class KafkaProducer {
             winston.info('Message sent to consumers');
             this.producer.send([
                 { topic: this.topic, partition: 0, messages: keyedMessage }
-            ], (error) => {
-                winston.error("Kafka Send error >", error);
+            ], (error, result) => {
+                if (error) {
+                    winston.error("Kafka Send error >", error);
+                }
+                if (result) {
+                    winston.error("Kafka Send result >", result);
+                }
+                this.producer.close();
+                this.client.close();
             });
         });
     }
