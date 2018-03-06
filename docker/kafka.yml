@@ -11,9 +11,11 @@ services:
       KAFKA_ADVERTISED_HOST_NAME: kafka.vnet
       KAFKA_ADVERTISED_PORT: 9092
       KAFKA_CREATE_TOPICS: flightInfoTopic:1:1
-      KAFKA_LISTENERS: "PLAINTEXT://:9092"
+      KAFKA_LISTENERS: "PLAINTEXT://kafka.vnet:9092"
       KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka.vnet:9092"
       KAFKA_ZOOKEEPER_CONNECT: zookeeper-1.vnet:2181
+      KAFKA_LOG4J_ROOT_LOGLEVEL: WARN
+      KAFKA_TOOLS_LOG4J_LOGLEVEL: ERROR
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       
