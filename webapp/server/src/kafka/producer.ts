@@ -13,53 +13,50 @@ export class KafkaProducer {
 
     constructor() {
         this.client = new KafkaClient({ kafkaHost: 'kafka.vnet:9092' });
-        // const client = new Client('zookeeper-1.vnet:2181');
         this.client.on('connect', () => {
             winston.info('Connected to Kafka');
         });
         this.client.on('error', (error) => {
-            winston.error("Kafka Client error >", error);
+            winston.error("Kafka - Client error > ", error);
         });
 
         this.producer = new Producer(this.client, { requireAcks: 1 });
         this.producer.on('error', (error) => {
-            winston.error("Kafka Producer error >", error);
+            winston.error("Kafka - Producer error > ", error);
+        });
+        this.producer.on('ready', () => {
+            winston.info("Kafka - Producer ready");
         });
     }
 
     sendFlightInfo(flightInfo: IFlightInfo) {
-        this.producer.on('ready', () => {
-            const schemaType = AvroType.forSchema({
-                type: 'record',
-                name: 'flightInfo',
-                fields: [
-                    { name: 'departingId', type: 'string' },
-                    { name: 'arrivingId', type: 'string' },
-                    { name: 'tripType', type: { type: 'enum', name: 'TripType', symbols: ['ONE_WAY', 'ROUND_TRIP'] } },
-                    { name: 'departureDate', type: { type: 'long', logicalType: 'timestamp-millis' } },
-                    { name: 'arrivalDate', type: { type: 'long', logicalType: 'timestamp-millis' } },
-                    { name: 'passengerNumber', type: 'int' },
-                    { name: 'cabinClass', type: { type: 'enum', name: 'CabinClass', symbols: ['ECONOMY', 'PRENIUM', 'BUSINESS'] } }
-                ]
-            });
+        const schemaType = AvroType.forSchema({
+            type: 'record',
+            name: 'flightInfo',
+            fields: [
+                { name: 'departingId', type: 'string' },
+                { name: 'arrivingId', type: 'string' },
+                { name: 'tripType', type: { type: 'enum', name: 'TripType', symbols: ['ONE_WAY', 'ROUND_TRIP'] } },
+                { name: 'departureDate', type: { type: 'long', logicalType: 'timestamp-millis' } },
+                { name: 'arrivalDate', type: { type: 'long', logicalType: 'timestamp-millis' } },
+                { name: 'passengerNumber', type: 'int' },
+                { name: 'cabinClass', type: { type: 'enum', name: 'CabinClass', symbols: ['ECONOMY', 'PRENIUM', 'BUSINESS'] } }
+            ]
+        });
 
-            const flightInfoAvro: FlightInfoAvro = FlightInfoAvroMapper.toFlightInfoAvro(flightInfo);
-            const buffer = schemaType.toBuffer(flightInfoAvro);
-            const keyedMessage = new KeyedMessage('key', <any>buffer);
+        const flightInfoAvro: FlightInfoAvro = FlightInfoAvroMapper.toFlightInfoAvro(flightInfo);
+        const buffer = schemaType.toBuffer(flightInfoAvro);
+        const keyedMessage = new KeyedMessage('key', <any>buffer);
 
-            winston.info('Message sent to consumers');
-            this.producer.send([
-                { topic: this.topic, partition: 0, messages: keyedMessage }
-            ], (error, result) => {
-                if (error) {
-                    winston.error("Kafka Send error >", error);
-                }
-                if (result) {
-                    winston.error("Kafka Send result >", result);
-                }
-                this.producer.close();
-                this.client.close();
-            });
+        this.producer.send([
+            { topic: this.topic, partition: 0, messages: keyedMessage }
+        ], (error, result) => {
+            if (error) {
+                winston.error("Kafka - Message was not sent to consumers > ", error);
+            }
+            if (result) {
+                winston.info("Kafka  - Message sent to consumers > ", result);
+            }
         });
     }
 }

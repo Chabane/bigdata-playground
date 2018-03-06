@@ -2,6 +2,7 @@ import { IFlightInfo } from '../../db';
 import { KafkaProducer } from '../../kafka';
 import { Airport } from '../../db/models/airport';
 
+const producer = new KafkaProducer();
 
 export const resolvers = {
   Query: {
@@ -12,7 +13,6 @@ export const resolvers = {
   },
   Mutation: {
     sendFlightInfo: async (_, { flightInfo }) => {
-      const producer = new KafkaProducer();
       producer.sendFlightInfo(flightInfo as IFlightInfo);
       return flightInfo;
     }
