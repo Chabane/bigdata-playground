@@ -44,18 +44,6 @@ object Main {
     }
   }
 
-  val flightInfoAvroSchema = SchemaBuilder
-    .record("flightInfo")
-    .fields
-    .name("departingId").`type`().stringType().noDefault()
-    .name("arrivingId").`type`().stringType().noDefault()
-    .name("tripType").`type`().enumeration("TripType").symbols("ONE_WAY", "ROUND_TRIP").noDefault()
-    .name("departureDate").`type`().longType().noDefault()
-    .name("arrivalDate").`type`().longType().noDefault()
-    .name("passengerNumber").`type`().intType().noDefault()
-    .name("cabinClass").`type`().enumeration("CabinClass").symbols("ECONOMY", "PRENIUM", "BUSINESS").noDefault()
-    .endRecord
-
   val flightInfoHbaseSchema = s"""{
                 |"table":{"namespace":"default", "name":"flightInfo", "tableCoder":"PrimitiveType"},
                 |"rowkey":"key",
@@ -73,14 +61,14 @@ object Main {
 
 
   val flightInfoDfSchema = new StructType()
-    .add(StructField("key", StringType, true))
-    .add(StructField("departingId", StringType, true))
-    .add(StructField("arrivingId", StringType, true))
-    .add(StructField("tripType", StringType, true))
-    .add(StructField("departureDate", LongType, true))
-    .add(StructField("arrivalDate", LongType, true))
-    .add(StructField("passengerNumber", IntegerType, true))
-    .add(StructField("cabinClass", StringType, true))
+      .add(StructField("key", StringType, true))
+      .add(StructField("departingId", StringType, true))
+      .add(StructField("arrivingId", StringType, true))
+      .add(StructField("tripType", StringType, true))
+      .add(StructField("departureDate", LongType, true))
+      .add(StructField("arrivalDate", LongType, true))
+      .add(StructField("passengerNumber", IntegerType, true))
+      .add(StructField("cabinClass", StringType, true))
 
   def main(args: Array[String]): Unit = {
 
@@ -114,6 +102,7 @@ object Main {
     stream.foreachRDD(rdd => {
         val flightInfoRdd = rdd.map(record => {
 
+              val flightInfoAvroSchema: Schema = new Parser().parse(Source.fromURL(getClass.getResource("/flight-info.schema.avsc")).mkString)
               val reader: DatumReader[GenericRecord] = new SpecificDatumReader[GenericRecord](flightInfoAvroSchema)
               val decoder: Decoder = DecoderFactory.get().binaryDecoder(record.value, null)
               val flightInfoJson: GenericRecord = reader.read(null, decoder)

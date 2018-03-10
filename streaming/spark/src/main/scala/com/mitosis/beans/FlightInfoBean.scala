@@ -5,19 +5,19 @@ import scala.beans.{BeanProperty}
 class FlightInfoBean {
 
   @BeanProperty
-  var departing: String = _
+  var departingId: String = _
   
   @BeanProperty
-  var arriving: String = _
+  var arrivingId: String = _
   
   @BeanProperty
   var tripType: String = _
   
   @BeanProperty
-  var departingDate: Long = _
+  var departureDate: Long = _
   
   @BeanProperty
-  var arrivingDate: Long = _
+  var arrivalDate: Long = _
   
   @BeanProperty
   var passengerNumber: Int = _
