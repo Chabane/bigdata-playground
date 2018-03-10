@@ -46,7 +46,7 @@ export class KafkaProducer {
 
         const flightInfoAvro: FlightInfoAvro = FlightInfoAvroMapper.toFlightInfoAvro(flightInfo);
         const buffer = schemaType.toBuffer(flightInfoAvro);
-        const keyedMessage = new KeyedMessage('key', <any>buffer);
+        const keyedMessage = new KeyedMessage('flightInfo', <any>buffer);
 
         this.producer.send([
             { topic: this.topic, partition: 0, messages: keyedMessage }
