@@ -48,62 +48,62 @@ Thumbs.db
 *.log
 
 ######## batch ########
-/batch/.metadata
-/batch/bin/
-/batch/tmp/
-/batch/target/
-/batch/.idea/
+/batch/spark/.metadata
+/batch/spark/bin/
+/batch/spark/tmp/
+/batch/spark/target/
+/batch/spark/.idea/
 
-/batch/.classpath
-/batch/.project
-/batch/*.tmp
-/batch/*.bak
-/batch/*.swp
-/batch/*~.nib
-/batch/local.properties
-/batch/.settings/
-/batch/.loadpath
-/batch/.recommenders
+/batch/spark/.classpath
+/batch/spark/.project
+/batch/spark/*.tmp
+/batch/spark/*.bak
+/batch/spark/*.swp
+/batch/spark/*~.nib
+/batch/spark/local.properties
+/batch/spark/.settings/
+/batch/spark/.loadpath
+/batch/spark/.recommenders
 
 # External tool builders
-/batch/.externalToolBuilders/
+/batch/spark/.externalToolBuilders/
 
 # Locally stored "Eclipse launch configurations"
-/batch/*.launch
+/batch/spark/*.launch
 
 # PyDev specific (Python IDE for Eclipse)
-/batch/*.pydevproject
+/batch/spark/*.pydevproject
 
 # CDT-specific (C/C++ Development Tooling)
-/batch/.cproject
+/batch/spark/.cproject
 
 # Java annotation processor (APT)
-/batch/.factorypath
+/batch/spark/.factorypath
 
 # PDT-specific (PHP Development Tools)
-/batch/.buildpath
+/batch/spark/.buildpath
 
 # sbteclipse plugin
-/batch/.target
-/batch/project/project
-/batch/project/target
+/batch/spark/.target
+/batch/spark/project/project
+/batch/spark/project/target
 
 # Tern plugin
-/batch/.tern-project
+/batch/spark/.tern-project
 
 # TeXlipse plugin
-/batch/.texlipse
+/batch/spark/.texlipse
 
 # STS (Spring Tool Suite)
-/batch/.springBeans
+/batch/spark/.springBeans
 
 # Code Recommenders
-/batch/.recommenders/
+/batch/spark/.recommenders/
 
 # Scala IDE specific (Scala & Java development for Eclipse)
-/batch/.cache-main
-/batch/.scala_dependencies
-/batch/.worksheet
+/batch/spark/.cache-main
+/batch/spark/.scala_dependencies
+/batch/spark/.worksheet
 
 ######## streaming - spark ########
 /streaming/spark/.metadata
