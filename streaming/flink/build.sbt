@@ -16,6 +16,8 @@ val flinkVersion = "1.4.1"
 val jacksonVersion = "2.6.5"
 val typesafeVersion = "1.3.0"
 val log4jVersion = "1.2.14"
+val hbaseVersion = "1.3.1"
+val hadoopVersion = "2.5.1"
 
 val projectDependencies = Seq(
     "log4j" % "log4j" % log4jVersion,
@@ -23,6 +25,10 @@ val projectDependencies = Seq(
     "org.apache.flink" %% "flink-hbase" % flinkVersion,
     "org.apache.flink" % "flink-avro" % flinkVersion,
     "org.apache.flink" %% "flink-connector-kafka-0.11" % flinkVersion,
+    "org.apache.hbase" % "hbase-common" % hbaseVersion,
+    ("org.apache.hadoop" % "hadoop-common" % hadoopVersion)
+    .exclude("commons-beanutils", "commons-beanutils-core")
+    .exclude("commons-beanutils", "commons-beanutils"),
 
     "com.typesafe" % "config" % typesafeVersion,
     "com.fasterxml.jackson.core" % "jackson-databind" % jacksonVersion,
