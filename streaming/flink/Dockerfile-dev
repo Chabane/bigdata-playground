@@ -1,7 +1,6 @@
 FROM flink:1.4.1-hadoop28-alpine
 VOLUME /tmp
 
-ADD hbase-site.xml $FLINK_HOME/conf
 ADD target/scala-2.11/search-flight-flink-streaming-assembly-0.1.0.jar $FLINK_HOME/libs/search-flight-streaming.jar
 RUN sh -c 'touch $FLINK_HOME/libs/search-flight-streaming.jar'
 
