@@ -17,9 +17,9 @@ import scala.io.Source
 
 object Main {
 
- private[this] lazy val logger = Logger.getLogger(getClass)
+  private[this] lazy val logger = Logger.getLogger(getClass)
 
- private[this] val config = ConfigurationFactory.load()
+  private[this] val config: com.mitosis.config.objects.Config = ConfigurationFactory.load()
 
   def main(args: Array[String]): Unit = {
 
@@ -43,6 +43,5 @@ object Main {
 
     env.execute("search-flight-flink-streaming")
   }
-
 
 }

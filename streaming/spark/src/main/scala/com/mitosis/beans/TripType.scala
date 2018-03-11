@@ -5,3 +5,4 @@ object TripType extends Enumeration {
   type TripType = Value
 }
 
+

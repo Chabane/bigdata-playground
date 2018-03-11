@@ -10,15 +10,13 @@ import java.io.InputStreamReader
 object ConfigurationFactory {
 
   /**
-    * Loads configuration object by file
-    *
-    * @return Returns configuration objects
-    */
+   * Loads configuration object by file
+   *
+   * @return Returns configuration objects
+   */
   def load(): Config = {
     val is = new InputStreamReader(getClass.getResourceAsStream(s"/app.conf"))
     val config: com.typesafe.config.Config = ConfigFactory.parseReader(is).resolve()
     ConfigBeanFactory.create(config, classOf[Config])
   }
-
 }
-
