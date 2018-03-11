@@ -2,10 +2,10 @@
 FROM hseeberger/scala-sbt:8u151-2.12.4-1.0.4
 VOLUME /tmp
 
-ENV SPARK_VERSION spark-2.2.1-bin-hadoop2.7
+ENV SPARK_VERSION spark-2.3.0-bin-hadoop2.7
 ENV SPARK_HOME /usr/local/spark
 
-RUN curl http://apache.mediamirrors.org/spark/spark-2.2.1/$SPARK_VERSION.tgz -o $SPARK_VERSION.tgz; \
+RUN curl http://apache.mediamirrors.org/spark/spark-2.3.0/$SPARK_VERSION.tgz -o $SPARK_VERSION.tgz; \
                  tar xzf $SPARK_VERSION.tgz -C /usr/local/;
 RUN cd /usr/local && ln -s $SPARK_VERSION spark
 
