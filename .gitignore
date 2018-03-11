@@ -47,7 +47,7 @@
 Thumbs.db
 *.log
 
-######## batch ########
+######## batch spark ########
 /batch/spark/.metadata
 /batch/spark/bin/
 /batch/spark/tmp/
@@ -104,6 +104,65 @@ Thumbs.db
 /batch/spark/.cache-main
 /batch/spark/.scala_dependencies
 /batch/spark/.worksheet
+
+
+######## batch flink ########
+/batch/flink/.metadata
+/batch/flink/bin/
+/batch/flink/tmp/
+/batch/flink/target/
+/batch/flink/.idea/
+
+/batch/flink/.classpath
+/batch/flink/.project
+/batch/flink/*.tmp
+/batch/flink/*.bak
+/batch/flink/*.swp
+/batch/flink/*~.nib
+/batch/flink/local.properties
+/batch/flink/.settings/
+/batch/flink/.loadpath
+/batch/flink/.recommenders
+
+# External tool builders
+/batch/flink/.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+/batch/flink/*.launch
+
+# PyDev specific (Python IDE for Eclipse)
+/batch/flink/*.pydevproject
+
+# CDT-specific (C/C++ Development Tooling)
+/batch/flink/.cproject
+
+# Java annotation processor (APT)
+/batch/flink/.factorypath
+
+# PDT-specific (PHP Development Tools)
+/batch/flink/.buildpath
+
+# sbteclipse plugin
+/batch/flink/.target
+/batch/flink/project/project
+/batch/flink/project/target
+
+# Tern plugin
+/batch/flink/.tern-project
+
+# TeXlipse plugin
+/batch/flink/.texlipse
+
+# STS (Spring Tool Suite)
+/batch/flink/.springBeans
+
+# Code Recommenders
+/batch/flink/.recommenders/
+
+# Scala IDE specific (Scala & Java development for Eclipse)
+/batch/flink/.cache-main
+/batch/flink/.scala_dependencies
+/batch/flink/.worksheet
 
 ######## streaming - spark ########
 /streaming/spark/.metadata
