@@ -1,6 +1,7 @@
 package com.mitosis
 
 import java.io.IOException
+import scala.io.Source
 
 import org.apache.spark.sql.{DataFrame, SparkSession, Row}
 import org.apache.spark.sql.types.{StructField, StructType, IntegerType, LongType, StringType}
@@ -19,7 +20,9 @@ import org.apache.avro.generic.GenericRecord
 import org.apache.avro.io.DecoderFactory
 import org.apache.log4j.Logger
 import org.apache.spark.streaming.{Seconds, StreamingContext}
-import org.apache.avro.SchemaBuilder
+
+import org.apache.avro.Schema
+import org.apache.avro.Schema.Parser
 import org.apache.spark.sql.execution.datasources.hbase.HBaseTableCatalog
 
 object Main {
