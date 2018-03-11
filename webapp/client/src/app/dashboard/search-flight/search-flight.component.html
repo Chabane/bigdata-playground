@@ -12,8 +12,8 @@
 
         <br/>
         <mat-form-field class="search-flight-full-width" [hideRequiredMarker]="searchFlightForm.value.hideRequired">
-          <input placeholder="Departing from" aria-label="Departing from" #departureAirportInput matInput [matAutocomplete]="autoDepartingFrom" formControlName="departingFrom"
-            required>
+          <input placeholder="Departing from" aria-label="Departing from" #departureAirportInput matInput [matAutocomplete]="autoDepartingFrom"
+            formControlName="departingFrom" required>
           <!-- [displayWith]="displayDepartingFrom"-->
           <mat-autocomplete #autoDepartingFrom="matAutocomplete">
             <!-- *ngFor="let option of departingFromOptions | async" [value]="option" -->

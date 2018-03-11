@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Observable } from 'rxjs/rx';
+import { Observable } from 'rxjs/Rx';
 import { map } from 'rxjs/operators/map';
 import { switchMap } from 'rxjs/operators/switchMap';
 import { debounceTime } from 'rxjs/operators/debounceTime';
@@ -24,7 +24,6 @@ export class SearchFlightComponent implements OnInit {
   @ViewChild('departureAirportInput') departureAirportInput: ElementRef;
   @ViewChild('arrivalAirportInput') arrivalAirportInput: ElementRef;
   searchFlightForm: FormGroup;
-  flightInfo: FlightInfo = new FlightInfo();
   passengersNumberOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   cabinsClassOptions = Object.keys(CabinClass).filter(k => typeof CabinClass[k as any] === 'string');
   tripTypeOptions = Object.keys(TripType).filter(k => typeof TripType[k as any] === 'string');
@@ -59,14 +58,14 @@ export class SearchFlightComponent implements OnInit {
     this.filteredAirports = <any>this.searchFlightForm.get('departingFrom').valueChanges.pipe(
       distinctUntilChanged(),
       debounceTime(300),
-      switchMap(airportToSearch => this.loadAirports(airportToSearch, this.arrivalAirport))
+      switchMap((airportToSearch: any) => this.loadAirports(airportToSearch, this.arrivalAirport))
     );
 
     // load destinations airports
     this.filteredDestinationAirports = <any>this.searchFlightForm.get('arrivingAt').valueChanges.pipe(
       distinctUntilChanged(),
       debounceTime(300),
-      switchMap(airportToSearch => this.loadAirports(airportToSearch, this.departureAirport))
+      switchMap((airportToSearch: any) => this.loadAirports(airportToSearch, this.departureAirport))
     );
 
     // arrivalDate must be greater than the departureDate
@@ -104,6 +103,16 @@ export class SearchFlightComponent implements OnInit {
    * method called when on submitting the form
    */
   searchFlight() {
+    const flightInfo: FlightInfo = new FlightInfo();
+    flightInfo.departingId = this.departureAirport.AirportID;
+    flightInfo.arrivingId = this.arrivalAirport.AirportID;
+    flightInfo.departureDate = this.searchFlightForm.get('departureDate').value;
+    flightInfo.arrivalDate = this.searchFlightForm.get('arrivalDate').value;
+    flightInfo.passengerNumber = this.searchFlightForm.get('passengerNumber').value;
+    flightInfo.cabinClass = this.searchFlightForm.get('cabinClass').value;
+    flightInfo.tripType = this.searchFlightForm.get('tripType').value;
+    this.airportsService.sendFlightInfo(flightInfo).subscribe(res => {
+    });
   }
 
   /**
@@ -127,7 +136,7 @@ export class SearchFlightComponent implements OnInit {
     const airportId = airportToFilterBy === undefined ? undefined : airportToFilterBy.AirportID;
     return this.airportsService.getAirports(airportToSearch, airportId).pipe(
       map(response => {
-        const airportsData = (<any>response.data).fetchAirports;
+        const airportsData = (<any>response).data.fetchAirports;
         const airportsDtoList = AirportDtoMapper.toAirportsDto(airportsData);
         return AirportMapper.toAirports(airportsDtoList);
       }));

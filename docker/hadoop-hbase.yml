@@ -43,7 +43,6 @@ services:
     image: smizy/hbase:1.4.0-alpine
     expose: [16000]
     ports:  [16010]
-    depends_on: ["zookeeper-1"]
     environment:
       - SERVICE_16000_NAME=hmaster
       - SERVICE_16010_IGNORE=true
@@ -58,7 +57,6 @@ services:
     hostname: regionserver-1.vnet
     image: smizy/hbase:1.4.0-alpine
     expose: [16020, 16030]
-    depends_on: ["zookeeper-1"]
     environment:
       - SERVICE_16020_NAME=regionserver
       - SERVICE_16030_IGNORE=true

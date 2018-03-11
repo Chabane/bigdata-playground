@@ -1,10 +1,10 @@
 
 export interface IFlightInfo {
-  departing: string;
-  arriving: string;
+  departingId: string;
+  arrivingId: string;
   tripType: string;
-  departingDate: number;
-  arrivingDate: number;
+  departureDate: Date;
+  arrivalDate: Date;
   passengerNumber: number;
   cabinClass: string;
 }

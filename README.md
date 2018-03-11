@@ -3,16 +3,17 @@
 ## Motivation
 The aim is to create a disposable Hadoop/HBase/Spark/Flink/ML stack where you can test your jobs locally or to submit them to the Yarn resource manager. We are using Docker to build the environment and Docker-Compose to provision it with the required components (Next step using Kubernetes). Along with the infrastructure, We are check that it works with 4 projects that just probes everything is working as expected. The boilerplate is based on a sample search flight web application.
 
-Keywords : Docker, Kubernetes, Apache Spark SQL/Streaming/MLib, Apache Flink, Scala, Python, Apache Kafka, Apache Hbase, Apache Avro, (Apache NiFi, Kylo next step), MongoDB, NodeJS (graphql, kafka-node, mongoose, avsc) Angular, Apollo-GraphQL
+Keywords : Docker, (Kubernetes soon), Apache Spark SQL/Streaming(DStream)/MLib, (Apache Flink, Kafka Streams soon), Scala, Python, Apache Kafka, Apache Hbase, Apache Avro, (Apache NiFi, Kylo next step), MongoDB, NodeJS (graphql, kafka-node, mongoose, avsc), Angular, Apollo-GraphQL
 
-## Prod mode
+## Installation
+If you are on mac then, you can use package manager like `brew` to install `sbt` on your machine:
+
+```bash
+$ brew install sbt
 ```
-docker network create vnet
-cd docker
-docker-compose -f mongo.yml -f zookeeper.yml -f kafka.yml -f hadoop-hbase.yml up -d
-docker-compose up -d
-```
-## Dev mode 
+
+For other systems, you can refer to manual instructions from `sbt` website http://www.scala-sbt.org/0.13/tutorial/Manual-Installation.html. 
+
 ```
 docker network create vnet
 cd batch && sbt clean package assembly
@@ -20,15 +21,16 @@ cd ..
 cd streaming && sbt clean package assembly
 cd ..
 cd docker
-docker-compose -f mongo.yml -f zookeeper.yml -f kafka.yml -f hadoop-hbase.yml up -d
+docker-compose -f mongo.yml -f zookeeper.yml -f kafka.yml -f hadoop-hbase.yml -f flink.yml up -d
 docker-compose -f dev/webapp.yml up -d
 docker-compose -f dev/batch.yml up -d
-docker-compose -f dev/streaming.yml up -d
+docker-compose -f dev/streaming-spark.yml up -d
+docker-compose -f dev/streaming-flink.yml up -d
 docker-compose -f dev/ml.yml up -d
 ```
 
 ## Interactions
-<img src='https://image.ibb.co/jg2GU6/search_flight_simple_v1.png'/>
+<img src='https://image.ibb.co/cEtkv7/search_flight_simple_v2.png'/>
 
 ## Contributing
 `Pull requests` are welcome.
