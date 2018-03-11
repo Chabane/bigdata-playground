@@ -10,7 +10,7 @@ RUN curl http://apache.mediamirrors.org/spark/spark-2.3.0/$SPARK_VERSION.tgz -o 
 
 RUN cd /usr/local && ln -s $SPARK_VERSION spark
 
-ADD target/scala-2.11/search-flight-batch-assembly-0.1.0.jar $SPARK_HOME/libs/search-flight-batch.jar
+ADD target/scala-2.11/search-flight-spark-batch-assembly-0.1.0.jar $SPARK_HOME/libs/search-flight-batch.jar
 ADD parquet/ $PARQUET_HOME
 RUN sh -c 'touch $SPARK_HOME/libs/search-flight-batch.jar'
 
