@@ -5,14 +5,15 @@ The aim is to create a disposable Hadoop/HBase/Spark/Flink/ML stack where you ca
 
 Keywords : Docker, (Kubernetes soon), Apache Spark SQL/Streaming(DStream)/MLib, (Apache Flink, Kafka Streams soon), Scala, Python, Apache Kafka, Apache Hbase, Apache Avro, (Apache NiFi, Kylo next step), MongoDB, NodeJS (graphql, kafka-node, mongoose, avsc), Angular, Apollo-GraphQL
 
-## Prod mode
+## Installation
+If you are on mac then, you can use package manager like `brew` to install `sbt` on your machine:
+
+```bash
+$ brew install sbt
 ```
-docker network create vnet
-cd docker
-docker-compose -f mongo.yml -f zookeeper.yml -f kafka.yml -f hadoop-hbase.yml flink.yml up -d
-docker-compose up -d
-```
-## Dev mode 
+
+For other systems, you can refer to manual instructions from `sbt` website http://www.scala-sbt.org/0.13/tutorial/Manual-Installation.html. 
+
 ```
 docker network create vnet
 cd batch && sbt clean package assembly
