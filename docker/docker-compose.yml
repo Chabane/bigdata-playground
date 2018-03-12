@@ -16,5 +16,5 @@ services:
     container_name: streaming_spark
           
   ml:
-    build: ../ml
+    build: ../ml/spark
     container_name: ml
