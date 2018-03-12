@@ -1,4 +1,4 @@
-# Bigdata Boilerplate
+# Bigdata Playground
 
 ## Motivation
 The aim is to create a disposable Hadoop/HBase/Spark/Flink/ML stack where you can test your jobs locally or to submit them to the Yarn resource manager. We are using Docker to build the environment and Docker-Compose to provision it with the required components (Next step using Kubernetes). Along with the infrastructure, We are check that it works with 4 projects that just probes everything is working as expected. The boilerplate is based on a sample search flight web application.
