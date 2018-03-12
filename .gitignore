@@ -281,4 +281,4 @@ Thumbs.db
 /streaming/flink/.worksheet
 
 ######## ml ########
-/ml/.idea/
+/ml/spark/.idea/
