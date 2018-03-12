@@ -1,0 +1,15 @@
+version: '3.3'
+
+services:
+   batch-flink-dev:
+     build:
+       context: ../../batch/flink
+       dockerfile: Dockerfile-dev
+     container_name: batch_flink_dev
+     networks: ["vnet"]
+     hostname: batch-flink-dev.vnet
+         
+networks:
+  vnet:
+    external:
+      name: vnet 
