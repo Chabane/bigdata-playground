@@ -29,7 +29,7 @@ docker-compose -f dev/streaming-flink.yml up -d
 docker-compose -f dev/ml.yml up -d
 ```
 
-## Interactions
+## Interactions / OnGoing
 <img src='https://image.ibb.co/g88tvH/search_flight_simple_v3.png'/>
 
 ## Contributing
