@@ -108,9 +108,9 @@ export class SearchFlightComponent implements OnInit {
     flightInfo.arrivingId = this.arrivalAirport.AirportID;
     var dateFormat = 'YYYY/MM/DD';
     const departureDate = this.searchFlightForm.get('departureDate').value;
-    moment.utc(flightInfo.departureDate , dateFormat).local().format(dateFormat);
+    flightInfo.departureDate = moment.utc(departureDate, dateFormat).local().format(dateFormat);
     const arrivalDate = this.searchFlightForm.get('arrivalDate').value;
-    moment.utc(flightInfo.arrivalDate, dateFormat).local().format(dateFormat);
+    flightInfo.arrivalDate = moment.utc(arrivalDate, dateFormat).local().format(dateFormat);
     flightInfo.passengerNumber = this.searchFlightForm.get('passengerNumber').value;
     flightInfo.cabinClass = this.searchFlightForm.get('cabinClass').value;
     flightInfo.tripType = this.searchFlightForm.get('tripType').value;
