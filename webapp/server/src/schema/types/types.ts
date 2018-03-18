@@ -7,8 +7,8 @@ type FlightInfoType {
   departingId: String
   arrivingId: String
   tripType: String
-  departureDate: Date
-  arrivalDate: Date
+  departureDate: String
+  arrivalDate: String
   passengerNumber: Int
   cabinClass: String
 }
@@ -17,8 +17,8 @@ input FlightInfoInput {
   departingId: String
   arrivingId: String
   tripType: String
-  departureDate: Date
-  arrivalDate: Date
+  departureDate: String
+  arrivalDate: String
   passengerNumber: Int
   cabinClass: String
 }
