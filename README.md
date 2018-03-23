@@ -28,6 +28,13 @@ docker-compose -f dev/webapp.yml up -d
 docker-compose -f dev/batch-spark.yml up -d
 docker-compose -f dev/streaming-spark.yml up -d
 docker-compose -f dev/streaming-flink.yml up -d
+```
+Create your Twitter app on https://apps.twitter.com
+```
+export TWITTER_CONSUMER_KEY=<TWITTER_CONSUMER_KEY>
+export TWITTER_CONSUMER_SECRET=<TWITTER_CONSUMER_SECRET>
+export TWITTER_CONSUMER_ACCESS_TOKEN=<TWITTER_CONSUMER_ACCESS_TOKEN>
+export TWITTER_CONSUMER_ACCESS_TOKEN_SECRET=<TWITTER_CONSUMER_ACCESS_TOKEN_SECRET>
 docker-compose -f dev/ml-spark.yml up -d
 ```
 
