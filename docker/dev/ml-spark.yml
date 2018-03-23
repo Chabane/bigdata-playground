@@ -13,6 +13,14 @@ services:
       - TWITTER_CONSUMER_SECRET=${TWITTER_CONSUMER_SECRET}
       - TWITTER_CONSUMER_ACCESS_TOKEN=${TWITTER_CONSUMER_ACCESS_TOKEN}
       - TWITTER_CONSUMER_ACCESS_TOKEN_SECRET=${TWITTER_CONSUMER_ACCESS_TOKEN_SECRET}
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 1G
+        reservations:
+          cpus: '0.25'
+          memory: 512M  
 networks:
   vnet:
     external:
