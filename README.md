@@ -18,10 +18,9 @@ Install Docker by following the instructions for <a href='https://docs.docker.co
 
 ```
 docker network create vnet
-cd batch && sbt clean package assembly
-cd ..
-cd streaming && sbt clean package assembly
-cd ..
+cd batch/spark && sbt clean package assembly && cd ../..
+cd streaming/spark && sbt clean package assembly && cd ../..
+cd streaming/flink && sbt clean package assembly && cd ../..
 cd docker
 docker-compose -f mongo.yml -f zookeeper.yml -f kafka.yml -f hadoop-hbase.yml -f flink.yml up -d
 docker-compose -f dev/webapp.yml up -d
