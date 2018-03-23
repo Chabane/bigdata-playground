@@ -28,7 +28,7 @@ docker-compose -f dev/webapp.yml up -d
 docker-compose -f dev/batch-spark.yml up -d
 docker-compose -f dev/streaming-spark.yml up -d
 docker-compose -f dev/streaming-flink.yml up -d
-docker-compose -f dev/ml.yml up -d
+docker-compose -f dev/ml-spark.yml up -d
 ```
 
 ## Interactions

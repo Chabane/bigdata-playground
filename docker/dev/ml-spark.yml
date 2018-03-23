@@ -8,7 +8,11 @@ services:
     container_name: ml-spark-dev
     networks: ["vnet"]
     hostname: ml-spark-dev.vnet
-
+    environment:
+      - TWITTER_CONSUMER_KEY=${TWITTER_CONSUMER_KEY}
+      - TWITTER_CONSUMER_SECRET=${TWITTER_CONSUMER_SECRET}
+      - TWITTER_CONSUMER_ACCESS_TOKEN=${TWITTER_CONSUMER_ACCESS_TOKEN}
+      - TWITTER_CONSUMER_ACCESS_TOKEN_SECRET=${TWITTER_CONSUMER_ACCESS_TOKEN_SECRET}
 networks:
   vnet:
     external:
