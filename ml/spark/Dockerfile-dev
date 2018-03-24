@@ -1,7 +1,7 @@
-FROM python:2.7-alpine
+FROM python:3.6.4-alpine
 
 RUN apk add --no-cache curl bash alpine-sdk openjdk8
-RUN pip install tweepy
+RUN pip install tweepy pyspark 
 
 ENV JAVA8_HOME /usr/lib/jvm/default-jvm
 ENV JAVA_HOME $JAVA8_HOME
