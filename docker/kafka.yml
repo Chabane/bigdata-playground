@@ -10,7 +10,7 @@ services:
     environment:
       KAFKA_ADVERTISED_HOST_NAME: kafka.vnet
       KAFKA_ADVERTISED_PORT: 9092
-      KAFKA_CREATE_TOPICS: flightInfoTopic:1:1
+      KAFKA_CREATE_TOPICS: flightInfoTopic:1:1,tweetsTopic:1:1
       KAFKA_LISTENERS: "PLAINTEXT://kafka.vnet:9092"
       KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka.vnet:9092"
       KAFKA_ZOOKEEPER_CONNECT: zookeeper-1.vnet:2181
