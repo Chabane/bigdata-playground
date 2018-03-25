@@ -282,3 +282,5 @@ Thumbs.db
 
 ######## ml ########
 /ml/spark/.idea/
+/ml/spark/venv/
+/ml/spark/tweet_traveling_partners_model
