@@ -53,13 +53,13 @@ def initialize():
     training_set = tweets_df_splitted[0]
     test_set = tweets_df_splitted[1]
 
-    text_indexed = StringIndexer(inputCol="username", outputCol="text_indexed")
+    username_indexed = StringIndexer(inputCol="username", outputCol="username_indexed")
     tokenizer = Tokenizer(inputCol="text", outputCol="token_raw")
     ngram = NGram(inputCol="token_raw", outputCol="ngram", n=2)
     hashing_tf = HashingTF(inputCol="ngram", outputCol="tf", numFeatures=20)
     idf = IDF(inputCol="tf", outputCol="idf", minDocFreq=2)
-    lr = LogisticRegression(featuresCol="idf", labelCol="text_indexed")
-    pipeline = Pipeline(stages=[text_indexed, tokenizer, ngram, hashing_tf, idf, lr])
+    lr = LogisticRegression(featuresCol="idf", labelCol="username_indexed")
+    pipeline = Pipeline(stages=[username_indexed, tokenizer, ngram, hashing_tf, idf, lr])
 
     pipeline_model = pipeline.fit(training_set)
     pipeline_model.write().overwrite().save("tweet_traveling_partners_model")
