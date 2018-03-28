@@ -26,7 +26,7 @@ public class Application {
 		SparkSession sparkSession = SparkSession
 				.builder()
 				.master("local[*]")
-				.appName("search-flight-batch")
+				.appName("search-flight-batch-spark")
 				.config("spark.mongodb.output.uri", mongodbUri)
 				.getOrCreate();
 

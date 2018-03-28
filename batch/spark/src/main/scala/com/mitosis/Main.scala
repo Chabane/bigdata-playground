@@ -14,7 +14,7 @@ object Main {
   def main(args: Array[String]): Unit = {
 
     val sparkSession = SparkSession.builder
-      .appName("search-flight-batch")
+      .appName("search-flight-batch-spark")
       .config("spark.mongodb.output.uri", "mongodb://%s/%s.%s".format(
         config.batch.db.host,
         config.batch.db.database,
