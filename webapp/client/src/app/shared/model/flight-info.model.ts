@@ -16,8 +16,8 @@ export class FlightInfo {
   departingId: string;
   arrivingId: string;
   tripType: TripType;
-  departureDate: Date;
-  arrivalDate: Date;
+  departureDate: string;
+  arrivalDate: string;
   passengerNumber: number;
   cabinClass: CabinClass;
 }

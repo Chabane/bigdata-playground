@@ -7,13 +7,11 @@ export class FlightInfoAvroMapper {
         let flightInfoAvro: FlightInfoAvro; 
         if(flightInfo) {
             flightInfoAvro = new FlightInfoAvro();
-            flightInfoAvro.arrivalDate = flightInfo.arrivalDate? 
-                new Date(flightInfo.arrivalDate).getTime(): undefined;
+            flightInfoAvro.arrivalDate = flightInfo.arrivalDate;
             flightInfoAvro.arrivingId = flightInfo.arrivingId;
             flightInfoAvro.cabinClass = flightInfo.cabinClass;
             flightInfoAvro.departingId = flightInfo.departingId;
-            flightInfoAvro.departureDate = flightInfo.departureDate? 
-                new Date(flightInfo.departureDate).getTime(): undefined;
+            flightInfoAvro.departureDate = flightInfo.departureDate;
             flightInfoAvro.ipAddress = undefined;
             flightInfoAvro.latitude = undefined;
             flightInfoAvro.longitude = undefined;

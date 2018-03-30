@@ -37,8 +37,8 @@ export class KafkaProducer {
                 { name: 'departingId', type: 'string' },
                 { name: 'arrivingId', type: 'string' },
                 { name: 'tripType', type: { type: 'enum', name: 'TripType', symbols: ['ONE_WAY', 'ROUND_TRIP'] } },
-                { name: 'departureDate', type: { type: 'long', logicalType: 'timestamp-millis' } },
-                { name: 'arrivalDate', type: { type: 'long', logicalType: 'timestamp-millis' } },
+                { name: 'departureDate', type: 'string' },
+                { name: 'arrivalDate', type: 'string' },
                 { name: 'passengerNumber', type: 'int' },
                 { name: 'cabinClass', type: { type: 'enum', name: 'CabinClass', symbols: ['ECONOMY', 'PRENIUM', 'BUSINESS'] } }
             ]

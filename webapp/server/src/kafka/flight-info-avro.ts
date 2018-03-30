@@ -6,8 +6,8 @@ export class FlightInfoAvro {
   longitude: string;
   arrivingId: string;
   tripType: string;
-  departureDate: number;
-  arrivalDate: number;
+  departureDate: string;
+  arrivalDate: string;
   passengerNumber: number;
   cabinClass: string;
   eventTime: number;

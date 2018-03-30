@@ -281,4 +281,6 @@ Thumbs.db
 /streaming/flink/.worksheet
 
 ######## ml ########
-/ml/.idea/
+/ml/spark/.idea/
+/ml/spark/venv/
+/ml/spark/tweet_traveling_partners_model

@@ -6,15 +6,23 @@ services:
     container_name: webapp
     ports:
       - 3000:3000
+    networks: ["vnet"]
+    hostname: webapp.vnet
 
   batch-spark: 
     build: ../batch/spark
     container_name: batch_spark 
+    networks: ["vnet"]
+    hostname: batch-spark.vnet
 
   streaming-spark: 
     build: ../streaming/spark
     container_name: streaming_spark
-          
-  ml:
-    build: ../ml
-    container_name: ml
+    networks: ["vnet"]
+    hostname: streaming-spark.vnet
+             
+networks:
+  vnet:
+    external:
+      name: vnet 
+  

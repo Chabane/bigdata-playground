@@ -55,8 +55,8 @@ object Main {
                 |"departingId":{"cf":"searchFlightInfo", "col":"departingId", "type":"string"},
                 |"arrivingId":{"cf":"searchFlightInfo", "col":"arrivingId", "type":"string"},
                 |"tripType":{"cf":"searchFlightInfo", "col":"tripType", "type":"string"},
-                |"departureDate":{"cf":"searchFlightInfo", "col":"departureDate", "type":"bigint"},
-                |"arrivalDate":{"cf":"searchFlightInfo", "col":"arrivalDate", "type":"bigint"},
+                |"departureDate":{"cf":"searchFlightInfo", "col":"departureDate", "type":"string"},
+                |"arrivalDate":{"cf":"searchFlightInfo", "col":"arrivalDate", "type":"string"},
                 |"passengerNumber":{"cf":"searchFlightInfo", "col":"passengerNumber", "type":"integer"},
                 |"cabinClass":{"cf":"searchFlightInfo", "col":"cabinClass", "type":"string"}
                 |}
@@ -67,8 +67,8 @@ object Main {
     .add(StructField("departingId", StringType, true))
     .add(StructField("arrivingId", StringType, true))
     .add(StructField("tripType", StringType, true))
-    .add(StructField("departureDate", LongType, true))
-    .add(StructField("arrivalDate", LongType, true))
+    .add(StructField("departureDate", StringType, true))
+    .add(StructField("arrivalDate", StringType, true))
     .add(StructField("passengerNumber", IntegerType, true))
     .add(StructField("cabinClass", StringType, true))
 

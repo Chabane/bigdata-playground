@@ -11,7 +11,7 @@ import { FlightInfo, TripType, CabinClass } from '../../shared/model/flight-info
 import { Airport } from '../../shared/model/airport.model';
 import { AirportsService } from './gql/service/airports.service';
 import { AirportDtoMapper, AirportMapper } from './util/';
-
+import * as moment from 'moment';
 
 @Component({
   moduleId: module.id,
@@ -106,8 +106,11 @@ export class SearchFlightComponent implements OnInit {
     const flightInfo: FlightInfo = new FlightInfo();
     flightInfo.departingId = this.departureAirport.AirportID;
     flightInfo.arrivingId = this.arrivalAirport.AirportID;
-    flightInfo.departureDate = this.searchFlightForm.get('departureDate').value;
-    flightInfo.arrivalDate = this.searchFlightForm.get('arrivalDate').value;
+    var dateFormat = 'YYYY-MM-DD';
+    const departureDate = this.searchFlightForm.get('departureDate').value;
+    flightInfo.departureDate = moment.utc(departureDate, dateFormat).local().format(dateFormat);
+    const arrivalDate = this.searchFlightForm.get('arrivalDate').value;
+    flightInfo.arrivalDate = moment.utc(arrivalDate, dateFormat).local().format(dateFormat);
     flightInfo.passengerNumber = this.searchFlightForm.get('passengerNumber').value;
     flightInfo.cabinClass = this.searchFlightForm.get('cabinClass').value;
     flightInfo.tripType = this.searchFlightForm.get('tripType').value;

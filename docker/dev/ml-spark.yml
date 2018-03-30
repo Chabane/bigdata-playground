@@ -1,0 +1,27 @@
+version: '3.3'
+
+services:
+  ml-spark-dev:
+    build: 
+      context: ../../ml/spark
+      dockerfile: Dockerfile-dev   
+    container_name: ml-spark-dev
+    networks: ["vnet"]
+    hostname: ml-spark-dev.vnet
+    environment:
+      - TWITTER_CONSUMER_KEY=${TWITTER_CONSUMER_KEY}
+      - TWITTER_CONSUMER_SECRET=${TWITTER_CONSUMER_SECRET}
+      - TWITTER_CONSUMER_ACCESS_TOKEN=${TWITTER_CONSUMER_ACCESS_TOKEN}
+      - TWITTER_CONSUMER_ACCESS_TOKEN_SECRET=${TWITTER_CONSUMER_ACCESS_TOKEN_SECRET}
+    deploy:
+      resources:
+        limits:
+          cpus: '0.75'
+          memory: 2G
+        reservations:
+          cpus: '0.50'
+          memory: 1G 
+networks:
+  vnet:
+    external:
+      name: vnet 
