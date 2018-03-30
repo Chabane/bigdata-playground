@@ -11,7 +11,8 @@ RUN cd /usr/local && ln -s $SPARK_VERSION spark
 
 ENV PROJECT_HOME /usr/local/project
 
-ADD src $PROJECT_HOME/src
+ADD src/main/scala $PROJECT_HOME/src/main/scala
+ADD src/main/resources $PROJECT_HOME/src/main/resources
 ADD parquet $PROJECT_HOME/parquet
 ADD build.sbt $PROJECT_HOME/
 ADD project/build.properties $PROJECT_HOME/project/
