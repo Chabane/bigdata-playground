@@ -45,6 +45,8 @@ libraryDependencies ++= Seq(
     "com.hortonworks" % "shc-core" % hbaseConnectorVersion,
 )
 
+unmanagedSourceDirectories in Compile := (scalaSource in Compile).value :: Nil
+
 assemblyMergeStrategy in assembly := {
   case PathList("META-INF", xs @ _*) => MergeStrategy.discard
   case x => MergeStrategy.first
