@@ -23,4 +23,4 @@ RUN sbt package assembly
 
 WORKDIR $SPARK_HOME
 
-CMD ["bin/spark-submit", "--class", "com.mitosis.Main", "--master", "local[2]", "/usr/local/project/target/scala-2.11/search-flight-spark-batch-assembly-0.1.0.jar", "/usr/local/batch/parquet" ]
+CMD ["bin/spark-submit", "--class", "com.mitosis.Main", "--master", "local[2]", "/usr/local/project/target/scala-2.11/search-flight-spark-batch-assembly-0.1.0.jar", "/usr/local/project/parquet" ]
