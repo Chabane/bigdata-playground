@@ -13,7 +13,8 @@ ADD hbase-site.xml $SPARK_HOME/conf
 
 ENV PROJECT_HOME /usr/local/project
 
-ADD src $PROJECT_HOME/src
+ADD src/main/scala $PROJECT_HOME/src/main/scala
+ADD src/main/resources $PROJECT_HOME/src/main/resources
 ADD build.sbt $PROJECT_HOME/
 ADD project/build.properties $PROJECT_HOME/project/
 ADD project/plugins.sbt $PROJECT_HOME/project/
