@@ -35,8 +35,8 @@ def serialize(flight_info) :
         encoder = avro.io.BinaryEncoder(bytes_writer)
         writer.write({"id": "1"}, encoder)
 
-        raw_bytes = bytes_writer.getvalue()
-        return raw_bytes
+        tweets_bytes = bytes_writer.getvalue()
+        return tweets_bytes
     else:
         return None
 
@@ -74,12 +74,10 @@ def initialize() :
     spark.udf.register("serialize", serialize)
 
     search_flight_ds = search_flight_df\
-        .select(col("value").cast("binary"))\
-        .selectExpr("deserialize(value) as flightInfo")\
-        .selectExpr("serialize(flightInfo) as tweet")
+        .selectExpr("key", "deserialize(value) as flightInfo")\
+        .selectExpr("key", "serialize(flightInfo) as value")
 
     search_flight_ds \
-        .selectExpr("CAST(tweets AS binary) AS value") \
         .writeStream \
         .format("kafka") \
         .option("kafka.bootstrap.servers", "kafka.vnet:9092") \
@@ -88,7 +86,6 @@ def initialize() :
         .option("checkpointLocation", "/tmp/checkpoint") \
         .start() \
         .awaitTermination()
-
 
     spark.stop()
 
