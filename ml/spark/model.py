@@ -22,7 +22,7 @@ def initialize():
 
     spark = SparkSession \
         .builder \
-        .appName("search-flight-spark-ml-twitter") \
+        .appName("search-flight-spark-ml-model") \
         .getOrCreate()
     sc = spark.sparkContext
 

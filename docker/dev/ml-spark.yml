@@ -1,13 +1,13 @@
 version: '3.3'
 
 services:
-  ml-spark-dev:
+  ml-spark-model-dev:
     build: 
       context: ../../ml/spark
-      dockerfile: Dockerfile-dev   
-    container_name: ml-spark-dev
+      dockerfile: Dockerfile-model-dev 
+    container_name: ml-spark-model-dev
     networks: ["vnet"]
-    hostname: ml-spark-dev.vnet
+    hostname: ml-spark-model-dev.vnet
     environment:
       - TWITTER_CONSUMER_KEY=${TWITTER_CONSUMER_KEY}
       - TWITTER_CONSUMER_SECRET=${TWITTER_CONSUMER_SECRET}
@@ -21,7 +21,35 @@ services:
         reservations:
           cpus: '0.50'
           memory: 1G 
+    volumes:
+        - model:/usr/local/spark/libs/tweet_traveling_partners_model 
+
+  ml-spark-stream-dev:
+    build: 
+      context: ../../ml/spark
+      dockerfile: Dockerfile-stream-dev 
+    container_name: ml-spark-stream-dev
+    networks: ["vnet"]
+    hostname: ml-spark-stream-dev.vnet
+    environment:
+      - TWITTER_CONSUMER_KEY=${TWITTER_CONSUMER_KEY}
+      - TWITTER_CONSUMER_SECRET=${TWITTER_CONSUMER_SECRET}
+      - TWITTER_CONSUMER_ACCESS_TOKEN=${TWITTER_CONSUMER_ACCESS_TOKEN}
+      - TWITTER_CONSUMER_ACCESS_TOKEN_SECRET=${TWITTER_CONSUMER_ACCESS_TOKEN_SECRET}
+    deploy:
+      resources:
+        limits:
+          cpus: '0.75'
+          memory: 2G
+        reservations:
+          cpus: '0.50'
+          memory: 1G  
+    volumes:
+        - model:/usr/local/spark/libs/tweet_traveling_partners_model     
+           
 networks:
   vnet:
     external:
       name: vnet 
+volumes:
+    model:

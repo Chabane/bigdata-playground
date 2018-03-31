@@ -1,0 +1,7 @@
+{
+            "type": "record",
+            "name": "tweet",
+            "fields": [
+                { "name": "id", "type": "string" }
+            ]
+        }
