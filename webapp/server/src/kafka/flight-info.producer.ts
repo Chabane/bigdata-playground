@@ -5,7 +5,7 @@ import { FlightInfoAvro } from './flight-info-avro';
 import { FlightInfoAvroMapper } from './flight-info-avro.mapper';
 import { IFlightInfo } from "../db";
 
-export class KafkaProducer {
+export class KafkaFlightInfoProducer {
 
     private client: KafkaClient;
     private producer: Producer;
