@@ -1,1 +1,2 @@
-export * from './producer';
+export * from './flight-info.producer';
+export * from './tweet.consumer';
