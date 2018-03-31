@@ -22,20 +22,22 @@ def deserialize(flight_info_bytes) :
         schema_flight_info = avro.schema.Parse(open(dir_path + "/flight-info.schema.avsc", "rb").read())
         reader = avro.io.DatumReader(schema_flight_info)
         flight_info = reader.read(decoder)
-        return flight_info
+        return [{"id": "1"}, {"id": "2"}]
     else:
         return None
 
-def serialize(flight_info) :
-    if flight_info is not None:
+def serialize(tweets) :
+    if tweets is not None:
         schema_tweet = avro.schema.Parse(open(dir_path + "/tweet.schema.avsc", "rb").read())
 
         writer = avro.io.DatumWriter(schema_tweet)
         bytes_writer = io.BytesIO()
         encoder = avro.io.BinaryEncoder(bytes_writer)
-        writer.write({"id": "1"}, encoder)
+        for tweet in tweets:
+            writer.write(tweet, encoder)
 
         tweets_bytes = bytes_writer.getvalue()
+        print(tweets_bytes)
         return tweets_bytes
     else:
         return None
@@ -74,8 +76,8 @@ def initialize() :
     spark.udf.register("serialize", serialize)
 
     search_flight_ds = search_flight_df\
-        .selectExpr("key", "deserialize(value) as flightInfo")\
-        .selectExpr("key", "serialize(flightInfo) as value")
+        .selectExpr("key", "deserialize(value) as tweets")\
+        .selectExpr("key", "serialize(tweets) as value")
 
     search_flight_ds \
         .writeStream \
