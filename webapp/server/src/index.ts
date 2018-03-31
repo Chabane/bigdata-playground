@@ -49,7 +49,7 @@ export class Server {
       response.end();
     });
 
-    websocketServer.listen(5000, () => winston.info("Listening on port " + 5000));
+    websocketServer.listen(5000, () => winston.info('Listening on port ' + 5000));
 
     const subscriptionServer = SubscriptionServer.create(
       {
@@ -69,6 +69,6 @@ export class Server {
       res.sendFile(path.join(__dirname, '../public/index.html'));
     });
 
-    new KafkaTweetConsumer();
+    const consumer = new KafkaTweetConsumer();
   }
 }

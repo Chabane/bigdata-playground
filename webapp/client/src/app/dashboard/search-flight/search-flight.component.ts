@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators/map';
 import { switchMap } from 'rxjs/operators/switchMap';
 import { debounceTime } from 'rxjs/operators/debounceTime';
@@ -106,7 +106,7 @@ export class SearchFlightComponent implements OnInit {
     const flightInfo: FlightInfo = new FlightInfo();
     flightInfo.departingId = this.departureAirport.AirportID;
     flightInfo.arrivingId = this.arrivalAirport.AirportID;
-    var dateFormat = 'YYYY-MM-DD';
+    const dateFormat = 'YYYY-MM-DD';
     const departureDate = this.searchFlightForm.get('departureDate').value;
     flightInfo.departureDate = moment.utc(departureDate, dateFormat).local().format(dateFormat);
     const arrivalDate = this.searchFlightForm.get('arrivalDate').value;

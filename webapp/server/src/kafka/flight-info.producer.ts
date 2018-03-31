@@ -3,7 +3,7 @@ import { parse, Type as AvroType } from 'avsc/lib';
 import * as winston from 'winston';
 import { FlightInfoAvro } from './flight-info-avro';
 import { FlightInfoAvroMapper } from './flight-info-avro.mapper';
-import { IFlightInfo } from "../db";
+import { IFlightInfo } from '../db';
 
 export class KafkaFlightInfoProducer {
 
@@ -17,15 +17,15 @@ export class KafkaFlightInfoProducer {
             winston.info('Connected to Kafka');
         });
         this.client.on('error', (error) => {
-            winston.error("Kafka - Client error > ", error);
+            winston.error('Kafka - Client error > ', error);
         });
 
         this.producer = new Producer(this.client, { requireAcks: 1 });
         this.producer.on('error', (error) => {
-            winston.error("Kafka - Producer error > ", error);
+            winston.error('Kafka - Producer error > ', error);
         });
         this.producer.on('ready', () => {
-            winston.info("Kafka - Producer ready");
+            winston.info('Kafka - Producer ready');
         });
     }
 
@@ -52,10 +52,10 @@ export class KafkaFlightInfoProducer {
             { topic: this.topic, partition: 0, messages: keyedMessage }
         ], (error, result) => {
             if (error) {
-                winston.error("Kafka - Message was not sent to consumers > ", error);
+                winston.error('Kafka - Message was not sent to consumers > ', error);
             }
             if (result) {
-                winston.info("Kafka  - Message sent to consumers > ", result);
+                winston.info('Kafka  - Message sent to consumers > ', result);
             }
         });
     }
