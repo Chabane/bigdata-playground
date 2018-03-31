@@ -13,6 +13,7 @@
     ],
     "lib": [
       "es2017",
+      "esnext.asynciterable",
       "dom"
     ]
   }
