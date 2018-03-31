@@ -77,7 +77,8 @@ def initialize() :
 
     search_flight_ds = search_flight_df\
         .selectExpr("key", "deserialize(value) as tweets")\
-        .selectExpr("key", "serialize(tweets) as value")
+        .selectExpr("key", "serialize(tweets) as value")\
+        .selectExpr("CAST(key AS STRING)", "CAST(value AS BINARY)")
 
     search_flight_ds \
         .writeStream \
