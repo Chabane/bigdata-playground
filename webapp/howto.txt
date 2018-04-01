@@ -1,0 +1,41 @@
+
+
+
+go to docker folder
+and then
+docker-compose -f mongo.yml up
+when mongodb is launched
+go to docker/dev
+and run docker-compose -f dev/batch-spark.yml up  or        docker-compose up batch-spark
+when the container is stopped after terminaison
+run docker-compose -f webapp.yml up
+
+
+docker-compose rm batch-spark
+docker-compose build batch-spark
+docker-compose up batch-spark
+
+
+
+#build mongodb image
+we use the official image
+
+#build spark image
+docker build -t  batch-spark:v0 .
+
+#build webapp image
+docker build -t webapp-test:v0 .
+
+
+
+#creating mongo-service
+kubectl create -f mongo-service.yaml
+#creating mongo rc
+kubectl create -f mongo-controller.yaml
+
+#creating webapp deployment
+kubectl create -f webapp-deployment.yaml
+#create webapp service
+kubectl expose deployment webapp-deployment --type="LoadBalancer"
+
+The Service "mongo.vnet" is invalid: metadata.name: Invalid value: "mongo.vnet": a DNS-1035 label must consist of lower case alphanumeric characters or '-', start with an alphabetic character, and end with an alphanumeric character (e.g. 'my-name',  or 'abc-123', regex used for validation is '[a-z]([-a-z0-9]*[a-z0-9])?')
