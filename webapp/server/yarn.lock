@@ -310,9 +310,9 @@ asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
 
-avsc@^5.1.1:
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/avsc/-/avsc-5.1.1.tgz#45cf97b44cfcb9c6e707b209a99b76a7d637d139"
+avsc@^5.2.3:
+  version "5.2.3"
+  resolved "https://registry.yarnpkg.com/avsc/-/avsc-5.2.3.tgz#d52c79898f79f032335f5ae3206ff4300ceb881a"
 
 aws-sign2@~0.6.0:
   version "0.6.0"
