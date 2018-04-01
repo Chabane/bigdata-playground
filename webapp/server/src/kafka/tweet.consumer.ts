@@ -20,13 +20,12 @@ export class KafkaTweetConsumer {
         });
 
         this.consumer = new Consumer(this.client,
-        [
-            { topic: this.topic, partition: 0 }
-        ],
-        {
-            autoCommit: false, 
-            encoding: 'buffer'
-        });
+            [
+                { topic: this.topic, partition: 0 }
+            ],
+            {
+                autoCommit: false
+            });
 
         this.consumer.on('error', (error) => {
             winston.error('Tweet Kafka Consumer - error > ', error);
@@ -39,13 +38,19 @@ export class KafkaTweetConsumer {
     async consumeTweets(message) {
         let tweets: Array<ITweet>;
         const schemaType = AvroType.forSchema({
-            type: 'record',
-            name: 'tweet',
-            fields: [
-                { name: 'id', type: 'string' }
-            ]
+            type: 'array',
+            name: 'tweets',
+            items: {
+                type: 'record', 
+                name: 'tweet',
+                fields:
+                    [
+                        { name: 'id', type: 'string' }
+                    ]
+            }
         });
-        tweets = schemaType.fromBuffer(message.value);
+        const buf = new Buffer(message.value, 'binary');
+        tweets = schemaType.fromBuffer(buf);
         pubsub.publish('tweets', { data: tweets });
     }
 }

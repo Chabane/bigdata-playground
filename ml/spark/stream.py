@@ -3,10 +3,11 @@ from __future__ import print_function
 import avro.schema
 import tweepy
 import os
-import io
 
+from io import BytesIO
 from avro.datafile import DataFileReader, DataFileWriter
-from avro.io import DatumReader, DatumWriter
+from avro.io import DatumReader, DatumWriter, BinaryEncoder, BinaryDecoder
+from avro.schema import Parse
 
 from pyspark.sql import *
 from pyspark.sql.types import *
@@ -17,10 +18,10 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 
 def deserialize(flight_info_bytes) :
     if flight_info_bytes is not None:
-        bytes_reader = io.BytesIO(flight_info_bytes)
-        decoder = avro.io.BinaryDecoder(bytes_reader)
-        schema_flight_info = avro.schema.Parse(open(dir_path + "/flight-info.schema.avsc", "rb").read())
-        reader = avro.io.DatumReader(schema_flight_info)
+        bytes_reader = BytesIO(flight_info_bytes)
+        decoder = BinaryDecoder(bytes_reader)
+        schema_flight_info = Parse(open(dir_path + "/flight-info.schema.avsc", "rb").read())
+        reader = DatumReader(schema_flight_info)
         flight_info = reader.read(decoder)
         return [{"id": "1"}, {"id": "2"}]
     else:
@@ -30,14 +31,11 @@ def serialize(tweets) :
     if tweets is not None:
         schema_tweet = avro.schema.Parse(open(dir_path + "/tweet.schema.avsc", "rb").read())
 
-        writer = avro.io.DatumWriter(schema_tweet)
-        bytes_writer = io.BytesIO()
-        encoder = avro.io.BinaryEncoder(bytes_writer)
-        for tweet in tweets:
-            writer.write(tweet, encoder)
-
+        writer = DatumWriter()
+        bytes_writer = BytesIO()
+        encoder = BinaryEncoder(bytes_writer)
+        writer.write_array(schema_tweet, tweets, encoder)
         tweets_bytes = bytes_writer.getvalue()
-        print(tweets_bytes)
         return tweets_bytes
     else:
         return None
