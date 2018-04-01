@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: batch-spark
+  labels:
+    app: batch-spark
+spec:
+  selector:
+    matchLabels:
+      app: batch-spark
+  template:
+    metadata:
+      labels:
+        app: batch-spark
+    spec:
+      containers:
+      - name: batch-spark
+        image: batch-spark:v0
