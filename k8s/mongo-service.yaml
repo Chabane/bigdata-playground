@@ -2,11 +2,13 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    name: mongo
+    name: mongo-svc-a
   name: mongo
 spec:
   ports:
     - port: 27017
       targetPort: 27017
+      protocol: TCP
   selector:
-    name: mongo
+    name: mongo-node1
+    instance: rod
