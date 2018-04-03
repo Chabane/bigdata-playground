@@ -24,7 +24,7 @@ we use the official image
 docker build -t  batch-spark:v0 .
 
 #build webapp image
-docker build -t webapp-test:v0 .
+docker build -t webapp:v0 .
 
 
 
@@ -32,6 +32,9 @@ docker build -t webapp-test:v0 .
 kubectl create -f mongo-service.yaml
 #creating mongo rc
 kubectl create -f mongo-controller.yaml
+
+#creating batchspark job rc
+kubectl create -f batch-spark-job.yaml
 
 #creating webapp deployment
 kubectl create -f webapp-deployment.yaml
