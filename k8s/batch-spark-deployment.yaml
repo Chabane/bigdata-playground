@@ -1,6 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: development
   name: batch-spark
   labels:
     app: batch-spark

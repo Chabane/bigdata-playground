@@ -1,6 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
+  namespace: development
   name: batch-spark-job
 spec:
   template:

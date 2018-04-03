@@ -1,6 +1,7 @@
 apiVersion: v1
 kind: PersistentVolume
-metadata:
+metadata:  
+  namespace: development
   name: block-pv
   labels:
     type: local
