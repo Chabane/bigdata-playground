@@ -21,11 +21,7 @@ object Main {
         config.batch.db.collection))
       .getOrCreate()
 
-    val parquetFileDF = sparkSession.read.parquet(args(0))
-
-    parquetFileDF.createOrReplaceTempView("airportParquet")
-    val airportDF = sparkSession.sql("SELECT * FROM airportParquet")
-
+    val airportDF = sparkSession.read.parquet(args(0))
     MongoSpark.save(airportDF.write.option("collection", "airports").mode("overwrite"))
 
     sparkSession.stop()

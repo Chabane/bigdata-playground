@@ -1,7 +1,7 @@
 FROM python:3.6.4-alpine
 
 RUN apk add --no-cache curl bash alpine-sdk openjdk8
-RUN pip install tweepy pyspark numpy
+RUN pip install tweepy pyspark avro-python3
 
 ENV JAVA8_HOME /usr/lib/jvm/default-jvm
 ENV JAVA_HOME $JAVA8_HOME
@@ -13,7 +13,10 @@ RUN curl http://apache.mediamirrors.org/spark/spark-2.3.0/$SPARK_VERSION.tgz -o 
                  tar xzf $SPARK_VERSION.tgz -C /usr/local/;
 RUN cd /usr/local && ln -s $SPARK_VERSION spark
 
-ADD model.py $SPARK_HOME/libs/mlApp.py
+ADD stream.py $SPARK_HOME/libs/mlApp.py
+ADD flight-info.schema.avsc $SPARK_HOME/libs/flight-info.schema.avsc
+ADD tweet.schema.avsc $SPARK_HOME/libs/tweet.schema.avsc
 
 WORKDIR $SPARK_HOME
-CMD ["bin/spark-submit", "--master", "local[*]", "libs/mlApp.py"]
+RUN python3 -m py_compile libs/mlApp.py
+CMD ["bin/spark-submit", "--master", "local[*]", "--packages", "org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.0", "libs/mlApp.py"]

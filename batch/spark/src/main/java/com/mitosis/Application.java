@@ -3,8 +3,6 @@ package com.mitosis;
 import java.text.MessageFormat;
 
 import org.apache.spark.sql.Dataset;
-import org.apache.spark.sql.Encoder;
-import org.apache.spark.sql.Encoders;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
@@ -31,14 +29,9 @@ public class Application {
 				.getOrCreate();
 
 		// read parquet
-		Dataset<Row> parquetFileDF = sparkSession.read().parquet(args[0]);
-		
-		// encode parquet to aiport dataset
-		Encoder<Airport> airportEncoder = Encoders.bean(Airport.class);
-		Dataset<Airport> airportsDS = parquetFileDF.as(airportEncoder);
-		
+		Dataset<Row> airportsDF = sparkSession.read().parquet(args[0]);
 		// save airports
-		MongoSpark.save(airportsDS.write().option("collection", "airports").mode("overwrite"));
+		MongoSpark.save(airportsDF.write().option("collection", "airports").mode("overwrite"));
 
 		sparkSession.stop();
 	}

@@ -1,0 +1,12 @@
+{
+            "type": "array",
+            "name": "tweets",
+            "items": {
+                "type": "record",
+                "name": "tweet",
+                "fields":
+                    [
+                        { "name": "id", "type": "string" }
+                    ]
+            }
+}

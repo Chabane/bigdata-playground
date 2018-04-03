@@ -1,8 +1,10 @@
 import { IFlightInfo } from '../../db';
-import { KafkaProducer } from '../../kafka';
+import { KafkaFlightInfoProducer } from '../../kafka';
 import { Airport } from '../../db/models/airport';
+import { PubSub, withFilter } from 'graphql-subscriptions';
 
-const producer = new KafkaProducer();
+const producer = new KafkaFlightInfoProducer();
+export const pubsub = new PubSub();
 
 export const resolvers = {
   Query: {
@@ -15,6 +17,11 @@ export const resolvers = {
     sendFlightInfo: async (_, { flightInfo }) => {
       producer.sendFlightInfo(flightInfo as IFlightInfo);
       return flightInfo;
+    }
+  },
+  Subscription: {
+    getTweets: {
+      subscribe: () => pubsub.asyncIterator('tweets')
     }
   }
 };

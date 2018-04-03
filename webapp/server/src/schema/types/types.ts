@@ -31,16 +31,23 @@ type Airport {
   destinations: [String]
 }
 
-# the schema allows the following query:
+type Tweet {
+  id: String
+}
+
 type Query {
   fetchAirports(airportToSearch: String, airportId: String): [Airport]
 }
 type Mutation {
   sendFlightInfo(flightInfo: FlightInfoInput): FlightInfoType
 }
+type Subscription {
+  getTweets: [Tweet]
+}
 
 schema {
   query: Query,
-  mutation : Mutation
+  mutation : Mutation,
+  subscription : Subscription
 }
 `;

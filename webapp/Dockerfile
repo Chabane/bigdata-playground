@@ -6,13 +6,13 @@ RUN mkdir -p /usr/src/app/server
 
 WORKDIR /usr/src/app/client
 # Bundle client source
-ADD client /usr/src/app/client/
+ADD client .
 # Install client dependencies
 RUN yarn
 
 WORKDIR /usr/src/app/server
 # Bundle server source
-ADD server /usr/src/app/server/
+ADD server .
 # Install server dependencies
 RUN yarn
 
@@ -23,5 +23,5 @@ RUN yarn
 
 RUN npm run build:prod
 
-EXPOSE 3000
+EXPOSE 3000 5000
 CMD [ "npm", "run", "start:prod" ]

@@ -4,9 +4,12 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
-import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { ApolloModule, Apollo } from 'apollo-angular';
+import { Apollo, ApolloModule } from 'apollo-angular';
+import { split } from 'apollo-link';
+import { HttpLink, HttpLinkModule } from 'apollo-angular-link-http';
+import { WebSocketLink } from 'apollo-link-ws';
+import { getMainDefinition } from 'apollo-utilities';
 
 import { AppComponent } from './app.component';
 import { appRoutes } from './app.routes';
@@ -28,12 +31,31 @@ import { appRoutes } from './app.routes';
 })
 export class AppModule {
 
-  constructor(
+ constructor(
     apollo: Apollo,
     httpLink: HttpLink
   ) {
+    const hLink = httpLink.create({
+      uri: '/gql'});
+
+    const subscriptionLink = new WebSocketLink({
+      uri: `ws://webapp.vnet:5000/gql-ws`,
+      options: {
+        reconnect: true
+      }
+    });
+
+    const link = split(
+      ({ query }) => {
+        const { kind, operation } = getMainDefinition(query);
+        return kind === 'OperationDefinition' && operation === 'subscription';
+      },
+      subscriptionLink,
+      hLink
+    );
+
     apollo.create({
-      link: httpLink.create({ uri: '/gql' }),
+      link: link,
       cache: new InMemoryCache()
     });
   }
