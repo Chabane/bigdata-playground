@@ -2,8 +2,9 @@
 
 Note : We are currently working on this file ...
 
-WE are going to use kubernetes to deploy our application. Why kubernetes? 
+We are going to use kubernetes to deploy our application. Why kubernetes? 
 We will answer this question in the following days ...
+For more information about Kubernetes please visite the official doc : https://kubernetes.io/
 
 ## Setup environment
 We are going to need to install:
@@ -15,6 +16,7 @@ We are going to need to install:
 
 ### Reusing the Docker daemon
 To be able to work with the docker daemon on your mac/linux host use the docker-env command in your shell:
+more information can be foun here : https://kubernetes.io/docs/getting-started-guides/minikube/
 
 ```bash
 $ minikube docker-env
@@ -121,14 +123,14 @@ use this url 'http://192.168.99.100:31451' to access the application (the port w
 Now you can clean up the resources you created in your cluster:
 
 ```bash
-kubectl delete service webapp-deployment --namespace="development"
-kubectl delete service mongo --namespace="development"
-kubectl delete rc mongo-controller --namespace="development"
-kubectl delete job batch-spark-job --namespace="development"
-kubectl delete deployment webapp-deployment --namespace="development"
-kubectl delete pvc  mongo-pvc --namespace="development"
-kubectl delete pv block-pv --namespace="development"
-kubectl delete ns development
+$ kubectl delete service webapp-deployment --namespace="development"
+$ kubectl delete service mongo --namespace="development"
+$ kubectl delete rc mongo-controller --namespace="development"
+$ kubectl delete job batch-spark-job --namespace="development"
+$ kubectl delete deployment webapp-deployment --namespace="development"
+$ kubectl delete pvc  mongo-pvc --namespace="development"
+$ kubectl delete pv block-pv --namespace="development"
+$ kubectl delete ns development
 ```
 Optionally, stop the Minikube VM:
 
