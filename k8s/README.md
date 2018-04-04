@@ -8,10 +8,10 @@ We will answer this question in the following days ...
 ## Setup environment
 We are going to need to install:
 
-Docker (https://docs.docker.com/docker-for-windows/)
-VirtualBox (https://www.virtualbox.org/wiki/Downloads)
-Minikube (https://github.com/kubernetes/minikube)
-Kubectl (here I’m using version 1.9.0) (https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+- Docker (https://docs.docker.com/docker-for-windows/)
+- VirtualBox (https://www.virtualbox.org/wiki/Downloads)
+- Minikube (https://github.com/kubernetes/minikube)
+- Kubectl (here I’m using version 1.9.0) (https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 
 ### Reusing the Docker daemon
 To be able to work with the docker daemon on your mac/linux host use the docker-env command in your shell:
@@ -19,7 +19,7 @@ To be able to work with the docker daemon on your mac/linux host use the docker-
 ```bash
 $ minikube docker-env
  ```
- you will have something like that : 
+ you will have something like this : 
 
 ```bash
 $ minikube docker-env
@@ -58,36 +58,61 @@ Then we build our spark batch image
 $ cd batch/spark/ 
 $ docker build -t  batch-spark:v0 .
 ```
-## running k8s files
+
+## Running k8s files
+
 ### first let's create a namespace that we will use for all our work
 ```bash
+$ cd k8s/
 $ kubectl create ns "development"
+namespace "development" created
+```
+
+### creating a persistent volume
+```bash
+$ kubectl create -f persistent-volume.yaml
+persistentvolume "block-pv" created
+```
+
+### creating a persistent volume claim
+```bash
+$ kubectl create -f mongo-pvc.yaml
+persistentvolumeclaim "mongo-pvc" created
 ```
 
 ### creating mongo-service
 ```bash
 $ kubectl create -f mongo-service.yaml
+service "mongo" created
 ```
+
 ### creating mongo rc
 ```bash
 $ kubectl create -f mongo-controller.yaml
+replicationcontroller "mongo-controller" created
 ```
 
 ### creating batchspark job rc
 ```bash
 $ kubectl create -f batch-spark-job.yaml
+job "batch-spark-job" created
 ```
 
 ### creating webapp deployment
 ```bash
 $ kubectl create -f webapp-deployment.yaml
+deployment "webapp-deployment" created
 ```
+
 ### create webapp service
 ```bash
 $ kubectl expose deployment webapp-deployment --type="LoadBalancer" --namespace="development"
+service "webapp-deployment" exposed
 ```
 
 ### get the ip to access the application:
 ```bash
 $ minikube service webapp-deployment --url --namespace="development"
+http://192.168.99.100:31451
 ```
+use this url 'http://192.168.99.100:31451' to access the application (the port will change, so make sure you replace it with the one you get)
