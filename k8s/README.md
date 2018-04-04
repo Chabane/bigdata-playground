@@ -116,3 +116,28 @@ $ minikube service webapp-deployment --url --namespace="development"
 http://192.168.99.100:31451
 ```
 use this url 'http://192.168.99.100:31451' to access the application (the port will change, so make sure you replace it with the one you get)
+
+## Clean up
+Now you can clean up the resources you created in your cluster:
+
+```bash
+kubectl delete service webapp-deployment --namespace="development"
+kubectl delete service mongo --namespace="development"
+kubectl delete rc mongo-controller --namespace="development"
+kubectl delete job batch-spark-job --namespace="development"
+kubectl delete deployment webapp-deployment --namespace="development"
+kubectl delete pvc  mongo-pvc --namespace="development"
+kubectl delete pv block-pv --namespace="development"
+kubectl delete ns development
+```
+Optionally, stop the Minikube VM:
+
+```bash
+$ minikube stop
+$ eval $(minikube docker-env -u)
+```
+Optionally, delete the Minikube VM:
+
+```bash
+$ minikube delete
+```
