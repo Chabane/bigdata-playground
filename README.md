@@ -1,9 +1,12 @@
 # Bigdata Playground
 
-## Motivation
-The aim is to create a disposable Hadoop/HBase/Spark/Flink/ML stack where you can test your jobs locally or to submit them to the Yarn resource manager. We are using Docker to build the environment and Docker-Compose to provision it with the required components (Next step using Kubernetes). Along with the infrastructure, We are check that it works with 4 projects that just probes everything is working as expected. The boilerplate is based on a sample search flight web application.
+Why travel alone when you can discover new things with new people? Find your traveling partners ...
 
-Keywords : Docker, (Kubernetes soon), Apache Spark SQL/Streaming(DStream)/MLib, (Apache Flink, Kafka Streams soon), Scala, Python, Apache Kafka, Apache Hbase, Apache Avro, (Apache NiFi, Kylo next step), MongoDB, NodeJS (graphql, kafka-node, mongoose, avsc), Angular, Apollo-GraphQL
+
+## Motivation
+The aim is to create a disposable Hadoop/HBase/Spark/Flink/Beam/ML stack where you can test your jobs locally or to submit them to the Yarn resource manager. We are using Docker to build the environment and Docker-Compose to provision it with the required components (Next step using Kubernetes). Along with the infrastructure, We are check that it works with 4 projects that just probes everything is working as expected. The boilerplate is based on a sample search flight web application.
+
+Keywords : Docker, (Kubernetes soon), Apache Spark SQL/Streaming(DStream)/MLib, Apache Flink, (Kafka Streams, Apache Beam soon), Scala, Python, Apache Kafka, Apache Hbase, Apache Avro, MongoDB, NodeJS (graphql, kafka-node, mongoose, avsc), Angular, Apollo-GraphQL
 
 ## Installation
 If you are on mac then, you can use package manager like `brew` to install `sbt` on your machine:
@@ -37,14 +40,14 @@ export TWITTER_CONSUMER_ACCESS_TOKEN_SECRET=<TWITTER_CONSUMER_ACCESS_TOKEN_SECRE
 docker-compose -f dev/ml-spark.yml up -d
 ```
 
-## Interactions
-<img src='https://image.ibb.co/cEtkv7/search_flight_simple_v2.png'/>
+## Interactions / OnGoing
+<img src='https://image.ibb.co/eOuL5H/search_flight_simple_v4.png'/>
 
 ## Contributing
 `Pull requests` are welcome.
 
 ## Support
-Please raise tickets for issues and improvements at https://github.com/Chabane/bigdata-boilerplate/issues
+Please raise tickets for issues and improvements at https://github.com/Chabane/bigdata-playground/issues
 
 ## License
 This example is released under version 2.0 of the [Apache License](LICENSE).

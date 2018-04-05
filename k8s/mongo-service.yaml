@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:  
+  namespace: development
+  labels:
+    name: mongo-svc-a
+  name: mongo
+spec:
+  ports:
+    - port: 27017
+      targetPort: 27017
+      protocol: TCP
+  selector:
+    name: mongo-node1
+    instance: rod

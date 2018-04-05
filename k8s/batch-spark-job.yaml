@@ -1,0 +1,13 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  namespace: development
+  name: batch-spark-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: batch-spark
+        image: batch-spark:v0
+      restartPolicy: Never
+  backoffLimit: 4
