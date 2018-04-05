@@ -50,7 +50,7 @@ def initialize() :
     search_flight_df = spark \
         .readStream \
         .format("kafka") \
-        .option("kafka.bootstrap.servers", "kafka.vnet:9092") \
+        .option("kafka.bootstrap.servers", "kafka:9092") \
         .option("subscribe", "flightInfoTopic") \
         .option("auto.offset.reset", "latest") \
         .option("group.id", "mitosis") \
@@ -81,7 +81,7 @@ def initialize() :
     search_flight_ds \
         .writeStream \
         .format("kafka") \
-        .option("kafka.bootstrap.servers", "kafka.vnet:9092") \
+        .option("kafka.bootstrap.servers", "kafka:9092") \
         .option("topic", "tweetsTopic") \
         .option("group.id", "mitosis") \
         .option("checkpointLocation", "/tmp/checkpoint") \

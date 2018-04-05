@@ -4,7 +4,7 @@ services:
   mongo:
     image: mongo:3.4
     networks: ["vnet"]
-    hostname: mongo.vnet
+    hostname: mongo
     ports:
       - "27017:27017"
 

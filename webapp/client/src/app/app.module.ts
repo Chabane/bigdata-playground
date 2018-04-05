@@ -39,7 +39,7 @@ export class AppModule {
       uri: '/gql'});
 
     const subscriptionLink = new WebSocketLink({
-      uri: `ws://webapp.vnet:5000/gql-ws`,
+      uri: `ws://webapp:5000/gql-ws`,
       options: {
         reconnect: true
       }

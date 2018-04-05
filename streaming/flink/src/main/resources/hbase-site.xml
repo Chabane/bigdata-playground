@@ -2,11 +2,11 @@
 <configuration>
     <property>
         <name>hbase.zookeeper.quorum</name>
-        <value>zookeeper-1.vnet</value>
+        <value>zookeeper-1</value>
     </property>
     <property>
         <name>hbase.rootdir</name>
-        <value>hdfs://namenode-1.vnet:8020/hbase</value>
+        <value>hdfs://namenode-1:8020/hbase</value>
     </property>
     <property>
         <name>hbase.master.port</name>

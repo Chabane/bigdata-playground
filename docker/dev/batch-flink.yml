@@ -7,7 +7,7 @@ services:
        dockerfile: Dockerfile-dev
      container_name: batch_flink_dev
      networks: ["vnet"]
-     hostname: batch-flink-dev.vnet
+     hostname: batch-flink-dev
          
 networks:
   vnet:

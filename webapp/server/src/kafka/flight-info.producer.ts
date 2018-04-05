@@ -12,7 +12,7 @@ export class KafkaFlightInfoProducer {
     private topic = 'flightInfoTopic';
 
     constructor() {
-        this.client = new KafkaClient({ kafkaHost: 'kafka.vnet:9092' });
+        this.client = new KafkaClient({ kafkaHost: 'kafka:9092' });
         this.client.on('connect', () => {
             winston.info('Flight-Info Kafka Client connected to Kafka');
         });

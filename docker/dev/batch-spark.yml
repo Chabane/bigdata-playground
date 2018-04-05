@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile-dev
     container_name: batch_spark_dev
     networks: ["vnet"]
-    hostname: batch-spark-dev.vnet
+    hostname: batch-spark-dev
 
 networks:
   vnet:

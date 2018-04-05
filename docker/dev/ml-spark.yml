@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile-model-dev 
     container_name: ml-spark-model-dev
     networks: ["vnet"]
-    hostname: ml-spark-model-dev.vnet
+    hostname: ml-spark-model-dev
     environment:
       - TWITTER_CONSUMER_KEY=${TWITTER_CONSUMER_KEY}
       - TWITTER_CONSUMER_SECRET=${TWITTER_CONSUMER_SECRET}
@@ -30,7 +30,7 @@ services:
       dockerfile: Dockerfile-stream-dev 
     container_name: ml-spark-stream-dev
     networks: ["vnet"]
-    hostname: ml-spark-stream-dev.vnet
+    hostname: ml-spark-stream-dev
     environment:
       - TWITTER_CONSUMER_KEY=${TWITTER_CONSUMER_KEY}
       - TWITTER_CONSUMER_SECRET=${TWITTER_CONSUMER_SECRET}

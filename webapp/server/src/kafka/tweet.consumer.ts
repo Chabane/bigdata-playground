@@ -11,7 +11,7 @@ export class KafkaTweetConsumer {
     private topic = 'tweetsTopic';
 
     constructor() {
-        this.client = new KafkaClient({ kafkaHost: 'kafka.vnet:9092' });
+        this.client = new KafkaClient({ kafkaHost: 'kafka:9092' });
         this.client.on('connect', () => {
             winston.info('Tweet Kafka Client connected to Kafka');
         });
@@ -49,8 +49,7 @@ export class KafkaTweetConsumer {
                     ]
             }
         });
-        const buf = new Buffer(message.value, 'binary');
-        tweets = schemaType.fromBuffer(buf);
+        tweets = schemaType.fromBuffer(new Buffer(message.value, 'binary'));
         pubsub.publish('tweets', { data: tweets });
     }
 }

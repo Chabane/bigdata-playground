@@ -6,12 +6,12 @@ services:
     expose:
       - "6123"
     networks: ["vnet"]
-    hostname: streaming-flink-jobmanager.vnet
+    hostname: streaming-flink-jobmanager
     ports:
       - "8081:8081"
     command: jobmanager
     environment:
-      - JOB_MANAGER_RPC_ADDRESS=jobmanager.vnet
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
 
    taskmanager:
     image: flink:1.4.1-hadoop28-alpine
@@ -19,14 +19,14 @@ services:
       - "6121"
       - "6122"
     networks: ["vnet"]
-    hostname: streaming-flink-taskmanager.vnet           
+    hostname: streaming-flink-taskmanager           
     depends_on:
       - jobmanager
     command: taskmanager
     links:
       - "jobmanager:jobmanager"
     environment:
-      - JOB_MANAGER_RPC_ADDRESS=jobmanager.vnet
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
 
 networks:
   vnet:
