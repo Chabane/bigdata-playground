@@ -4,8 +4,8 @@
   "description": "flight Patch Test",
   "main": "index.js",
   "scripts": {
-    "precommit": "cd client && npm run lint && cd ../server && npm run lint",
-    "prepush": "cd client && npm run test && cd ../server && npm run test",
+    "lint": "cd client && npm run lint && cd ../server && npm run lint",
+    "test": "cd client && npm run test && cd ../server && npm run test",
     "clear:client": "cd client && rimraf public && cd ..",
     "clear:server": "cd server && rimraf public dist && cd ..",
     "build:client": "cd client && npm run build && cd ..",
