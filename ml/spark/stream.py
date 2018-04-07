@@ -26,21 +26,7 @@ def deserialize(flight_info_bytes) :
         reader = DatumReader(schema_flight_info)
         flight_info = reader.read(decoder)
 
-        return json.dumps([1, 2])
-    else:
-        return None
-
-def serialize(tweets) :
-    if tweets is not None:
-        schema_tweet = avro.schema.Parse(open(dir_path + "/tweet.schema.avsc", "rb").read())
-
-        writer = DatumWriter()
-        bytes_writer = BytesIO()
-        encoder = BinaryEncoder(bytes_writer)
-        writer.write_data(schema_tweet, tweets, encoder)
-        tweets_bytes = bytes_writer.getvalue()
-
-        return tweets_bytes
+        return json.dumps([{"id": 907955534287978496}])
     else:
         return None
 
@@ -63,27 +49,11 @@ def initialize() :
         .option("enable.auto.commit", False) \
         .load()
 
-    flight_info_schema_data_type = StructType([
-        StructField("departingId", StringType(), False),
-        StructField("arrivingId", StringType(), False),
-        StructField("tripType", StringType(), False),
-        StructField("departureDate", StringType(), False),
-        StructField("arrivalDate", StringType(), False),
-        StructField("passengerNumber", IntegerType(), False),
-        StructField("cabinClass", StringType(), False),
-    ])
-
-    tweet_schema_data_type = StructType([
-        StructField("id", StringType(), False)
-    ])
-
     spark.udf.register("deserialize", deserialize)
-    spark.udf.register("serialize", serialize)
 
     search_flight_ds = search_flight_df\
         .selectExpr("key", "deserialize(value) as value") \
         .selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
-        #.selectExpr("key", "serialize(tweets) as value")
 
     search_flight_ds \
         .writeStream \
