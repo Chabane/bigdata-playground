@@ -32,7 +32,7 @@ type Airport {
 }
 
 type Tweet {
-  id: String
+  id: Int
 }
 
 type Query {

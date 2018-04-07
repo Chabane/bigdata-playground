@@ -1,15 +1,16 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+/* tslint:disable */
 import { Observable } from 'rxjs/Rx';
+import { Subscription } from 'rxjs/Subscription';
 import { map } from 'rxjs/operators/map';
 import { switchMap } from 'rxjs/operators/switchMap';
 import { debounceTime } from 'rxjs/operators/debounceTime';
 import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
 
-import { SearchFlightService } from './search-flight.service';
 import { FlightInfo, TripType, CabinClass } from '../../shared/model/flight-info.model';
 import { Airport } from '../../shared/model/airport.model';
-import { AirportsService } from './gql/service/airports.service';
+import { AirportsService, FlightService, TweetService } from './gql/service';
 import { AirportDtoMapper, AirportMapper } from './util/';
 import * as moment from 'moment';
 
@@ -36,10 +37,13 @@ export class SearchFlightComponent implements OnInit {
 
   private departureAirport: Airport;
   private arrivalAirport: Airport;
+  private tweetSubscriber: Subscription;
 
-  constructor(private searchFlightService: SearchFlightService,
+  constructor(private flightService: FlightService,
+    private airportsService: AirportsService,
+    private tweetService: TweetService,
     private formBuilder: FormBuilder,
-    private airportsService: AirportsService) {
+  ) {
   }
 
   ngOnInit() {
@@ -114,7 +118,15 @@ export class SearchFlightComponent implements OnInit {
     flightInfo.passengerNumber = this.searchFlightForm.get('passengerNumber').value;
     flightInfo.cabinClass = this.searchFlightForm.get('cabinClass').value;
     flightInfo.tripType = this.searchFlightForm.get('tripType').value;
-    this.airportsService.sendFlightInfo(flightInfo).subscribe(res => {
+    this.flightService.sendFlightInfo(flightInfo).subscribe(res => {
+      if (this.tweetSubscriber) {
+        this.tweetSubscriber.unsubscribe();
+      }
+      this.tweetSubscriber = this.tweetService.getTweets().subscribe({
+        next(data) {
+          const tweets = data.getTweets;
+        }
+      });
     });
   }
 

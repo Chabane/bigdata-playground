@@ -6,8 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchFlightComponent } from './search-flight/search-flight.component';
 import { DashboardComponent } from './dashboard.component';
 import { dashboardRoutes } from './dashboard.routes';
-import { SearchFlightService } from './search-flight/search-flight.service';
-import { AirportsService } from './search-flight/gql/service/airports.service';
+import { AirportsService, FlightService, TweetService } from './search-flight/gql/service';
 
 import { MaterialModule } from '../shared/material.module';
 
@@ -20,8 +19,7 @@ import { MaterialModule } from '../shared/material.module';
     MaterialModule
   ],
   declarations: [SearchFlightComponent, DashboardComponent],
-  providers: [SearchFlightService,
-    AirportsService]
+  providers: [FlightService, AirportsService, TweetService]
 })
 export class DashboardModule { }
 

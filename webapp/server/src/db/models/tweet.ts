@@ -1,3 +1,3 @@
 export interface ITweet {
-  id: string;
+  id: number;
 }

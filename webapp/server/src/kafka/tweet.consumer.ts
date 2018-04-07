@@ -1,8 +1,8 @@
 import { Consumer, KeyedMessage, KafkaClient, Client } from 'kafka-node';
 import { Type as AvroType } from 'avsc/lib';
 import * as winston from 'winston';
-import { ITweet } from '../db';
 import { pubsub } from '../schema';
+import { ITweet } from '../db';
 
 export class KafkaTweetConsumer {
 
@@ -36,21 +36,7 @@ export class KafkaTweetConsumer {
     }
 
     async consumeTweets(message) {
-        let tweets: Array<ITweet>;
-        const schemaType = AvroType.forSchema({
-            type: 'array',
-            name: 'tweets',
-            items: {
-                type: 'record', 
-                name: 'tweet',
-                fields:
-                    [
-                        { name: 'id', type: 'string' }
-                    ]
-            }
-        });
-        // const buf = new Buffer(message.value);
-        // tweets = schemaType.fromBuffer(buf);
-        pubsub.publish('tweets', { data: message.value });
+        let tweets = message.value as Array<ITweet>;
+        pubsub.publish('tweets', { getTweets: tweets });
     }
 }
