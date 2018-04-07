@@ -23,6 +23,7 @@ def deserialize(flight_info_bytes) :
         schema_flight_info = Parse(open(dir_path + "/flight-info.schema.avsc", "rb").read())
         reader = DatumReader(schema_flight_info)
         flight_info = reader.read(decoder)
+
         return [{"id": "1"}, {"id": "2"}]
     else:
         return None
@@ -34,8 +35,9 @@ def serialize(tweets) :
         writer = DatumWriter()
         bytes_writer = BytesIO()
         encoder = BinaryEncoder(bytes_writer)
-        writer.write_array(schema_tweet, tweets, encoder)
+        writer.write_data(schema_tweet, tweets, encoder)
         tweets_bytes = bytes_writer.getvalue()
+
         return tweets_bytes
     else:
         return None
@@ -51,9 +53,12 @@ def initialize() :
         .readStream \
         .format("kafka") \
         .option("kafka.bootstrap.servers", "kafka:9092") \
+        .option("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer") \
+        .option("value.deserializer", "org.apache.kafka.common.serialization.ByteArrayDeserializer") \
         .option("subscribe", "flightInfoTopic") \
         .option("auto.offset.reset", "latest") \
         .option("group.id", "mitosis") \
+        .option("enable.auto.commit", False) \
         .load()
 
     flight_info_schema_data_type = StructType([
@@ -75,8 +80,7 @@ def initialize() :
 
     search_flight_ds = search_flight_df\
         .selectExpr("key", "deserialize(value) as tweets")\
-        .selectExpr("key", "serialize(tweets) as value")\
-        .selectExpr("CAST(key AS STRING)", "CAST(value AS BINARY)")
+        .selectExpr("key", "serialize(tweets) as value")
 
     search_flight_ds \
         .writeStream \
@@ -85,6 +89,8 @@ def initialize() :
         .option("topic", "tweetsTopic") \
         .option("group.id", "mitosis") \
         .option("checkpointLocation", "/tmp/checkpoint") \
+        .option("key.serializer", "org.apache.kafka.common.serialization.StringSerializer") \
+        .option("value.serializer", "org.apache.kafka.common.serialization.ByteArraySerializer") \
         .start() \
         .awaitTermination()
 
