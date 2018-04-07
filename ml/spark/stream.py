@@ -13,6 +13,8 @@ from pyspark.sql import *
 from pyspark.sql.types import *
 from pyspark.sql.functions import col, explode
 
+import json
+
 os.environ['PYSPARK_SUBMIT_ARGS'] = '--packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.0'
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
@@ -24,7 +26,7 @@ def deserialize(flight_info_bytes) :
         reader = DatumReader(schema_flight_info)
         flight_info = reader.read(decoder)
 
-        return [{"id": "1"}, {"id": "2"}]
+        return json.dumps([1, 2])
     else:
         return None
 
@@ -75,12 +77,13 @@ def initialize() :
         StructField("id", StringType(), False)
     ])
 
-    spark.udf.register("deserialize", deserialize, flight_info_schema_data_type)
+    spark.udf.register("deserialize", deserialize)
     spark.udf.register("serialize", serialize)
 
     search_flight_ds = search_flight_df\
-        .selectExpr("key", "deserialize(value) as tweets")\
-        .selectExpr("key", "serialize(tweets) as value")
+        .selectExpr("key", "deserialize(value) as value") \
+        .selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
+        #.selectExpr("key", "serialize(tweets) as value")
 
     search_flight_ds \
         .writeStream \
@@ -90,7 +93,7 @@ def initialize() :
         .option("group.id", "mitosis") \
         .option("checkpointLocation", "/tmp/checkpoint") \
         .option("key.serializer", "org.apache.kafka.common.serialization.StringSerializer") \
-        .option("value.serializer", "org.apache.kafka.common.serialization.ByteArraySerializer") \
+        .option("value.serializer", "org.apache.kafka.common.serialization.StringSerializer") \
         .start() \
         .awaitTermination()
 

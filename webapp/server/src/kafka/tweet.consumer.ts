@@ -49,8 +49,8 @@ export class KafkaTweetConsumer {
                     ]
             }
         });
-        const buf = new Buffer(message.value);
-        tweets = schemaType.fromBuffer(buf);
-        pubsub.publish('tweets', { data: tweets });
+        // const buf = new Buffer(message.value);
+        // tweets = schemaType.fromBuffer(buf);
+        pubsub.publish('tweets', { data: message.value });
     }
 }
