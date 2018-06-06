@@ -14,10 +14,10 @@ class FlightInfoBean {
   var tripType: String = _
 
   @BeanProperty
-  var departureDate: Long = _
+  var departureDate: String = _
 
   @BeanProperty
-  var arrivalDate: Long = _
+  var arrivalDate: String = _
 
   @BeanProperty
   var passengerNumber: Int = _
