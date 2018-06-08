@@ -2,7 +2,6 @@
 
 Why travel alone when you can discover new things with new people? Find your traveling partners ...
 
-
 ## Motivation
 The aim is to create a disposable Hadoop/HBase/Spark/Flink/Beam/ML stack where you can test your jobs locally or to submit them to the Yarn resource manager. We are using Docker to build the environment and Docker-Compose to provision it with the required components (Next step using Kubernetes). Along with the infrastructure, We are check that it works with 4 projects that just probes everything is working as expected. The boilerplate is based on a sample search flight web application.
 
@@ -43,6 +42,28 @@ docker-compose -f dev/ml-spark.yml up -d
 ## Interactions / OnGoing
 <img src='https://image.ibb.co/eOuL5H/search_flight_simple_v4.png'/>
 
+#### Startup script
+The startup script: startup.sh located in the root folder of this project runs the commands above and also opens one terminal for each docker container in the vnet network displaying the log for each instance.
+
+In order to run the script replace the APP_PATH value in the script with the path where you cloned your app and run:
+```
+sudo chmod +x startup.sh
+./startup.sh
+```
+
+##### stopping: 
+In order to stop all instances: ```docker stop $(docker ps -aq)```
+
+#### Logging into a container
+In order to log into a container for example to check if a record was saved successfuly in a DB (in this example HBase): ```docker exec -it hmaster-1 "bash"```
+
+Use HBase shell to check for records:
+```
+cd bin
+ ./hbase shell 
+scan 'flightInfo'
+```
+
 ## Contributing
 `Pull requests` are welcome.
 
@@ -51,4 +72,3 @@ Please raise tickets for issues and improvements at https://github.com/Chabane/b
 
 ## License
 This example is released under version 2.0 of the [Apache License](LICENSE).
-
