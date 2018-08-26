@@ -18,4 +18,4 @@ ADD flight-info.schema.avsc $SPARK_HOME/libs/flight-info.schema.avsc
 
 WORKDIR $SPARK_HOME
 RUN python3 -m py_compile libs/mlApp.py
-CMD ["bin/spark-submit", "--master", "local[*]", "--packages", "org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.0", "libs/mlApp.phttp://apache.mediamirrors.orgy"]
+CMD ["bin/spark-submit", "--master", "local[*]", "--packages", "org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.0", "libs/mlApp.py"]
