@@ -105,6 +105,24 @@ Thumbs.db
 /batch/spark/.scala_dependencies
 /batch/spark/.worksheet
 
+######## batch hadoop ########
+/batch/hadoop/.metadata
+/batch/hadoop/bin/
+/batch/hadoop/tmp/
+/batch/hadoop/target/
+/batch/hadoop/.idea/
+/batch/hadoop/*.iml
+
+/batch/hadoop/.classpath
+/batch/hadoop/.project
+/batch/hadoop/*.tmp
+/batch/hadoop/*.bak
+/batch/hadoop/*.swp
+/batch/hadoop/*~.nib
+/batch/hadoop/local.properties
+/batch/hadoop/.settings/
+/batch/hadoop/.loadpath
+/batch/hadoop/.recommenders
 
 ######## batch flink ########
 /batch/flink/.metadata
