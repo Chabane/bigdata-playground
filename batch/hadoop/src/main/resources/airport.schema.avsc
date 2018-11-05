@@ -1,0 +1,18 @@
+{
+            "type": "record",
+            "name": "airport",
+            "fields": [
+                { "name": "AirportID", "type": "string" },
+                { "name": "City", "type": "string" },
+                { "name": "Country", "type": "string" },
+                { "name": "DST", "type": "string" },
+                { "name": "DBTZ", "type": "string" },
+                { "name": "IATAFAA", "type": "string" },
+                { "name": "ICAO", "type": "string" },
+                { "name": "Latitude", "type": "string" },
+                { "name": "Longitude", "type": "string" },
+                { "name": "Name", "type": "string" },
+                { "name": "Timezone", "type": "string" },
+                { "name": "destinations", "type": {"type": "array", "items": "string"}, "default": []}
+            ]
+        }
