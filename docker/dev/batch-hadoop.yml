@@ -1,0 +1,15 @@
+version: '3.3'
+
+services:
+   batch-hadoop-dev:
+     build:
+       context: ../../batch/hadoop
+       dockerfile: Dockerfile-dev
+     container_name: batch_hadoop_dev
+     networks: ["vnet"]
+     hostname: batch-hadoop-dev
+         
+networks:
+  vnet:
+    external:
+      name: vnet 
