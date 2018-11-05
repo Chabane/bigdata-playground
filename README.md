@@ -17,17 +17,25 @@ $ brew install sbt
 
 For other systems, you can refer to manual instructions from `sbt` website http://www.scala-sbt.org/0.13/tutorial/Manual-Installation.html. 
 
+Install Maven
+```bash
+$ brew install maven
+```
+For other systems, you can refer to manual instructions from `mvn` website https://maven.apache.org/install.html. 
+
 Install Docker by following the instructions for <a href='https://docs.docker.com/mac/step_one/'>mac</a>, <a href='https://docs.docker.com/linux/step_one/'>linux</a>, or <a href='https://docs.docker.com/windows/step_one/'>windows</a>.
 
 ```
 docker network create vnet
 cd batch/spark && sbt clean package assembly && cd ../..
+cd batch/hadoop && mvn clean package && cd ../..
 cd streaming/spark && sbt clean package assembly && cd ../..
 cd streaming/flink && sbt clean package assembly && cd ../..
 cd docker
 docker-compose -f mongo.yml -f zookeeper.yml -f kafka.yml -f hadoop-hbase.yml -f flink.yml up -d
 docker-compose -f dev/webapp.yml up -d
 docker-compose -f dev/batch-spark.yml up -d
+docker-compose -f dev/batch-hadoop.yml up -d
 docker-compose -f dev/streaming-spark.yml up -d
 docker-compose -f dev/streaming-flink.yml up -d
 ```
