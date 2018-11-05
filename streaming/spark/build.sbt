@@ -16,7 +16,7 @@ version := "0.1.0"
 scalaVersion := "2.11.11"
 
 val sparkVersion = "2.3.0"
-val jacksonVersion = "2.6.5"
+val jacksonVersion = "2.9.7"
 val typesafeVersion = "1.3.0"
 val log4jVersion = "1.2.14"
 val avroVersion = "4.0.0"

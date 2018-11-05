@@ -13,7 +13,7 @@ mainClass in assembly := Some("com.mitosis.Main")
 scalaVersion := "2.11.11"
 
 val flinkVersion = "1.4.1"
-val jacksonVersion = "2.6.5"
+val jacksonVersion = "2.9.7"
 val typesafeVersion = "1.3.0"
 val log4jVersion = "1.2.14"
 val hbaseVersion = "1.3.1"
