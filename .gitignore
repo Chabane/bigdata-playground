@@ -298,6 +298,65 @@ Thumbs.db
 /streaming/flink/.scala_dependencies
 /streaming/flink/.worksheet
 
+
+######## streaming - storm ########
+/streaming/storm/.metadata
+/streaming/storm/bin/
+/streaming/storm/tmp/
+/streaming/storm/target/
+/streaming/storm/.idea/
+
+/streaming/storm/.classpath
+/streaming/storm/.project
+/streaming/storm/*.tmp
+/streaming/storm/*.bak
+/streaming/storm/*.swp
+/streaming/storm/*~.nib
+/streaming/storm/local.properties
+/streaming/storm/.settings/
+/streaming/storm/.loadpath
+/streaming/storm/.recommenders
+
+# External tool builders
+/streaming/storm/.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+/streaming/storm/*.launch
+
+# PyDev specific (Python IDE for Eclipse)
+/streaming/storm/*.pydevproject
+
+# CDT-specific (C/C++ Development Tooling)
+/streaming/storm/.cproject
+
+# Java annotation processor (APT)
+/streaming/storm/.factorypath
+
+# PDT-specific (PHP Development Tools)
+/streaming/storm/.buildpath
+
+# sbteclipse plugin
+/streaming/storm/.target
+/streaming/storm/project/project
+/streaming/storm/project/target
+
+# Tern plugin
+/streaming/storm/.tern-project
+
+# TeXlipse plugin
+/streaming/storm/.texlipse
+
+# STS (Spring Tool Suite)
+/streaming/storm/.springBeans
+
+# Code Recommenders
+/streaming/storm/.recommenders/
+
+# Scala IDE specific (Scala & Java development for Eclipse)
+/streaming/storm/.cache-main
+/streaming/storm/.scala_dependencies
+/streaming/storm/.worksheet
+
 ######## ml ########
 /ml/spark/.idea/
 /ml/spark/venv/
