@@ -1,0 +1,6 @@
+FROM openjdk:8-jre
+VOLUME /tmp
+
+ENV STORM_HOME /usr/local/storm
+
+WORKDIR $STORM_HOME
