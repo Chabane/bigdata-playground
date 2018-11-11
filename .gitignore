@@ -304,6 +304,7 @@ Thumbs.db
 /streaming/storm/bin/
 /streaming/storm/tmp/
 /streaming/storm/target/
+/streaming/storm/logs/
 /streaming/storm/.idea/
 
 /streaming/storm/.classpath
