@@ -8,12 +8,10 @@ import org.apache.storm.Config;
 import org.apache.storm.generated.StormTopology;
 import org.apache.storm.kafka.spout.KafkaSpoutRetryExponentialBackoff.TimeInterval;
 import org.apache.storm.topology.TopologyBuilder;
+import org.apache.storm.tuple.Fields;
+import org.apache.storm.tuple.Values;
 
-/**
- * This example sets up 3 topologies to put data in Kafka via the KafkaBolt,
- * and shows how to set up a topology that reads from some Kafka topics using the KafkaSpout.
- */
-public class SpoutTopologyMainNamedTopics {
+public class KafkaSpoutTopologyMainNamedTopics {
 
     public Config getConfig() {
         Config config = new Config();
@@ -25,6 +23,8 @@ public class SpoutTopologyMainNamedTopics {
 
         final TopologyBuilder tp = new TopologyBuilder();
         tp.setSpout("kafka_spout", new KafkaSpout<>(spoutConfig), 1);
+        tp.setBolt("kafka_bolt", new KafkaSpoutTestBolt())
+                .shuffleGrouping("kafka_spout", "mitosis_stream");
         return tp.createTopology();
     }
 
@@ -33,9 +33,14 @@ public class SpoutTopologyMainNamedTopics {
         com.typesafe.config.Config config = ConfigFactory.parseResources("app.conf");
         String topic = config.getString("producer.topic");
 
+        ByTopicRecordTranslator<String, String> trans = new ByTopicRecordTranslator<>(
+                (r) -> new Values(r.topic(), r.partition(), r.offset(), r.key(), r.value()),
+                new Fields("topic", "partition", "offset", "key", "value"), "mitosis_stream");
+
         return KafkaSpoutConfig.builder(bootstrapServers, new String[]{topic})
             .setProp(ConsumerConfig.GROUP_ID_CONFIG, "mitosis")
             .setRetry(getRetryService())
+            .setRecordTranslator(trans)
             .setOffsetCommitPeriodMs(10_000)
             .setFirstPollOffsetStrategy(KafkaSpoutConfig.FirstPollOffsetStrategy.LATEST)
             .setMaxUncommittedOffsets(250)

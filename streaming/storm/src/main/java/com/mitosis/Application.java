@@ -5,7 +5,7 @@ import org.apache.storm.LocalCluster;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
-import com.mitosis.spout.SpoutTopologyMainNamedTopics;
+import com.mitosis.spout.KafkaSpoutTopologyMainNamedTopics;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,7 +13,7 @@ import java.io.InputStreamReader;
 
 public class Application {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		new Application().run();
 	}
 
@@ -36,7 +36,7 @@ public class Application {
 
 		String brokerUrl = config.getStringList("producer.hosts").get(0);
 
-		SpoutTopologyMainNamedTopics topology = getTopology();
+		KafkaSpoutTopologyMainNamedTopics topology = getTopology();
 		org.apache.storm.Config tpConf = topology.getConfig();
 
 		LocalCluster localCluster = new LocalCluster();
@@ -47,8 +47,8 @@ public class Application {
 		stopWaitingForInput();
 	}
 
-	protected SpoutTopologyMainNamedTopics getTopology() {
-		return new SpoutTopologyMainNamedTopics();
+	protected KafkaSpoutTopologyMainNamedTopics getTopology() {
+		return new KafkaSpoutTopologyMainNamedTopics();
 	}
 
 	protected void stopWaitingForInput() {
