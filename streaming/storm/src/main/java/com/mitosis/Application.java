@@ -1,21 +1,23 @@
 package com.mitosis;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import org.apache.storm.LocalCluster;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
+import com.mitosis.spout.SpoutTopologyMainNamedTopics;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class Application {
 
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) throws Exception {
+		new Application().run();
+	}
+
+	protected void run() {
 
 		Config config = ConfigFactory.parseResources("app.conf");
 
@@ -32,8 +34,31 @@ public class Application {
 				+ "\"cabinClass\":{\"cf\":\"searchFlightInfo\", \"col\":\"cabinClass\", \"type\":\"string\"}" + "\"}"
 				+ "\"}";
 
-		String server = config.getStringList("producer.hosts").get(0);
+		String brokerUrl = config.getStringList("producer.hosts").get(0);
 
+		SpoutTopologyMainNamedTopics topology = getTopology();
+		org.apache.storm.Config tpConf = topology.getConfig();
+
+		LocalCluster localCluster = new LocalCluster();
+
+		// Consumer. Sets up a topology that reads the given Kafka spouts and logs the received messages
+		localCluster.submitTopology("search-flight-storm-streaming", tpConf, topology.getTopologyKafkaSpout(topology.getKafkaSpoutConfig(brokerUrl)));
+
+		stopWaitingForInput();
+	}
+
+	protected SpoutTopologyMainNamedTopics getTopology() {
+		return new SpoutTopologyMainNamedTopics();
+	}
+
+	protected void stopWaitingForInput() {
+		try {
+			System.out.println("PRESS ENTER TO STOP");
+			new BufferedReader(new InputStreamReader(System.in)).readLine();
+			System.exit(0);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -17,11 +17,11 @@ $ brew install sbt
 
 For other systems, you can refer to manual instructions from `sbt` website http://www.scala-sbt.org/0.13/tutorial/Manual-Installation.html. 
 
-Install Maven
+If you are on mac then, you can use package manager like `brew` to install `maven` on your machine:
 ```bash
 $ brew install maven
 ```
-For other systems, you can refer to manual instructions from `mvn` website https://maven.apache.org/install.html. 
+For other systems, you can refer to manual instructions from `maven` website https://maven.apache.org/install.html. 
 
 Install Docker by following the instructions for <a href='https://docs.docker.com/mac/step_one/'>mac</a>, <a href='https://docs.docker.com/linux/step_one/'>linux</a>, or <a href='https://docs.docker.com/windows/step_one/'>windows</a>.
 
