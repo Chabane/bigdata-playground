@@ -1,11 +1,12 @@
 package com.mitosis;
 
+import com.mitosis.spout.KafkaSpoutTopology;
 import org.apache.storm.LocalCluster;
 
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
-import com.mitosis.spout.KafkaSpoutTopologyMainNamedTopics;
+import com.mitosis.spout.KafkaSpoutTopology;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,19 +37,19 @@ public class Application {
 
 		String brokerUrl = config.getStringList("producer.hosts").get(0);
 
-		KafkaSpoutTopologyMainNamedTopics topology = getTopology();
+		KafkaSpoutTopology topology = getTopology();
 		org.apache.storm.Config tpConf = topology.getConfig();
 
 		LocalCluster localCluster = new LocalCluster();
 
 		// Consumer. Sets up a topology that reads the given Kafka spouts and logs the received messages
-		localCluster.submitTopology("search-flight-storm-streaming", tpConf, topology.getTopologyKafkaSpout(topology.getKafkaSpoutConfig(brokerUrl)));
+		localCluster.submitTopology("search-flight-storm-streaming", tpConf, topology.getTopology(topology.getSpoutConfig(brokerUrl)));
 
 		stopWaitingForInput();
 	}
 
-	protected KafkaSpoutTopologyMainNamedTopics getTopology() {
-		return new KafkaSpoutTopologyMainNamedTopics();
+	protected KafkaSpoutTopology getTopology() {
+		return new KafkaSpoutTopology();
 	}
 
 	protected void stopWaitingForInput() {
