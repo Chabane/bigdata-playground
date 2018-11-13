@@ -45,21 +45,11 @@ public class Application {
 		// Consumer. Sets up a topology that reads the given Kafka spouts and logs the received messages
 		localCluster.submitTopology("search-flight-storm-streaming", tpConf, topology.getTopology(topology.getSpoutConfig(brokerUrl)));
 
-		stopWaitingForInput();
 	}
 
 	protected KafkaSpoutTopology getTopology() {
 		return new KafkaSpoutTopology();
 	}
 
-	protected void stopWaitingForInput() {
-		try {
-			System.out.println("PRESS ENTER TO STOP");
-			new BufferedReader(new InputStreamReader(System.in)).readLine();
-			System.exit(0);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
 }

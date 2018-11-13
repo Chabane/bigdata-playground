@@ -1,0 +1,15 @@
+version: '3.3'
+
+services:
+  streaming-storm-dev: 
+    build:
+      context: ../../streaming/storm
+      dockerfile: Dockerfile-dev
+    container_name: streaming_storm_dev
+    networks: ["vnet"]
+    hostname: streaming-storm-dev
+
+networks:
+  vnet:
+    external:
+      name: vnet 
