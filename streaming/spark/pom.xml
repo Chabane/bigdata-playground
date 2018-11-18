@@ -11,7 +11,7 @@
 	<properties>
 		<scala.version>2.11.11</scala.version>
 
-		<spark.version>2.3.0</spark.version>
+		<spark.version>2.4.0</spark.version>
 		<hbase-connector.version>1.1.1-2.1-s_2.11</hbase-connector.version>
 		<avro.version>4.0.0</avro.version>
 		<jackson.version>2.9.7</jackson.version>
@@ -103,25 +103,25 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.spark</groupId>
-			<artifactId>spark-core_2.11</artifactId>
+			<artifactId>spark-core_2.12</artifactId>
 			<version>${spark.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.spark</groupId>
-			<artifactId>spark-sql_2.11</artifactId>
+			<artifactId>spark-sql_2.12</artifactId>
 			<version>${spark.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.spark</groupId>
-			<artifactId>spark-streaming_2.11</artifactId>
+			<artifactId>spark-streaming_2.12</artifactId>
 			<version>${spark.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.spark</groupId>
-			<artifactId>spark-streaming-kafka-0-10_2.11</artifactId>
+			<artifactId>spark-streaming-kafka-0-10_2.12</artifactId>
 			<version>${spark.version}</version>
 		</dependency>
 

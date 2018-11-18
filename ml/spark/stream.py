@@ -15,7 +15,7 @@ from pyspark.sql.functions import col, explode
 
 import json
 
-os.environ['PYSPARK_SUBMIT_ARGS'] = '--packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.0'
+os.environ['PYSPARK_SUBMIT_ARGS'] = '--packages org.apache.spark:spark-sql-kafka-0-10_2.12:2.4.0'
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
 def deserialize(flight_info_bytes) :

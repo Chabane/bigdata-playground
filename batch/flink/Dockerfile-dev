@@ -1,4 +1,4 @@
-FROM flink:1.4.1-hadoop28-alpine
+FROM flink:1.6.2-hadoop28-alpine
 VOLUME /tmp
 
 ADD target/scala-2.11/search-flight-flink-batch-assembly-0.1.0.jar $FLINK_HOME/libs/search-flight-batch.jar
