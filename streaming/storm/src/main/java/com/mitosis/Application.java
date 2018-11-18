@@ -1,39 +1,39 @@
 package com.mitosis;
 
 import com.mitosis.spout.KafkaSpoutTopology;
+import org.apache.hadoop.hbase.HBaseConfiguration;
+import org.apache.hadoop.hbase.HColumnDescriptor;
+import org.apache.hadoop.hbase.HTableDescriptor;
+import org.apache.hadoop.hbase.client.HBaseAdmin;
+import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.storm.LocalCluster;
 
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
-import com.mitosis.spout.KafkaSpoutTopology;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class Application {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		new Application().run();
 	}
 
-	protected void run() {
+	protected void run() throws IOException {
+
+		org.apache.hadoop.conf.Configuration conf = HBaseConfiguration.create();
+		conf.addResource("hbase-site.xml");
+
+		HBaseAdmin admin = new HBaseAdmin(conf);
+
+		if (!admin.isTableAvailable("flightInfo")) {
+			HTableDescriptor flightInfoTableDesc = new HTableDescriptor(Bytes.toBytes("flightInfo"));
+			HColumnDescriptor searchFlightInfoColumnFamilyDesc = new HColumnDescriptor(Bytes.toBytes("searchFlightInfo"));
+			flightInfoTableDesc.addFamily(searchFlightInfoColumnFamilyDesc);
+			admin.createTable(flightInfoTableDesc);
+		}
 
 		Config config = ConfigFactory.parseResources("app.conf");
-
-		String flightInfoHbaseSchema = "{"
-				+ "\"table\":{\"namespace\":\"default\", \"name\":\"flightInfo\", \"tableCoder\":\"PrimitiveType\"}"
-				+ "\"rowkey\":\"key\"" + "\"columns\":{"
-				+ "\"key\":{\"cf\":\"rowkey\", \"col\":\"key\", \"type\":\"string\"}"
-				+ "\"departingId\":{\"cf\":\"searchFlightInfo\", \"col\":\"departingId\", \"type\":\"string\"}"
-				+ "\"arrivingId\":{\"cf\":\"searchFlightInfo\", \"col\":\"arrivingId\", \"type\":\"string\"}"
-				+ "\"tripType\":{\"cf\":\"searchFlightInfo\", \"col\":\"tripType\", \"type\":\"string\"}"
-				+ "\"departureDate\":{\"cf\":\"searchFlightInfo\", \"col\":\"departureDate\", \"type\":\"string\"}"
-				+ "\"arrivalDate\":{\"cf\":\"searchFlightInfo\", \"col\":\"arrivalDate\", \"type\":\"string\"}"
-				+ "\"passengerNumber\":{\"cf\":\"searchFlightInfo\", \"col\":\"passengerNumber\", \"type\":\"integer\"}"
-				+ "\"cabinClass\":{\"cf\":\"searchFlightInfo\", \"col\":\"cabinClass\", \"type\":\"string\"}" + "\"}"
-				+ "\"}";
 
 		String brokerUrl = config.getStringList("producer.hosts").get(0);
 
@@ -50,6 +50,4 @@ public class Application {
 	protected KafkaSpoutTopology getTopology() {
 		return new KafkaSpoutTopology();
 	}
-
-
 }
