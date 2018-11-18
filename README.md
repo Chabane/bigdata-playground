@@ -27,10 +27,12 @@ Install Docker by following the instructions for <a href='https://docs.docker.co
 
 ```
 docker network create vnet
+cd webapp/client && yarn && cd ../server && yarn && cd ../ && npm run build:dev && cd ..
 cd batch/spark && sbt clean package assembly && cd ../..
 cd batch/hadoop && mvn clean package && cd ../..
 cd streaming/spark && sbt clean package assembly && cd ../..
 cd streaming/flink && sbt clean package assembly && cd ../..
+cd streaming/storm && mvn clean install && cd ../..
 cd docker
 docker-compose -f mongo.yml -f zookeeper.yml -f kafka.yml -f hadoop-hbase.yml -f flink.yml up -d
 docker-compose -f dev/webapp.yml up -d
@@ -38,6 +40,7 @@ docker-compose -f dev/batch-spark.yml up -d
 docker-compose -f dev/batch-hadoop.yml up -d
 docker-compose -f dev/streaming-spark.yml up -d
 docker-compose -f dev/streaming-flink.yml up -d
+docker-compose -f dev/streaming-storm.yml up -d
 ```
 Create your Twitter app on https://apps.twitter.com
 ```
