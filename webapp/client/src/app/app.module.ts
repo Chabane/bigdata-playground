@@ -36,7 +36,7 @@ export class AppModule {
     httpLink: HttpLink
   ) {
     const hLink = httpLink.create({
-      uri: '/gql'});
+      uri: '/graphql'});
 
     const subscriptionLink = new WebSocketLink({
       uri: `ws://localhost:5000/gql-ws`,

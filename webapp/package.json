@@ -30,10 +30,10 @@
   "author": "Chabane REFES",
   "license": "ISC",
   "devDependencies": {
-    "husky": "^0.14.3",
+    "husky": "^1.1.4",
     "validate-commit-msg": "^2.14.0",
     "copy": "^0.3.0",
-    "copyfiles": "^1.2.0",
+    "copyfiles": "^2.1.0",
     "rimraf": "^2.6.1"
   },
   "dependencies": {

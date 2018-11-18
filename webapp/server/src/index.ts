@@ -1,6 +1,7 @@
 import * as express from 'express';
-import { graphqlExpress } from 'apollo-server-express';
+import { ApolloServer, gql } from 'apollo-server-express';
 import { makeExecutableSchema } from 'graphql-tools';
+
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 import { execute, subscribe } from 'graphql';
 import { createServer } from 'http';
@@ -15,6 +16,7 @@ import { KafkaTweetConsumer } from './kafka';
 
 export class Server {
   app: express.Application;
+  apolloServer: ApolloServer;
 
   /**
    * Bootstrap the application.
@@ -36,13 +38,14 @@ export class Server {
     this.app.use(morgan('dev'));
 
     const executableSchema = makeExecutableSchema({
+         typeDefs: typeDefs as any,
+         resolvers: resolvers as any
+    });
+
+    this.apolloServer = new ApolloServer({
       typeDefs: typeDefs as any,
       resolvers: resolvers as any
     });
-
-    this.app.use('/gql', graphqlExpress({
-      schema: executableSchema
-    }));
 
     const websocketServer = createServer((request, response) => {
       response.writeHead(404);

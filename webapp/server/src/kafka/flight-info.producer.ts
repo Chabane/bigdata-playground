@@ -45,9 +45,10 @@ export class KafkaFlightInfoProducer {
         });
 
         const flightInfoAvro: FlightInfoAvro = FlightInfoAvroMapper.toFlightInfoAvro(flightInfo);
+        // {\"departingId\":\"test\", \"arrivingId\":\"test\", \"tripType\":\"ONE_WAY\", \"departureDate\":\"tesss\", \"arrivalDate\":\"tezzz\", \"passengerNumber\":3, \"cabinClass\":\"ECONOMY\"}");
         const buffer = schemaType.toBuffer(flightInfoAvro);
         const keyedMessage = new KeyedMessage('flightInfo', <any>buffer);
-
+        console.log('keyedMessage is >' + <any>buffer);
         this.producer.send([
             { topic: this.topic, partition: 0, messages: keyedMessage }
         ], (error, result) => {

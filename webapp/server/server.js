@@ -8,13 +8,21 @@ var http = require('http');
 var winston = require('winston');
 
 //create http server
-var httpPort = normalizePort(process.env.PORT || 3000);
-var app = server.Server.bootstrap().app;
-app.set('port', httpPort);
-var httpServer = http.createServer(app);
+var port = normalizePort(process.env.PORT || 4000);
 
-//listen on provided ports
-httpServer.listen(httpPort);
+var bootstrap = server.Server.bootstrap();
+var app = bootstrap.app;
+var apolloServer = bootstrap.apolloServer;
+
+apolloServer.applyMiddleware({ app });
+
+app.set('port', port);
+
+app.listen({ port: port }, () =>
+  console.log(`🚀 Server ready at http://localhost:4000${apolloServer.graphqlPath}`)
+);
+
+var httpServer = http.createServer(app);
 
 //add error handler
 httpServer.on('error', onError);
