@@ -1,24 +1,23 @@
-version: '3.3'
+version: "3.3"
 
 services:
   kafka:
-    image: wurstmeister/kafka:1.0.0
-    networks: ["vnet"]
+    image: wurstmeister/kafka:2.11-2.0.1
     hostname: kafka
+    networks: ["vnet"]
+    container_name: kafka
     ports:
       - "9092:9092"
     environment:
       KAFKA_ADVERTISED_HOST_NAME: kafka
       KAFKA_ADVERTISED_PORT: 9092
       KAFKA_CREATE_TOPICS: flightInfoTopic:1:1,tweetsTopic:1:1
-      KAFKA_LISTENERS: "PLAINTEXT://kafka:9092"
-      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka:9092"
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper-1:2181
+      KAFKA_ZOOKEEPER_CONNECT: zoo1:2181
       KAFKA_LOG4J_ROOT_LOGLEVEL: WARN
       KAFKA_TOOLS_LOG4J_LOGLEVEL: ERROR
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      
+
 networks:
   vnet:
     external:
