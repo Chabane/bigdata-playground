@@ -7,7 +7,6 @@ import com.mongodb.hadoop.io.BSONWritable;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import org.apache.avro.Schema;
-import org.apache.avro.generic.GenericRecord;
 
 import org.apache.avro.mapred.AvroValue;
 import org.apache.avro.mapreduce.AvroJob;
@@ -17,19 +16,10 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapred.JobConf;
-import org.apache.hadoop.mapreduce.InputFormat;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 import org.apache.parquet.avro.AvroParquetInputFormat;
-import org.apache.parquet.avro.AvroParquetOutputFormat;
-import org.apache.parquet.avro.AvroSchemaConverter;
-import org.apache.parquet.hadoop.Footer;
-import org.apache.parquet.hadoop.ParquetFileReader;
-import org.apache.parquet.schema.MessageType;
-
-
-import java.util.List;
 
 public class Application extends Configured implements Tool {
 

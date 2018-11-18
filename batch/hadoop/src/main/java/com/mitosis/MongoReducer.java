@@ -8,12 +8,8 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.bson.BSONObject;
 import org.bson.BasicBSONObject;
-import org.json.JSONObject;
-import org.mortbay.util.ajax.JSON;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class MongoReducer extends Reducer<Text, AvroValue<GenericRecord>, NullWritable, BSONWritable> {
 
