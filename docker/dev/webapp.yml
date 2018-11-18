@@ -2,12 +2,14 @@ version: '3.3'
 
 services:
   webapp-dev: 
-    build: ../../webapp
+    build:
+      context: ../../webapp
+      dockerfile: Dockerfile-dev
     container_name: webapp-dev
     networks: ["vnet"]
     hostname: webapp-dev
     ports:
-      - 3000:3000
+      - 4000:4000
       - 5000:5000
 
 networks:

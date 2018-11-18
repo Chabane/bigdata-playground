@@ -1,0 +1,16 @@
+version: '3.3'
+
+services:
+  webapp: 
+    build: ../webapp
+    container_name: webapp
+    networks: ["vnet"]
+    hostname: webapp
+    ports:
+      - 3000:3000
+      - 5000:5000
+
+networks:
+  vnet:
+    external:
+      name: vnet 
