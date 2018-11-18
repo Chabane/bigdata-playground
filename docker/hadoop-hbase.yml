@@ -11,7 +11,7 @@ services:
     environment:
       - SERVICE_8020_NAME=namenode
       - SERVICE_50070_IGNORE=true
-      - HADOOP_ZOOKEEPER_QUORUM=zookeeper-1:2181 
+      - HADOOP_ZOOKEEPER_QUORUM=zoo1:2181
       - HADOOP_HEAPSIZE=1000
       - HADOOP_NAMENODE_HA=
     volumes:
@@ -29,7 +29,7 @@ services:
       - SERVICE_50010_NAME=datanode
       - SERVICE_50020_IGNORE=true
       - SERVICE_50075_IGNORE=true
-      - HADOOP_ZOOKEEPER_QUORUM=zookeeper-1:2181 
+      - HADOOP_ZOOKEEPER_QUORUM=zoo1:2181
       - HADOOP_HEAPSIZE=1000
       - HADOOP_NAMENODE_HA=
       
@@ -46,7 +46,7 @@ services:
     environment:
       - SERVICE_16000_NAME=hmaster
       - SERVICE_16010_IGNORE=true
-      - HBASE_ZOOKEEPER_QUORUM=zookeeper-1:2181 
+      - HBASE_ZOOKEEPER_QUORUM=zoo1:2181 
     command: hmaster-1
     volumes:
       - namenode:/usr/local/hadoop-2.8.3
@@ -60,7 +60,7 @@ services:
     environment:
       - SERVICE_16020_NAME=regionserver
       - SERVICE_16030_IGNORE=true
-      - HBASE_ZOOKEEPER_QUORUM=zookeeper-1:2181 
+      - HBASE_ZOOKEEPER_QUORUM=zoo1:2181
     command: regionserver
 
 networks:
