@@ -4,9 +4,9 @@ Why travel alone when you can discover new things with new people? Find your tra
 
 
 ## Motivation
-The aim is to create a disposable Hadoop/HBase/Spark/Flink/Beam/ML stack where you can test your jobs locally or to submit them to the Yarn resource manager. We are using Docker to build the environment and Docker-Compose to provision it with the required components (Next step using Kubernetes). Along with the infrastructure, We are check that it works with 4 projects that just probes everything is working as expected. The boilerplate is based on a sample search flight web application.
+The aim is to create a disposable Hadoop/HBase/Spark/Flink/ML stack where you can test your jobs locally or to submit them to the Yarn resource manager. We are using Docker to build the environment and Docker-Compose to provision it with the required components (Next step using Kubernetes). Along with the infrastructure, We are check that it works with 4 projects that just probes everything is working as expected. The boilerplate is based on a sample search flight web application.
 
-Keywords : Docker, (Kubernetes soon), Apache Spark SQL/Streaming(DStream)/MLib, Apache Flink, (Kafka Streams, Apache Beam , TensorFlow, H2O, soon), Scala, Python, Apache Kafka, Apache Hbase, Apache Avro, MongoDB, NodeJS (graphql, kafka-node, mongoose, avsc), Angular, Apollo-GraphQL
+Keywords : Docker, Apache Spark SQL/Streaming(DStream)/MLib, Apache Flink, Apache Storm, Apache Hadoop, Scala, Python, Apache Kafka, Apache Hbase, Apache Avro, MongoDB, NodeJS (graphql, kafka-node, mongoose, avsc), Angular, Apollo-GraphQL
 
 ## Installation
 If you are on mac then, you can use package manager like `brew` to install `sbt` on your machine:
