@@ -1,6 +1,6 @@
 # Bigdata Playground
 
-The aim is to create a disposable Batch/Streaming/ML stack where you can test your jobs locally or to submit them to the Yarn resource manager. We are using Docker to build the environment and Docker-Compose to provision it with the required components (Next step using Kubernetes). Along with the infrastructure, We are check that it works with 4 projects that just probes everything is working as expected. The boilerplate is based on a sample search flight Web application.
+The aim is to create a Batch/Streaming/ML/WebApp stack where you can test your jobs locally or to submit them to the Yarn resource manager. We are using Docker to build the environment and Docker-Compose to provision it with the required components (Next step using Kubernetes). Along with the infrastructure, We are check that it works with 4 projects that just probes everything is working as expected. The boilerplate is based on a sample search flight Web application.
 
 ## Installation
 If you are on mac then, you can use package manager like `brew` to install `sbt` on your machine:
