@@ -1,4 +1,4 @@
-import { Consumer, KeyedMessage, KafkaClient, Client } from 'kafka-node';
+import { Consumer, KeyedMessage, KafkaClient } from 'kafka-node';
 import { Type as AvroType } from 'avsc/lib';
 import * as winston from 'winston';
 import { pubsub } from '../schema';

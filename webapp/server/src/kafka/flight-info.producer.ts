@@ -1,4 +1,4 @@
-import { Producer, KeyedMessage, KafkaClient, Client } from 'kafka-node';
+import { Producer, KeyedMessage, KafkaClient } from 'kafka-node';
 import { Type as AvroType } from 'avsc/lib';
 import * as winston from 'winston';
 import { FlightInfoAvro } from './flight-info-avro';
