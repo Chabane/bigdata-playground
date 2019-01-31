@@ -1,12 +1,6 @@
 # Bigdata Playground
 
-Why travel alone when you can discover new things with new people? Find your traveling partners ...
-
-
-## Motivation
-The aim is to create a disposable Hadoop/HBase/Spark/Flink/Beam/ML stack where you can test your jobs locally or to submit them to the Yarn resource manager. We are using Docker to build the environment and Docker-Compose to provision it with the required components (Next step using Kubernetes). Along with the infrastructure, We are check that it works with 4 projects that just probes everything is working as expected. The boilerplate is based on a sample search flight web application.
-
-Keywords : Docker, (Kubernetes soon), Apache Spark SQL/Streaming(DStream)/MLib, Apache Flink, (Kafka Streams, Apache Beam , TensorFlow, H2O, soon), Scala, Python, Apache Kafka, Apache Hbase, Apache Avro, MongoDB, NodeJS (graphql, kafka-node, mongoose, avsc), Angular, Apollo-GraphQL
+The aim is to create a Batch/Streaming/ML/WebApp stack where you can test your jobs locally or to submit them to the Yarn resource manager. We are using Docker to build the environment and Docker-Compose to provision it with the required components (Next step using Kubernetes). Along with the infrastructure, We are check that it works with 4 projects that just probes everything is working as expected. The boilerplate is based on a sample search flight Web application.
 
 ## Installation
 If you are on mac then, you can use package manager like `brew` to install `sbt` on your machine:
@@ -29,10 +23,11 @@ Install Docker by following the instructions for <a href='https://docs.docker.co
 docker network create vnet
 cd webapp && yarn && cd client && yarn && cd ../server && yarn && cd ../ && npm run build:dev && cd ../
 cd batch/spark && sbt clean package assembly && cd ../..
+
 cd batch/hadoop && mvn clean package && cd ../..
-cd streaming/spark && sbt clean package assembly && cd ../..
-cd streaming/flink && sbt clean package assembly && cd ../..
-cd streaming/storm && mvn clean install && cd ../..
+cd streaming/spark && sbt clean assembly && cd ../..
+cd streaming/flink && sbt clean assembly && cd ../..
+cd streaming/storm && mvn clean package && cd ../..
 cd docker
 docker-compose -f mongo.yml -f zookeeper.yml -f kafka.yml -f hadoop-hbase.yml -f flink.yml up -d
 docker-compose -f dev/webapp.yml up -d
