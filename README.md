@@ -21,6 +21,7 @@ Install Docker by following the instructions for <a href='https://docs.docker.co
 
 ```
 docker network create vnet
+npm install yarn -g
 cd webapp && yarn && cd client && yarn && cd ../server && yarn && cd ../ && npm run build:dev && cd ../
 cd batch/spark && sbt clean package assembly && cd ../..
 
